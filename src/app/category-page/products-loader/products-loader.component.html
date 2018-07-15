@@ -1,0 +1,15 @@
+<div class="loader-buttons">
+  <ul>
+    <li [ngClass]="{'active-button': activeButtonIndex === step}" *ngFor="let step of steps" (click)="loadMore(step)">{{ step }}</li>
+  </ul>
+</div>
+<div [ngClass]="{'opt-products-area': loadedProducts.length < 9}" class="products-area">
+  <app-product [productWrapper]="pw" *ngFor="let pw of loadedProducts;let i = index">{{i}}</app-product>
+</div>
+<div class="loader-buttons" *ngIf="loadedProducts.length >= 9">
+  <ul>
+    <li [ngClass]="{'active-button': activeButtonIndex === step}" 
+      *ngFor="let step of steps" (click)="loadMore(step)">{{ step }}
+    </li>
+  </ul>
+</div>

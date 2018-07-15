@@ -1,0 +1,17 @@
+
+.top-area{
+    /* background-image: url(../../assets/sys_images/bck-grnd2.jpg); */
+    /* background: no-repeat url(../../assets/sys_images/bck-grnd2.jpg); */
+    /* margin-top: 60px; */
+    height: 130px;
+    width: 100%;
+    /* position: fixed; */
+}
+
+.form-area{
+    margin: 10% 20%;
+    width: 60%;
+    position: absolute;
+    background-color: white;
+    margin-bottom: 50px
+}

@@ -1,0 +1,44 @@
+.loader-buttons{
+    display: block;
+    height: 50px;
+    padding: 5px 0px;
+    width: 79%;
+    float: right;
+}
+
+.loader-buttons ul{
+    list-style-type: none;
+    float: right;
+}
+
+.loader-buttons ul li{
+    float: left;
+    text-align: center;
+    border: #888888 0.5px solid;
+    width: 40px;
+    height: 40px;
+    line-height: 3;
+}
+.loader-buttons ul li:hover{cursor: pointer;}
+.active-button{
+    background-color: #B0C4DE;
+}
+
+.products-area{
+    width: 100%;
+    float: right;
+    clear: both;
+    /* animation: fadein 3s; */
+}
+
+@keyframes fadein {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.opt-products-area{
+    margin-bottom: 5%;
+}

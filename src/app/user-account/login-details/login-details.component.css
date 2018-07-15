@@ -1,0 +1,11 @@
+kendo-textbox-container{
+    width:100%;
+    height: 55px;
+
+}
+
+kendo-textbox-container input{
+    width: inherit;
+    height: inherit;
+    z-index: 0;
+}

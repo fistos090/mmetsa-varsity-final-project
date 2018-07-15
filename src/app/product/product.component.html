@@ -1,0 +1,15 @@
+<div class="product">
+  <img src="../../assets/sys_images/cake-product.jpg" alt="">
+  <!-- <img [src]="productImage" alt=""> -->
+  <div class="product-info">
+    <div class="info-section">
+      <span id="product-title">{{product.productName}}</span>
+      <span style="display: block;"><span id="label">CATEGORY :</span> {{product.category}}</span>
+      <span style="display: block;"><span id="label">PRICE :</span> R {{product.price}}</span>
+    </div>
+    <span class="buttons-section">
+      <button kendoButton style="width: 98%" (click)="addToCart()"><span class="fa fa-cart-plus"> </span> &nbsp; Add to cart</button>
+      <a href="">View details</a>
+    </span>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.home-page-image{
+   
+    height: 250px;
+    /* margin-top: 64px; */
+    background-image: url(../../assets/sys_images/home-page-image.png);
+    padding: 70px 10px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    border: solid 0.5px #888888;
+}
+
+.products-area{
+    width: 93%;
+    margin: auto;
+}

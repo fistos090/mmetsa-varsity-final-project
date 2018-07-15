@@ -1,0 +1,163 @@
+.top-nav-menu{
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(88, 28, 79, 0.7);
+    box-shadow: #888888 1px 1px 10px;
+    color: white;
+    position: fixed;
+    z-index: 2;
+
+}
+
+.menu-content{
+    width: 50%;
+    height: inherit;
+    float: right;
+    /* border: #B22222 solid 1px; */
+}
+
+.menu-logo-area{
+    width: 20%;
+    display: inline-block;
+}
+
+app-bakery-logo:hover{cursor: pointer;}
+
+.menu-content ul{
+    list-style-type: none;
+    padding: 0px;
+    height: inherit;
+}
+
+.menu-content ul li{
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding: 0;
+    /* font-weight: bolder; */
+    text-transform: capitalize;
+    line-height: 4;
+    position: relative;
+}
+
+/* .menu-content ul li:last-child{
+    width: 40%;
+} */
+
+li:hover{
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: #888888 1px 1px 10px;
+}
+
+.active{
+    border-bottom: 4px solid rgb(146, 189, 245)
+}
+
+
+
+
+
+
+.category:hover .category-dropdown{
+    display: block;
+    height: 150px;
+}
+
+.category-dropdown:hover{
+    display: block; 
+    box-shadow: 1px 1px 7px #888888;
+}
+.category-dropdown li:hover{
+    box-shadow: none;
+}
+.login:hover .login-dropdown{
+    display: block;
+}
+
+.login-dropdown:hover{
+    display: block;
+}
+
+/* ----------------------- Dropdowns ---------------------------- */
+.category-dropdown{
+    color: #888;
+    background-color: white;
+    position: absolute;
+    display: none;
+    text-align: left;
+    line-height: normal;
+    border: solid 0.2px #888888;
+    z-index: 4;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px;
+    transition: height 5s;
+}
+
+.category-dropdown ul {
+    list-style-type: none;
+    display: block;
+}
+.category-dropdown ul li{
+   width: 50%;
+}
+.category-dropdown ul li a{
+    display: block;
+    height: 30px;
+    text-align: left;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 500;
+    padding-left: 10px;
+    line-height: 30px
+}
+
+.login{
+    position: relative;
+    display: inline-block;
+}
+
+.login-dropdown{
+    text-align: start;
+    background-color: white;
+    position: absolute;
+    display: none;
+    line-height: normal;
+    white-space: nowrap;
+    border: solid 0.2px #888888;
+    height: 120px;
+    width: 100%;
+    z-index: 4;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px 7px;
+}
+
+.login-dropdown span{
+    height: 25px;
+    display: table-row;
+    padding: 0px
+}
+
+.login-dropdown a{
+    height: 20px;
+    margin-left: 10px;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+
+/* ----------------------------------------------------------------- */
+
+@media screen and (max-width: 1920px){
+    .category-dropdown{
+        width: 408px;
+    }
+}
+@media screen and (min-width: 1921px){
+    .category-dropdown{
+        width: 1120px;
+    }
+}

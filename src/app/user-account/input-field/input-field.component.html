@@ -1,0 +1,20 @@
+<div [formGroup]="parentFormGroup" [ngClass]="{
+  'invalid': formControlErrorMessage.showErrors &&
+  parentFormGroup.controls[data.name].invalid
+}">
+  <kendo-textbox-container floatingLabel="{{data.label}}">
+    <input kendoTextBox 
+    [type]="data.type" 
+    [placeholder]="placeholder" 
+    [formControlName]="data.name" 
+      (focusout)="removePlaceholder()"
+      (focus)="insertPlaceholder()" />
+  </kendo-textbox-container>
+  <div style="color: rgba(243, 23, 0, 0.5);" 
+  *ngIf="
+        formControlErrorMessage.showErrors &&
+        parentFormGroup.controls[data.name].invalid
+        ">
+  {{formControlErrorMessage[data.name]}}
+  </div>
+</div>

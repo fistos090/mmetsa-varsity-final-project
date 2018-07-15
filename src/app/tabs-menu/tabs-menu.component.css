@@ -1,0 +1,19 @@
+.tab-button{
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: #F5F5F5;
+    margin-right: 2px
+}
+
+.tab-button:hover{
+    cursor: pointer;
+    background-color: #B0C4DE
+}
+
+.active{
+    background-color: #B0C4DE;
+    border-bottom: 2px solid #B22222
+}
