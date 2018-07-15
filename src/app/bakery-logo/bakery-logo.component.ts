@@ -22,6 +22,8 @@ export class BakeryLogoComponent implements OnInit {
       const circleType = new CircleType(this.div.nativeElement);
       circleType.radius(40).dir(1);
 
+      console.log('logo ---<>',circleType)
+
     }, 0)
   }
 
