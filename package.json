@@ -1,13 +1,19 @@
 {
   "name": "online-bakery",
   "version": "0.0.0",
+  "main": "app.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
+  },
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
   },
   "private": true,
   "dependencies": {
@@ -47,10 +53,6 @@
     "rxjs-compat": "^6.0.0",
     "typescript": "~2.7.2",
     "zone.js": "^0.8.26"
-  },
-  "engines": {
-    "node": "8.11.1",
-    "npm": "5.6.0"
   },
   "devDependencies": {
     "@types/jquery": "^3.3.4",
