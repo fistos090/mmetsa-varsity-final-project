@@ -35,6 +35,14 @@ export class TopnavMenuComponent implements OnInit {
 
   markActiveItem(activeItem: number) {
     this.activeItem = activeItem;
+    switch(activeItem){
+      case 2:
+      this.router.navigate(['specials']);
+      break;
+      case 4:
+      this.router.navigate(['shopping-bascket']);
+      break;
+    }
   }
 
   navigateToSpecificTab(id: number) {

@@ -1,8 +1,10 @@
+import { ShoppingBusketComponent } from './shopping-basket/shopping-basket.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { SpecialsPageComponent } from './specials-page/specials-page.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
   {
     path: 'products-category/:categoryName',
     component: CategoryPageComponent
+  },
+  {
+    path: 'specials',
+    component: SpecialsPageComponent
+  },
+  {
+    path: 'shopping-bascket',
+    component: ShoppingBusketComponent
   }
 ];
 

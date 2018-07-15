@@ -27,7 +27,7 @@
                     </ul>
                 </div>
             </li>
-            <li (click)="markActiveItem(2)" [ngClass]="{'active': activeItem === 2}">
+            <li (click)="markActiveItem(2)">
                 <span class="fa fa-shopping-basket"></span> Special
             </li>
             <!-- [routerLink]="'/user-account'"  -->
@@ -43,10 +43,9 @@
                         <span class="fa fa-sign-in"></span> Login</a>
                 </div>
             </li>
-            <li>
+            <li (click)="markActiveItem(4)" [ngClass]="{'active': activeItem === 4}">
                 <span class="fa fa-shopping-cart"></span> [ {{bascket.bascketProducts.length}} ]
             </li>
-
         </ul>
     </div>
 </div>

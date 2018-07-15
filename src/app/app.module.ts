@@ -24,6 +24,7 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { ProductsLoaderComponent } from './category-page/products-loader/products-loader.component';
 import { ShoppingBusketComponent } from './shopping-basket/shopping-basket.component';
 import { ShoppingBascketService } from './shopping-basket/shopping-basket-service';
+import { SpecialsPageComponent } from './specials-page/specials-page.component';
 
 
 
@@ -45,7 +46,8 @@ import { ShoppingBascketService } from './shopping-basket/shopping-basket-servic
     ProductComponent,
     CategoryPageComponent,
     ProductsLoaderComponent,
-    ShoppingBusketComponent
+    ShoppingBusketComponent,
+    SpecialsPageComponent
   ],
   imports: [
     BrowserModule,
