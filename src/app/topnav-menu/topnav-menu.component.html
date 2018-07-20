@@ -1,6 +1,8 @@
 <div class="top-nav-menu">
-    <div class="menu-logo-area">
-        <app-bakery-logo (click)="markActiveItem(7)" [routerLink]="'/home'"></app-bakery-logo>
+    <div class="menu-logo-area" >
+        <br><br>
+        <span class="logo" (click)="markActiveItem(7)"></span>
+        <!-- <app-bakery-logo ></app-bakery-logo> -->
     </div>
 
     <div class="menu-content">
@@ -27,7 +29,7 @@
                     </ul>
                 </div>
             </li>
-            <li (click)="markActiveItem(2)">
+            <li (click)="markActiveItem(2)" [ngClass]="{'active': activeItem === 2}">
                 <span class="fa fa-shopping-basket"></span> Special
             </li>
             <!-- [routerLink]="'/user-account'"  -->

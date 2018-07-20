@@ -10,39 +10,36 @@ import { InputField } from './input-field.model';
 export class InputFieldComponent implements OnInit, OnChanges {
 
   @Input() data: InputField;
+  @Input() showErrors: false;
   @Input() parentFormGroup: FormGroup;
   @Input() formControlErrorMessage: any
   
 
   placeholder = '';
+  isFocused = false;
   currentErrorMessage: string
+
 
   constructor() { }
 
   ngOnInit(): void {
-    // const control = this.parentFormGroup.controls[this.data.name].invalid;
-    // control.valueChanges.subscribe(value=>{
-    //   console.log('***88 changing')
-    //   for(const errorKey in control.errors){
-    //     console.log('***88 changing', errorKey)
-    //     if(this.errorMessages){
-    //       this.currentErrorMessage = this.errorMessages[errorKey];
-    //     }
-        
-    //     console.log('***88 changing', this.currentErrorMessage)
-    //   }
-    // })
+    this.parentFormGroup.controls[this.data.name].valueChanges.subscribe((val) => {
+      // this.showErrors = false;
+    })
   }
 
   ngOnChanges(): void {
     
   }
 
-  removePlaceholder(): void {
-    this.placeholder = '';
+  onFocus(){
+    this.isFocused = true;
   }
 
-  insertPlaceholder(): void {
-    this.placeholder = this.data.placeholder;
+  onFocusOut(): void {
+    if (this.parentFormGroup.controls[this.data.name].valid) {
+      this.isFocused = false;
+    }
   }
+
 }

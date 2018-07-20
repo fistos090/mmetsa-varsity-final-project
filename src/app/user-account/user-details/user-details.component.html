@@ -12,7 +12,9 @@
                     placeholder : 'e.g. Mmetsa Julliet',
                     type: 'text',
                     name: 'firstname'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -23,7 +25,9 @@
                     placeholder : 'e.g. Moloto',
                     type: 'text',
                     name: 'lastname'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -42,7 +46,9 @@
                     placeholder : 'e.g. user@mm2.co.za',
                     type: 'email',
                     name: 'email'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -53,7 +59,8 @@
                     placeholder : 'e.g. user',
                     type: 'text',
                     name: 'username'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -66,7 +73,9 @@
                     placeholder : 'e.g. User@123 : This is just an example',
                     type: 'password',
                     name: 'password'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -77,7 +86,9 @@
                     placeholder : 'User@123 : This is just an example',
                     type: 'password',
                     name: 'confirmPassword'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -103,7 +114,9 @@
                     placeholder : 'e.g.  0721433207',
                     type: 'text',
                     name: 'cellphonNumber'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -122,7 +135,9 @@
                     placeholder : 'e.g. What is my first pet name',
                     type: 'text',
                     name: 'securityQuestuion'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -133,7 +148,9 @@
                     placeholder : 'e.g. Zola',
                     type: 'password',
                     name: 'answer'
-                    }" [parentFormGroup]="regFormGroup"
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -143,10 +160,20 @@
         <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-                <button kendoButton style="width: 45%" (click)="register()">Register</button>
+                <button kendoButton style="width: 45%" (click)="register()">Create account</button>
                 <button kendoButton style="width: 45%; float: right;" (click)="resetForm()">Reset form</button>
             </div>
         </div>
     </form>
 
 </div>
+
+<app-input-field [data]="{
+    label: 'First name',
+    placeholder : 'e.g. Mmetsa Julliet',
+    type: 'text',
+    name: 'firstname'
+    }" [parentFormGroup]="regFormGroup"
+    [formControlErrorMessage]="formControlErrorMessage"
+>
+</app-input-field>

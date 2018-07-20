@@ -1,3 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~material-design-icons/iconfont/material-icons.css';
+
+.logo{
+    background-image: url(assets/sys_images/bakery-logo.JPG);
+    background-repeat: no-repeat;
+    background-size: 160px 61px;
+    padding: 43px 80px;
+}
+.logo:hover{cursor: pointer;}
+
+.bread-pastries{
+    background-image: url(assets/sys_images/bread-pastries.jpg);
+}
+
+.biscuits{
+    background-image: url(assets/sys_images/biscuits.jpg);
+}
+
+.cakes{
+    background-image: url(assets/sys_images/cakes.jpg);
+}
+
+.pizzas{
+    background-image: url(assets/sys_images/pizzas.jpg);
+}
+
+.muffins{
+    background-image: url(assets/sys_images/muffins.jpg);
+}

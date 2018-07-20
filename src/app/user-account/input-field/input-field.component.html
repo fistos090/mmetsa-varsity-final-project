@@ -1,20 +1,18 @@
 <div [formGroup]="parentFormGroup" [ngClass]="{
-  'invalid': formControlErrorMessage.showErrors &&
-  parentFormGroup.controls[data.name].invalid
+  'invalid': showErrors && parentFormGroup.controls[data.name].invalid,
+  'control-dirty': true && !isFocused && parentFormGroup.controls[this.data.name].dirty
 }">
-  <kendo-textbox-container floatingLabel="{{data.label}}">
-    <input kendoTextBox 
+  <!-- <kendo-textbox-container floatingLabel="{{data.label}}"> -->
+    <label [for]="data.name">{{data.label}}</label>
+    <input  
     [type]="data.type" 
-    [placeholder]="placeholder" 
+    [placeholder]="data.placeholder" 
     [formControlName]="data.name" 
-      (focusout)="removePlaceholder()"
-      (focus)="insertPlaceholder()" />
-  </kendo-textbox-container>
-  <div style="color: rgba(243, 23, 0, 0.5);" 
-  *ngIf="
-        formControlErrorMessage.showErrors &&
-        parentFormGroup.controls[data.name].invalid
-        ">
+      (focusout)="onFocusOut()"
+      (focus)="onFocus()" />
+  <!-- </kendo-textbox-container> -->
+  <div 
+  *ngIf=" showErrors && parentFormGroup.controls[data.name].invalid ">
   {{formControlErrorMessage[data.name]}}
   </div>
 </div>

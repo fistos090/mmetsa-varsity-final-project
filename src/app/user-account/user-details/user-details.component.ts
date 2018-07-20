@@ -11,6 +11,7 @@ export class UserDetailsComponent implements OnInit {
   @Input() stepControl: any;
   @Input() title: string;
 
+  showErrors = false;
   regFormGroup: FormGroup;
   formErrors = {
     email: {
@@ -116,7 +117,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   register(){
-    this.formControlErrorMessage.showErrors = true;
+    this.showErrors = true;
     this.onSubmit();
     console.log('form data', this.regFormGroup.value);
   }

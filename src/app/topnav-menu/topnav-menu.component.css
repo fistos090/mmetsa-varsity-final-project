@@ -2,7 +2,7 @@
     top: 0;
     height: 60px;
     width: 100%;
-    background-color: rgba(88, 28, 79, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     box-shadow: #888888 1px 1px 10px;
     color: white;
     position: fixed;
@@ -20,9 +20,8 @@
 .menu-logo-area{
     width: 20%;
     display: inline-block;
+    width: 160px;
 }
-
-app-bakery-logo:hover{cursor: pointer;}
 
 .menu-content ul{
     list-style-type: none;

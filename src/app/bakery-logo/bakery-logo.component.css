@@ -1,25 +1,36 @@
 /* ------------------------- LOGO ---------------------------------------- */
+.logo-wrapper{
+    background-color: white;
+    width: 167px;
+
+}
+
 .logo-area{
-    /* height: inherit;
-    
-    border: none;
-    font-family: Comic Sans MS;
-    
-    text-decoration: underline; */
+
     width: 150px;
-    font-size: 12px;
     font-weight: 600;
     height: inherit;
-    background-color: white;
     color: #888;
+    margin: auto;
+    font-size: 10px;
 }
 
 .logo{
     background-image: url(../../assets/sys_images/logo2.jpg);
     background-repeat: no-repeat;
-    background-size: 38px 39px;
-    padding: 26px 24px;
-    top: 20px;
-    left: 56px;
+    background-size: 30px 30px;
+    padding: 20px 15px;
+    top: 17px;
+    left: 68px;
+    margin: auto;
     position: absolute;
+}
+
+.slogan{
+    display: block;
+    padding: 0px 10px;
+    text-transform: uppercase;
+    color: black;
+    text-align: center;
+    font-size: 9px;
 }

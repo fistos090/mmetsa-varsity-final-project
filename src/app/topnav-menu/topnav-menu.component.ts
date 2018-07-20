@@ -42,6 +42,9 @@ export class TopnavMenuComponent implements OnInit {
       case 4:
       this.router.navigate(['shopping-bascket']);
       break;
+      case 7:
+      this.router.navigate(['home']);
+      break;
     }
   }
 

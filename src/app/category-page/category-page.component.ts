@@ -12,6 +12,7 @@ export class CategoryPageComponent implements OnInit {
 
   categoryName: string;
   titleImage = '';
+  categoryClassName
 
   products: ProductWrapper[] = [];
 
@@ -23,7 +24,8 @@ export class CategoryPageComponent implements OnInit {
 
       if (routeParams['categoryName']) {
         this.categoryName = routeParams['categoryName'];
-        this.titleImage = 'url(../../assets/sys_images/' + this.categoryName + '.jpg)';
+        this.categoryClassName = this.categoryName;
+        // this.titleImage = 'url(../../assets/sys_images/' + this.categoryName + '.jpg)';
 
         //Fire request to fetch category producs
         // this.httpClient.get<ProductWrapper[]>('/category/' + this.categoryName).subscribe((products)=>{
