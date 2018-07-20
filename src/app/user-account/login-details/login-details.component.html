@@ -17,7 +17,9 @@
                     placeholder : 'e.g. user@mm2.co.za',
                     type: 'email',
                     name: 'email'
-                    }" [parentFormGroup]="loginForm"
+                    }" 
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="loginForm"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>
@@ -32,7 +34,9 @@
                     placeholder : 'e.g. User@1234 : This is just an example',
                     type: 'password',
                     name: 'password'
-                    }"  [parentFormGroup]="loginForm"
+                    }" 
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="loginForm"
                     [formControlErrorMessage]="formControlErrorMessage"
                 >
                 </app-input-field>

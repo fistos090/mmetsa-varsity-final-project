@@ -39,6 +39,9 @@ export class TopnavMenuComponent implements OnInit {
       case 2:
       this.router.navigate(['specials']);
       break;
+      case 3:
+      this.router.navigate(['user-account']);
+      break;
       case 4:
       this.router.navigate(['shopping-bascket']);
       break;
@@ -48,7 +51,8 @@ export class TopnavMenuComponent implements OnInit {
     }
   }
 
-  navigateToSpecificTab(id: number) {
+  navigateToSpecificTab(id: number,event) {
+    event.stopPropagation();
     this.router.navigate(['user-account', id]);
   }
 

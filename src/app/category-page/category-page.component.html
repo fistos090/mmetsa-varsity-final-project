@@ -4,10 +4,14 @@
 </div>
 
 <div style="width: 93%;margin: auto">
-  <div class="filters">
+  <div class="filters" *ngIf="products.length > 0">
     filters here
   </div>
-  <div class="products-area">
+  <div class="products-area" *ngIf="products.length > 0">
     <app-products-loader [products]="products"></app-products-loader>
   </div>
+  <div *ngIf="products.length <= 0" style="text-align: center;width: 100%;">
+    <br><br>
+      There are no products under this category
+    </div>
 </div>

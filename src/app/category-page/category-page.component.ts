@@ -36,7 +36,7 @@ export class CategoryPageComponent implements OnInit {
           for(let i = 0; i < 25; i++){
             this.products.push({
               product: {
-                id: 12,
+                id: i+1,
                 productName: 'Black forest',
                 productDesc: 'abc def j',
                 price: 200,

@@ -12,6 +12,7 @@ export class LoginDetailsComponent implements OnInit {
 
   @Input() title: string;
   loginForm: FormGroup;
+  showErrors = false;
   placeholder = '';
 
   formErrors = {
@@ -62,7 +63,7 @@ export class LoginDetailsComponent implements OnInit {
 
   onLoginClick(): void {
 
-    this.formControlErrorMessage.showErrors = true;
+    this.showErrors = true;
     this.onSubmit();
 
     if(this.loginForm.valid){
@@ -78,7 +79,7 @@ export class LoginDetailsComponent implements OnInit {
 
   onResetClick(): void {
     this.loginForm.reset();
-    this.formControlErrorMessage.showErrors = false;
+    this.showErrors = false;
   }
 
 

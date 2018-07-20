@@ -14,19 +14,10 @@ export class ShoppingBascketService {
     }
 
     addProduct(prod: Product): void {
-
-        let productPosition = -1;
-        const tempProduct = this.bascketProducts.find((product: OrderProduct, index)=>{
-
-            if(product.productId === prod.id){
-                productPosition = index;
-                return true;
-            }
-        });
-
-        if(productPosition !== -1 && tempProduct){
-            tempProduct.quantity += 1;
-            this.bascketProducts[productPosition] = tempProduct;
+        const productPosition = this.getProductPosition(prod.id);
+        
+        if(productPosition !== -1){
+           this.bascketProducts[productPosition].quantity += 1;
         }else{
             if(prod){
                 this.bascketProducts.push(new OrderProduct({'productId': prod.id,'quantity': 1}));
@@ -34,5 +25,25 @@ export class ShoppingBascketService {
         }
         
         //this.bascketProductsEventSource.next(this.bascketProducts);
+        console.log('cart product',this.bascketProducts);
+    }
+
+    reduceQuantity(id: number): void {
+        const productPosition = this.getProductPosition(id);
+        if(productPosition !== -1){
+            this.bascketProducts[productPosition].quantity -= 1;
+         }
+    }
+
+    getProductPosition(id: number): number {
+        let productPosition = -1;
+        const tempProduct = this.bascketProducts.find((product: OrderProduct, index)=>{
+
+            if(product.productId === id){
+                productPosition = index;
+                return true;
+            }
+        });
+        return productPosition;
     }
 }

@@ -38,10 +38,10 @@
                 <span > Register / Login</span>
                 <div class="login-dropdown">
                     <span style="color: #888">Accounts</span>
-                    <a (click)="navigateToSpecificTab(0)">
+                    <a (click)="navigateToSpecificTab(0,$event)">
                         <span class="fa fa-user-plus"></span> Register account</a>
                     <br>
-                    <a (click)="navigateToSpecificTab(1)">
+                    <a (click)="navigateToSpecificTab(1,$event)">
                         <span class="fa fa-sign-in"></span> Login</a>
                 </div>
             </li>

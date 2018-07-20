@@ -16,6 +16,7 @@ kendo-textbox-container input{
 
 .invalid input{
     border: solid 1px rgba(243, 23, 0, 0.5); 
+    outline: none;
 }
 
 label{
