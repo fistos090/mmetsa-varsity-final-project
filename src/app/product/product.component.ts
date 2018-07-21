@@ -23,23 +23,6 @@ export class ProductComponent implements OnInit {
     }
 
     console.log('this.product ',this.product )
-    if (!this.product) {
-      this.product = {
-        id: 12,
-        productName: 'Black forest',
-        productDesc: 'abc def j',
-        price: 200,
-        category: 'Cakes',
-        quantity: 236,
-        productImage: [],
-        imageAdditonalInfo: ''
-      };
-    }
-
-    // this.product.category
-    // this.product.price
-    // this.product.productDesc
-    // this.product.quantity
   }
 
   addToCart(){

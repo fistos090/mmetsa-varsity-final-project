@@ -20,14 +20,11 @@ export class CategoryPageComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private httpClient: HttpClient, private spinner: SpinnerService) {
 
-    //alert(this.titleImage)
-    // '+this.titleImage+'
     this.route.params.subscribe(routeParams => {
 
       if (routeParams['categoryName']) {
         this.categoryName = routeParams['categoryName'];
         this.categoryClassName = this.categoryName;
-        // this.titleImage = 'url(../../assets/sys_images/' + this.categoryName + '.jpg)';
 
         this.showContent = false;
         this.spinner.showSpinner();
@@ -46,31 +43,8 @@ export class CategoryPageComponent implements OnInit {
           }
         );
 
-        // if(this.products.length <= 0){
-        //   for(let i = 0; i < 25; i++){
-        //     this.products.push({
-        //       product: {
-        //         id: i+1,
-        //         productName: 'Black forest',
-        //         productDesc: 'abc def j',
-        //         price: 200,
-        //         category: 'Cakes',
-        //         quantity: 236,
-        //         productImage: [],
-        //         imageAdditonalInfo: ''
-        //       },
-        //       productImage: ''
-        //     });
-        //   }
-        // }
       }
-
-
-
-
-      //this.products = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    })
+    });
   }
 
   ngOnInit() {

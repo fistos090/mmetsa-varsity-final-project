@@ -43,9 +43,6 @@ export class TopnavMenuComponent implements OnInit {
 
 
   ngOnInit() {
-    // $(window).click(function () {
-    //   alert('ok');
-    //   });
 
   }
 
