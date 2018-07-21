@@ -37,13 +37,14 @@ export class ShoppingBascketService {
 
     getProductPosition(id: number): number {
         let productPosition = -1;
-        const tempProduct = this.bascketProducts.find((product: OrderProduct, index)=>{
+        this.bascketProducts.find((product: OrderProduct, index)=>{
 
             if(product.productId === id){
                 productPosition = index;
                 return true;
             }
         });
+
         return productPosition;
     }
 }

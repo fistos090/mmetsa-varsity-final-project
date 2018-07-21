@@ -34,15 +34,22 @@
             </li>
             <!-- [routerLink]="'/user-account'"  -->
             <li (click)="markActiveItem(3)" [ngClass]="{'login': true,'active': activeItem === 3}">
-                <span class="fa fa-user-circle-o"></span>
-                <span > Register / Login</span>
+                <span class="fa fa-user-circle-o"> </span>&nbsp;
+                <span >{{ itemThreeTitle}}</span>
                 <div class="login-dropdown">
                     <span style="color: #888">Accounts</span>
-                    <a (click)="navigateToSpecificTab(0,$event)">
+                    <a *ngIf="!isUserLogon" (click)="navigateToSpecificTab(0,$event)">
                         <span class="fa fa-user-plus"></span> Register account</a>
-                    <br>
-                    <a (click)="navigateToSpecificTab(1,$event)">
+                    <br *ngIf="!isUserLogon">
+                    <a *ngIf="!isUserLogon" (click)="navigateToSpecificTab(1,$event)">
                         <span class="fa fa-sign-in"></span> Login</a>
+
+                    <!-- When user is logon -->
+                    <a *ngIf="isUserLogon" (click)="navigateToSpecificTab(2,$event)">
+                            <span class="fa fa-user-plus"></span> Manage account</a>
+                        <br>
+                        <a *ngIf="isUserLogon" (click)="navigateToSpecificTab(3,$event)">
+                            <span class="fa fa-sign-in"></span> Logout</a>
                 </div>
             </li>
             <li (click)="markActiveItem(4)" [ngClass]="{'active': activeItem === 4}">

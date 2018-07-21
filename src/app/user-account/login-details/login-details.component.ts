@@ -1,16 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LogonUser } from '../../data-models/logon-user.model';
+import { UserService } from '../user-details/user-service';
+import { SpinnerService } from '../../service-spinner/spinner-service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-login-details',
   templateUrl: './login-details.component.html',
   styleUrls: ['./login-details.component.css']
 })
-export class LoginDetailsComponent implements OnInit {
+export class LoginDetailsComponent implements OnInit, OnChanges {
 
   @Input() title: string;
+  @Input() data: any;
+
   loginForm: FormGroup;
   showErrors = false;
   placeholder = '';
@@ -31,17 +36,31 @@ export class LoginDetailsComponent implements OnInit {
     showErrors: false
   }
 
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private router: Router,
+              private logonUserService: UserService, private spinner: SpinnerService) {
+
+  }
+
+  ngOnInit() {
+
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
 
+    this.loginForm.valueChanges.subscribe(
+      () => {
+        this.onSubmit();
+      }
+    )
   }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
 
+    if (this.data) {
+      this.loginForm.controls["email"].setValue(this.data['email']);
+    }
   }
 
   onSubmit(): void {
@@ -64,23 +83,33 @@ export class LoginDetailsComponent implements OnInit {
   onLoginClick(): void {
 
     this.showErrors = true;
-    this.onSubmit();
 
     if(this.loginForm.valid){
-      this.httpClient.post<LogonUser>('http://abc:8080/cccc',this.loginForm.value).subscribe(response =>{
-        console.log(response)
-        
-      },error =>{
-        console.log(error)
-      });
+      this.spinner.showSpinner();
+      this.httpClient.post<LogonUser>('/TAKEALOT/customer/login',this.loginForm.value).subscribe(
+        (response) => {
+          if (response) {
+            alert(response['message']);
+            if (response['status'] === "FOUND") {
+              this.logonUserService.setLogonUser(response);
+              // If no specific path privided
+              this.router.navigate(['home']);
+            }
+            
+          }
+          this.spinner.hideSpinner();
+        },
+        (error) => {
+          console.log(error);
+          this.spinner.hideSpinner();
+        }
+      );
     }
-
   }
 
   onResetClick(): void {
     this.loginForm.reset();
     this.showErrors = false;
   }
-
 
 }

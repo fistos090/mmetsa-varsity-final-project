@@ -13,7 +13,9 @@ export class UserAccountComponent implements OnInit {
 
   pageTitle = 'Register a new account'
   selectedIndex = 0;
-  tabs: Tab[]
+  loginData: any;
+  tabs: Tab[];
+
 
   constructor(private route: ActivatedRoute) {
     this.tabs = [
@@ -28,7 +30,7 @@ export class UserAccountComponent implements OnInit {
     ]
    }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.route.params.subscribe(routeParams => {
       //const routeParam = +routeParams['tabID'];
@@ -41,11 +43,11 @@ export class UserAccountComponent implements OnInit {
     })
   }
 
-  onTabChange(tabId: number) {
+  onTabChange(tabId: number): void {
     this.setPageTitle(tabId);
   }
 
-  setPageTitle(tabId: number) {
+  setPageTitle(tabId: number): void {
     switch (tabId) {
       case 0:
         this.pageTitle = 'Register a new account';
@@ -53,6 +55,13 @@ export class UserAccountComponent implements OnInit {
       case 1:
         this.pageTitle = 'Login to existing account';
         break;
+    }
+  }
+
+  processChildEvent(data: any): void {
+    if (data) {
+      this.selectedIndex = data["tabId"];
+      this.loginData = {'email': data['email']};
     }
   }
 

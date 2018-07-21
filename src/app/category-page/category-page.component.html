@@ -1,9 +1,9 @@
 
-<div class="category-title-area {{categoryClassName}}" >
+<div class="category-title-area {{categoryClassName}}" [style.display]="showContent ? 'block' : 'none'" >
   Fresh baked {{categoryName}}
 </div>
 
-<div style="width: 93%;margin: auto">
+<div style="width: 93%;margin: auto" *ngIf="showContent">
   <div class="filters" *ngIf="products.length > 0">
     filters here
   </div>

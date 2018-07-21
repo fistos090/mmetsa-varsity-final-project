@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { UserService } from './user-service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -10,6 +13,7 @@ export class UserDetailsComponent implements OnInit {
 
   @Input() stepControl: any;
   @Input() title: string;
+  @Output() childEvent = new EventEmitter<{tabId: number, email: string}>()
 
   showErrors = false;
   regFormGroup: FormGroup;
@@ -20,7 +24,7 @@ export class UserDetailsComponent implements OnInit {
       maxlength: 'Email address is too long'
     },
     username: {
-    
+
     },
     password: {
       required: 'Password is required field'
@@ -68,32 +72,33 @@ export class UserDetailsComponent implements OnInit {
     showErrors: false
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, 
+              private logonUserService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
-      email: ['', [Validators.required,Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.maxLength(50)]],
       username: ['', []],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       cellphonNumber: ['', [Validators.required, Validators.minLength(10)]],
-      gender: ['',[]],
-      dateOfBirth: ['',[]],
-      securityQuestuion: ['',[]],
-      answer: ['',[]]
+      gender: ['', []],
+      dateOfBirth: ['', []],
+      securityQuestuion: ['', []],
+      answer: ['', []]
     });
 
-    this.regFormGroup.controls['securityQuestuion'].valueChanges.subscribe((controlValue)=>{
-      if(controlValue && controlValue !== ''){
+    this.regFormGroup.controls['securityQuestuion'].valueChanges.subscribe((controlValue) => {
+      if (controlValue && controlValue !== '') {
         console.log('setting vali')
         this.regFormGroup.controls['answer'].setValidators([Validators.required]);
         this.regFormGroup.controls['answer'].updateValueAndValidity();
       }
     });
 
-    this.regFormGroup.valueChanges.subscribe(()=>{this.onSubmit()});
+    this.regFormGroup.valueChanges.subscribe(() => { this.onSubmit() });
 
   }
 
@@ -101,29 +106,51 @@ export class UserDetailsComponent implements OnInit {
     const form = this.regFormGroup;
     const formControls = this.regFormGroup.controls;
 
-    for(const control in formControls){
-      if(form.controls[control].invalid){
-        for(const errorKey in form.controls[control].errors){
-          if(!this.formControlErrorMessage[control] || 
-            this.formControlErrorMessage[control] !== this.formErrors[control][errorKey]){
-            console.log(errorKey+' '+this.formErrors[control][errorKey])
+    for (const control in formControls) {
+      if (form.controls[control].invalid) {
+        for (const errorKey in form.controls[control].errors) {
+          if (!this.formControlErrorMessage[control] ||
+            this.formControlErrorMessage[control] !== this.formErrors[control][errorKey]) {
+            console.log(errorKey + ' ' + this.formErrors[control][errorKey])
             this.formControlErrorMessage[control] = this.formErrors[control][errorKey];
           }
         }
-        
+
       }
     }
 
   }
 
-  register(){
+  register() {
     this.showErrors = true;
     this.onSubmit();
     console.log('form data', this.regFormGroup.value);
+
+    this.httpClient.post('/TAKEALOT/customer/register', this.regFormGroup.value).subscribe(
+    (response) => {
+      console.log(response);
+      if (response) {
+        alert(response['message']);
+        if (response['status'] == 'CREATED') {
+    
+          this.logonUserService.setLogonUser(response["auto_logon"]);
+
+        } else 
+        if (response['status'] == 'CONFLICT') {
+
+          this.childEvent.emit({tabId: 1, email: this.regFormGroup.get('email').value});
+        }
+
+      }
+
+    }, 
+    (error) => {
+      console.log(error)
+    });
   }
 
-  resetForm(){
+  resetForm() {
     this.regFormGroup.reset();
-    this.formControlErrorMessage.showErrors = false;
+    this.showErrors = false;
   }
 }

@@ -25,6 +25,9 @@ import { ProductsLoaderComponent } from './category-page/products-loader/product
 import { ShoppingBusketComponent } from './shopping-basket/shopping-basket.component';
 import { ShoppingBascketService } from './shopping-basket/shopping-basket-service';
 import { SpecialsPageComponent } from './specials-page/specials-page.component';
+import { ServiceSpinnerComponent } from './service-spinner/service-spinner.component';
+import { SpinnerService } from './service-spinner/spinner-service';
+import { UserService } from './user-account/user-details/user-service';
 
 
 
@@ -47,7 +50,8 @@ import { SpecialsPageComponent } from './specials-page/specials-page.component';
     CategoryPageComponent,
     ProductsLoaderComponent,
     ShoppingBusketComponent,
-    SpecialsPageComponent
+    SpecialsPageComponent,
+    ServiceSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,10 @@ import { SpecialsPageComponent } from './specials-page/specials-page.component';
     ReactiveFormsModule, InputsModule, ButtonsModule
 
   ],
-  providers: [HttpClient, ShoppingBascketService],
+  entryComponents: [
+    ServiceSpinnerComponent
+  ],
+  providers: [HttpClient, ShoppingBascketService, SpinnerService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

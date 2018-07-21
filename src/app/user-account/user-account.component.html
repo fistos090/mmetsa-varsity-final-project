@@ -5,13 +5,16 @@
 <div class="form-area">
     <app-tabs-menu (onTabChange)="onTabChange($event)" [tabs]="tabs" [activeTab]="selectedIndex">
         <app-tab-panel [panelId]="0">
-            <app-user-details [title]="pageTitle"></app-user-details>
+            <app-user-details (childEvent)="processChildEvent($event)" [title]="pageTitle"></app-user-details>
         </app-tab-panel>
         <app-tab-panel [panelId]="1">
-            <app-login-details [title]="pageTitle"></app-login-details>
+            <app-login-details [data]="loginData" [title]="pageTitle"></app-login-details>
         </app-tab-panel>
     </app-tabs-menu>
 </div>
 <!-- <div style="margin: 5% 5%;width: 20%;float: right;border: red 1px dotted">
 Ads area
 </div> -->
+{{
+    loginData | json
+}}
