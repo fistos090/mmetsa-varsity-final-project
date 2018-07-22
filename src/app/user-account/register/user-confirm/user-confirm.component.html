@@ -1,0 +1,59 @@
+<h3>Register a new account (Create)</h3>
+<hr>
+<h4>Personal details</h4>
+<br>
+<div class="row">
+    <div class="col-md-6">
+      <label for="">Full name</label>
+      <span>{{data.firstname}} {{data.lastname}}</span>
+    </div>
+    <div class="col-md-6">
+        <label for="">Cell number</label>
+        <span>{{data.cellphonNumber}}</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+      <label for="">Gender</label>
+      <span>{{data.gender}}</span>
+    </div>
+    <div class="col-md-6">
+        <label for="">Date of birth</label>
+        <span>{{data.dateOfBirth}}</span>
+    </div>
+</div>
+<hr>
+<h4>Account login details</h4>
+<br>
+<div class="row">
+    <div class="col-md-6">
+      <label for="">Email</label>
+      <span>{{data.email}}</span>
+    </div>
+    <div class="col-md-6">
+        <label for="">Password</label>
+        <span>{{data.password}}</span>
+    </div>
+</div>
+<hr>
+<h4>Password recovery details</h4>
+<br>
+<div class="row">
+    <div class="col-md-6">
+      <label for="">Question</label>
+      <span>{{data.securityQuestuion}}</span>
+    </div>
+    <div class="col-md-6">
+        <label for="">Answer</label>
+        <span>{{data.answer}}</span>
+    </div>
+</div>
+<hr>
+<br>
+<div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <button kendoButton style="width: 45%" (click)="back()">Back</button>
+        <button kendoButton style="width: 45%; float: right;" (click)="register()">Create account</button>
+    </div>
+</div>

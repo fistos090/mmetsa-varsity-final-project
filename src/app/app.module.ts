@@ -12,7 +12,6 @@ import { HomeComponent } from './home/home.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '@progress/kendo-angular-inputs';
-import { UserDetailsComponent } from './user-account/user-details/user-details.component';
 import { TabsMenuComponent } from './tabs-menu/tabs-menu.component';
 import { TabPanelComponent } from './tabs-menu/tab-panel/tab-panel.component';
 import { LoginDetailsComponent } from './user-account/login-details/login-details.component';
@@ -27,7 +26,12 @@ import { ShoppingBascketService } from './shopping-basket/shopping-basket-servic
 import { SpecialsPageComponent } from './specials-page/specials-page.component';
 import { ServiceSpinnerComponent } from './service-spinner/service-spinner.component';
 import { SpinnerService } from './service-spinner/spinner-service';
-import { UserService } from './user-account/user-details/user-service';
+import { RadioGroupComponent } from './user-account/radio-group/radio-group.component';
+import { UserConfirmComponent } from './user-account/register/user-confirm/user-confirm.component';
+import { UserDetailsComponent } from './user-account/register/user-details/user-details.component';
+import { UserService } from './user-account/register/user-details/user-service';
+import { DropdownListComponent } from './user-account/dropdown-list/dropdown-list.component';
+import { DobDatePickerComponent } from './user-account/dob-date-picker/dob-date-picker.component';
 
 
 
@@ -51,7 +55,11 @@ import { UserService } from './user-account/user-details/user-service';
     ProductsLoaderComponent,
     ShoppingBusketComponent,
     SpecialsPageComponent,
-    ServiceSpinnerComponent
+    ServiceSpinnerComponent,
+    RadioGroupComponent,
+    UserConfirmComponent,
+    DropdownListComponent,
+    DobDatePickerComponent
   ],
   imports: [
     BrowserModule,

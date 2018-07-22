@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import CircleType from 'circletype';
 import { ShoppingBascketService } from '../shopping-basket/shopping-basket-service';
-import { UserService } from '../user-account/user-details/user-service';
 import { LogonUser } from '../data-models/logon-user.model';
 import { SpinnerService } from '../service-spinner/spinner-service';
+import { UserService } from '../user-account/register/user-details/user-service';
 
 // declare var jquery:any;
 //declare var $ :any;

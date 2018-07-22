@@ -5,7 +5,8 @@
 <div class="form-area">
     <app-tabs-menu (onTabChange)="onTabChange($event)" [tabs]="tabs" [activeTab]="selectedIndex">
         <app-tab-panel [panelId]="0">
-            <app-user-details (childEvent)="processChildEvent($event)" [title]="pageTitle"></app-user-details>
+            <app-user-details *ngIf="registerActiveId === 1" [title]="pageTitle" [data]="stepData"></app-user-details>
+            <app-user-confirm *ngIf="registerActiveId === 2" (childEvent)="processChildEvent($event)" [data]="stepData"></app-user-confirm>
         </app-tab-panel>
         <app-tab-panel [panelId]="1">
             <app-login-details [data]="loginData" [title]="pageTitle"></app-login-details>

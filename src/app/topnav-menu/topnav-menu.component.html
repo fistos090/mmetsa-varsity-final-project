@@ -46,10 +46,10 @@
 
                     <!-- When user is logon -->
                     <a *ngIf="isUserLogon" (click)="navigateToSpecificTab(2,$event)">
-                            <span class="fa fa-user-plus"></span> Manage account</a>
+                            <span class="fa fa-cogs"></span> Manage account</a>
                         <br>
                         <a *ngIf="isUserLogon" (click)="navigateToSpecificTab(3,$event)">
-                            <span class="fa fa-sign-in"></span> Logout</a>
+                            <span class="fa fa-sign-out"></span> Logout</a>
                 </div>
             </li>
             <li (click)="markActiveItem(4)" [ngClass]="{'active': activeItem === 4}">

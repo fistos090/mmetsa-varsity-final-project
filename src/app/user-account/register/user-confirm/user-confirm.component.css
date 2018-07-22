@@ -1,0 +1,19 @@
+.col-md-6 label{
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #888;
+    display: block;
+    font-weight: normal;
+}
+
+.col-md-6 span{
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+/* h3{
+    border-bottom: solid 0.5px #888;
+} */
+h3, h4{
+    text-decoration: underline;
+}

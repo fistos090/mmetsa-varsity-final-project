@@ -13,10 +13,11 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <app-input-field [data]="{
-                    label: 'Username / Email',
+                    label: 'Email',
                     placeholder : 'e.g. user@mm2.co.za',
                     type: 'email',
-                    name: 'email'
+                    name: 'email',
+                    maxLength: 40
                     }" 
                     [showErrors]="showErrors"
                     [parentFormGroup]="loginForm"
@@ -33,7 +34,8 @@
                     label: 'Password',
                     placeholder : 'e.g. User@1234 : This is just an example',
                     type: 'password',
-                    name: 'password'
+                    name: 'password',
+                    maxLength: 50
                     }" 
                     [showErrors]="showErrors"
                     [parentFormGroup]="loginForm"
@@ -56,4 +58,3 @@
     
 
 </div>
-{{ data | json}}

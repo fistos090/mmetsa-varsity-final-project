@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SpinnerService } from '../service-spinner/spinner-service';
 
 @Component({
@@ -6,11 +6,15 @@ import { SpinnerService } from '../service-spinner/spinner-service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(public sp: SpinnerService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    window.scroll(0,0);
   }
 
 }

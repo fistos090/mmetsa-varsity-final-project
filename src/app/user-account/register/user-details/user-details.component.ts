@@ -1,36 +1,37 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { HttpClient } from '../../../../../node_modules/@angular/common/http';
 import { UserService } from './user-service';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '../../../../../node_modules/@angular/router';
+import { RegisterStepperService } from '../register-stepper.service';
+import { Customer } from '../../../data-models/customer.model';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit, AfterViewInit {
 
   @Input() stepControl: any;
   @Input() title: string;
-  @Output() childEvent = new EventEmitter<{tabId: number, email: string}>()
+  @Input() data: Customer;
 
   showErrors = false;
   regFormGroup: FormGroup;
   formErrors = {
     email: {
       required: 'Email is required field',
-      invalidEmail: 'Please enter a valid email address',
-      maxlength: 'Email address is too long'
+      email: 'Please enter a valid email address'
     },
-    username: {
-
-    },
+    // username: {},
     password: {
-      required: 'Password is required field'
+      required: 'Password is required field',
+      minlength: 'Password must be a minimun of 7 characters long'
     },
     confirmPassword: {
-      required: 'Confirm password is required'
+      required: 'Confirm password is required',
+      minlength: 'Confirm password must be a minimun of 7 characters long'
     },
     firstname: {
       required: 'First name is required'
@@ -41,6 +42,7 @@ export class UserDetailsComponent implements OnInit {
     cellphonNumber: {
       required: 'Cellphone number is required',
       minlength: 'Cellphone number must be at least 10 digit long'
+
     },
     securityQuestuion: {
 
@@ -49,16 +51,16 @@ export class UserDetailsComponent implements OnInit {
       required: 'Provide answer to your security question'
     },
     gender: {
-
+      required: 'Gender is required field'
     },
     dateOfBirth: {
-
+      required: 'Date of birth is required'
     }
   }
 
   formControlErrorMessage = {
     email: '',
-    username: '',
+    // username: '',
     firstname: '',
     lastname: '',
     password: '',
@@ -73,22 +75,26 @@ export class UserDetailsComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, 
-              private logonUserService: UserService, private router: Router) { }
+              private logonUserService: UserService, private router: Router, private stepper: RegisterStepperService) { }
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.maxLength(50)]],
-      username: ['', []],
+      email: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
+      // username: ['', []],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(7)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(7)]],
       cellphonNumber: ['', [Validators.required, Validators.minLength(10)]],
-      gender: ['', []],
-      dateOfBirth: ['', []],
+      gender: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
       securityQuestuion: ['', []],
       answer: ['', []]
     });
+
+    if (this.data) {
+      this.regFormGroup.patchValue(this.data);
+    }
 
     this.regFormGroup.controls['securityQuestuion'].valueChanges.subscribe((controlValue) => {
       if (controlValue && controlValue !== '') {
@@ -100,6 +106,9 @@ export class UserDetailsComponent implements OnInit {
 
     this.regFormGroup.valueChanges.subscribe(() => { this.onSubmit() });
 
+  }
+  ngAfterViewInit(): void {
+    window.scroll(0,0);
   }
 
   onSubmit(): void {
@@ -121,32 +130,16 @@ export class UserDetailsComponent implements OnInit {
 
   }
 
-  register() {
+  next() {
     this.showErrors = true;
     this.onSubmit();
-    console.log('form data', this.regFormGroup.value);
 
-    this.httpClient.post('/TAKEALOT/customer/register', this.regFormGroup.value).subscribe(
-    (response) => {
-      console.log(response);
-      if (response) {
-        alert(response['message']);
-        if (response['status'] == 'CREATED') {
+    if (this.regFormGroup.valid) {
+      this.stepper.stepperEvent.next({stepNumber: 2, data: this.regFormGroup.value});
+    } else {
+      window.scroll(0,0);
+    }
     
-          this.logonUserService.setLogonUser(response["auto_logon"]);
-
-        } else 
-        if (response['status'] == 'CONFLICT') {
-
-          this.childEvent.emit({tabId: 1, email: this.regFormGroup.get('email').value});
-        }
-
-      }
-
-    }, 
-    (error) => {
-      console.log(error)
-    });
   }
 
   resetForm() {

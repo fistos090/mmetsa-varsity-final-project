@@ -2,9 +2,9 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LogonUser } from '../../data-models/logon-user.model';
-import { UserService } from '../user-details/user-service';
 import { SpinnerService } from '../../service-spinner/spinner-service';
 import { Router } from '../../../../node_modules/@angular/router';
+import { UserService } from '../register/user-details/user-service';
 
 @Component({
   selector: 'app-login-details',
@@ -23,7 +23,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
   formErrors = {
     email: {
       required: 'Email is required field to login',
-      invalidEmail: 'Please enter a valid email address'
+      email: 'Please enter a valid email address'
     },
     password: {
       required: 'Password is required field to login'
@@ -45,7 +45,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
 
 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
 
@@ -83,6 +83,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
   onLoginClick(): void {
 
     this.showErrors = true;
+    this.onSubmit();
 
     if(this.loginForm.valid){
       this.spinner.showSpinner();

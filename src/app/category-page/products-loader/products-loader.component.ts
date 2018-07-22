@@ -17,8 +17,7 @@ export class ProductsLoaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(JSON.stringify(this.products))
-    
+
     if(this.products.length > 12){
       let length = this.products.length / 12;
       const remainder = this.products.length % 12;

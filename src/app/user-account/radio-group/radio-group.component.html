@@ -1,0 +1,15 @@
+<label>{{data.label}}</label>
+<div [ngClass]="{
+  'invalid': showErrors && parentFormGroup.controls[data.name].invalid,
+  'control-dirty': true && !isFocused && parentFormGroup.controls[this.data.name].dirty
+}">
+  <div class="radio-group" [formGroup]="parentFormGroup">
+
+    <mat-radio-group [formControlName]="data.name">
+      <mat-radio-button *ngFor="let radioData of data.options" [value]="radioData.name"> &nbsp;{{ radioData.label}}&nbsp;</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf=" showErrors && parentFormGroup.controls[data.name].invalid ">
+    {{formControlErrorMessage[data.name]}}
+  </div>
+</div>

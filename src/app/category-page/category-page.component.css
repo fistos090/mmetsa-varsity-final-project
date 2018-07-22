@@ -4,6 +4,8 @@
     margin: 50px 0.5% 2px 0px;
     border: #888888 solid 0.5px;
     float: left;
+    position: sticky;
+    top: 70px;
 }
 
 .category-title-area{

@@ -1,13 +1,14 @@
+import { Customer } from './../data-models/customer.model';
 import { Component, OnInit } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Tab } from '../tabs-menu/tabs-menu.model';
+import { RegisterStepperService } from './register/register-stepper.service';
 
 @Component({
   selector: 'app-user-account',
   templateUrl: './user-account.component.html',
-  styleUrls: ['./user-account.component.css']
+  styleUrls: ['./user-account.component.css'],
+  providers: [RegisterStepperService]
 })
 export class UserAccountComponent implements OnInit {
 
@@ -15,9 +16,14 @@ export class UserAccountComponent implements OnInit {
   selectedIndex = 0;
   loginData: any;
   tabs: Tab[];
+  whichTabs = 'both';
+  stepData: Customer;
+
+  registerActiveId = 1;
 
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private stepper: RegisterStepperService) {
+
     this.tabs = [
       new Tab({
         tabId: 0,
@@ -27,7 +33,14 @@ export class UserAccountComponent implements OnInit {
         tabId: 1,
         tabTitle: 'Login'
       }),
-    ]
+    ];
+
+    this.stepper.stepperEventSource$.subscribe(
+      (stepDetails: any) => {
+        this.registerActiveId = stepDetails.stepNumber;
+        this.stepData = stepDetails.data;
+      }
+    )
    }
 
   ngOnInit(): void {

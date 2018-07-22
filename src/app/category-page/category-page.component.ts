@@ -31,7 +31,7 @@ export class CategoryPageComponent implements OnInit {
         //Fire request to fetch category producs
         this.httpClient.get<ProductWrapper[]>('/TAKEALOT/category/' + this.categoryName).subscribe(
           (response) => {
-            console.log('products ===>',response['products']);
+            
             this.products = response['products'];
             this.showContent = true;
             this.spinner.hideSpinner();

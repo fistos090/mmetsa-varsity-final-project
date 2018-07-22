@@ -11,5 +11,9 @@ kendo-textbox-container input{
 }
 
 mat-radio-button:first-child{
-    margin-right: 20px
+    margin-right: 20px;
+}
+
+h3, h4{
+    text-decoration: underline;
 }

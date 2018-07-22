@@ -1,0 +1,187 @@
+<h3>{{title}} (Capture)</h3>
+<hr>
+<div>
+    <h4>User details</h4>
+    <form [formGroup]="regFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <div class="row">
+            <div class="col-md-6">
+                <app-input-field [data]="{
+                    label: 'First name',
+                    placeholder : 'e.g. Mmetsa Julliet',
+                    type: 'text',
+                    name: 'firstname',
+                    maxLength: 30
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                >
+                </app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-radio-group 
+                    [parentFormGroup]="regFormGroup"
+                    [showErrors]="showErrors"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                    [data]="{
+                        name: 'gender',
+                        label: 'Gender',
+                        options: [{name: 'female', label: 'Female'},{name: 'male', label: 'Male'}]
+                    }">
+                </app-radio-group>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <app-input-field [data]="{
+                        label: 'Last name',
+                        placeholder : 'e.g. Moloto',
+                        type: 'text',
+                        name: 'lastname',
+                        maxLength: 40
+                        }"
+                        [showErrors]="showErrors"
+                        [parentFormGroup]="regFormGroup"
+                        [formControlErrorMessage]="formControlErrorMessage"
+                    >
+                    </app-input-field>
+
+            </div>
+            <div class="col-md-6">
+                <app-dob-date-picker
+                    [parentFormGroup]="regFormGroup"
+                    [showErrors]="showErrors"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                    [data]="{
+                        pickerInput: {
+                            label: 'Date Of birth',
+                            placeholder : 'e.g.  07/13/1993',
+                            type: 'text',
+                            name: 'dateOfBirth',
+                            maxLength: 10
+                        }
+                    }">
+
+                </app-dob-date-picker>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <app-input-field [data]="{
+                        label: 'Cellphone number',
+                        placeholder : 'e.g.  0721433207',
+                        type: 'text',
+                        name: 'cellphonNumber',
+                        maxLength: 10
+                        }"
+                        [showErrors]="showErrors"
+                        [parentFormGroup]="regFormGroup"
+                        [formControlErrorMessage]="formControlErrorMessage"
+                    >
+                    </app-input-field>
+
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <hr>
+        <h4>Account login details</h4>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                    <app-input-field [data]="{
+                        label: 'Email address',
+                        placeholder : 'e.g. user@mm2.co.za',
+                        type: 'email',
+                        name: 'email',
+                        maxLength: 40
+                        }"
+                        [showErrors]="showErrors"
+                        [parentFormGroup]="regFormGroup"
+                        [formControlErrorMessage]="formControlErrorMessage"
+                    >
+                    </app-input-field>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                        <app-input-field [data]="{
+                            label: 'Password',
+                            placeholder : 'e.g. User@123 : This is just an example',
+                            type: 'password',
+                            name: 'password',
+                            maxLength: 50
+                            }"
+                            [showErrors]="showErrors"
+                            [parentFormGroup]="regFormGroup"
+                            [formControlErrorMessage]="formControlErrorMessage"
+                        >
+                        </app-input-field>
+                </div>
+                <div class="col-md-6">
+                        <app-input-field [data]="{
+                            label: 'Confirm password',
+                            placeholder : 'User@123 : This is just an example',
+                            type: 'password',
+                            name: 'confirmPassword',
+                            maxLength: 50
+                            }"
+                            [showErrors]="showErrors"
+                            [parentFormGroup]="regFormGroup"
+                            [formControlErrorMessage]="formControlErrorMessage"
+                        >
+                        </app-input-field>
+                </div>
+            </div>
+        <hr>
+        <h4>Password recovery details</h4>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <app-input-field [data]="{
+                    label: 'Security question (optional)',
+                    placeholder : 'e.g. What is my first pet name',
+                    type: 'text',
+                    name: 'securityQuestuion',
+                    maxLength: 100
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                >
+                </app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field [data]="{
+                    label: 'Security answer',
+                    placeholder : 'e.g. Zola',
+                    type: 'password',
+                    name: 'answer',
+                    maxLength: 100
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                >
+                </app-input-field>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button kendoButton style="width: 45%" (click)="next()">Next</button>
+                <button kendoButton style="width: 45%; float: right;" (click)="resetForm()">Reset form</button>
+            </div>
+        </div>
+    </form>
+
+</div>

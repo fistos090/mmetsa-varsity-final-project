@@ -1,0 +1,24 @@
+<div [formGroup]="parentFormGroup" [ngClass]="{
+  'invalid': showErrors && parentFormGroup.controls[data.pickerInput.name].invalid,
+  'control-dirty': true && !isFocused && parentFormGroup.controls[data.pickerInput.name].dirty
+}">
+  <label [for]="data.pickerInput.name">{{data.pickerInput.label}}</label>
+  <div class="picker-input" [formGroup]="parentFormGroup">
+    <input 
+      disabled
+      [type]="data.pickerInput.type" 
+      [maxlength]="data.pickerInput.maxLength" 
+      [placeholder]="data.pickerInput.placeholder" 
+      [formControlName]="data.pickerInput.name"
+      [matDatepicker]="myDatepicker"
+      (focusout)="onFocusOut()"
+      (focus)="onFocus()" />
+
+      <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+    </div>
+
+  <div *ngIf=" showErrors && parentFormGroup.controls[data.pickerInput.name].invalid ">
+    {{formControlErrorMessage[data.pickerInput.name]}}
+  </div>
+</div>
