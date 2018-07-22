@@ -12,6 +12,9 @@ export class RadioGroupComponent implements OnInit {
   @Input() showErrors: false;
   @Input() data: RadioGroupData;
   @Input() formControlErrorMessage: any
+
+  isFocused = false;
+  
   constructor() { }
 
   ngOnInit() {
