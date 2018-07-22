@@ -12,10 +12,13 @@ app.use('/TAKEALOT',
 
         const url = 'http://192.168.42.181:8080/TAKEALOT/'+req.url;
         var apiResponse = null;
+        console.log('******************',url)
         if(req.method === 'POST') {
             apiResponse = apiResponse = request.post({uri: url, json: req.body});
+            console.log('******************',apiResponse)
         } else {
             apiResponse = request(url);
+            console.log('******************',apiResponse)
         }
 
         req.pipe(apiResponse).pipe(res);
