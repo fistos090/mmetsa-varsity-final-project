@@ -10,7 +10,7 @@ const app = express();
 app.use('/TAKEALOT',
     function(req, res) {
 
-        const url = 'http://192.168.42.181:8080/TAKEALOT/'+req.url;
+        const url = 'http://192.168.42.181:8080/TAKEALOT'+req.url;
         var apiResponse = null;
         console.log('******************',url)
         if(req.method === 'POST') {
