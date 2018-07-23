@@ -66,7 +66,7 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
     const snackBarRef = this.snackBar.open(message, action);
 
     snackBarRef.onAction().subscribe(() => {
-      
+      this.router.navigate(['home']);
     });
 
     snackBarRef.afterDismissed().subscribe(() => {
