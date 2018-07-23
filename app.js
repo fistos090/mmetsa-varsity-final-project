@@ -12,13 +12,11 @@ app.use('/TAKEALOT',
 
         const url = 'https://mmetsa-final-project.herokuapp.com/TAKEALOT'+req.url;
         var apiResponse = null;
-        console.log('******************',url)
+
         if(req.method === 'POST') {
             apiResponse = apiResponse = request.post({uri: url, json: req.body});
-            console.log('******************',apiResponse)
         } else {
             apiResponse = request(url);
-            console.log('******************',apiResponse)
         }
 
         req.pipe(apiResponse).pipe(res);
