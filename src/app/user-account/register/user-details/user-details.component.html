@@ -21,6 +21,42 @@
                 </app-input-field>
             </div>
             <div class="col-md-6">
+                <app-input-field [data]="{
+                    label: 'Last name',
+                    placeholder : 'e.g. Moloto',
+                    type: 'text',
+                    name: 'lastname',
+                    maxLength: 40
+                    }"
+                    [showErrors]="showErrors"
+                    [parentFormGroup]="regFormGroup"
+                    [formControlErrorMessage]="formControlErrorMessage"
+                >
+                </app-input-field>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                        <app-input-field [data]="{
+                            label: 'Cellphone number',
+                            placeholder : 'e.g.  0721433207',
+                            type: 'text',
+                            name: 'cellphonNumber',
+                            maxLength: 10
+                            }"
+                            [showErrors]="showErrors"
+                            [parentFormGroup]="regFormGroup"
+                            [formControlErrorMessage]="formControlErrorMessage"
+                        >
+                        </app-input-field>
+    
+                </div>
+                <div class="col-md-6">
+    
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
                 <app-radio-group 
                     [parentFormGroup]="regFormGroup"
                     [showErrors]="showErrors"
@@ -31,23 +67,6 @@
                         options: [{name: 'female', label: 'Female'},{name: 'male', label: 'Male'}]
                     }">
                 </app-radio-group>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                    <app-input-field [data]="{
-                        label: 'Last name',
-                        placeholder : 'e.g. Moloto',
-                        type: 'text',
-                        name: 'lastname',
-                        maxLength: 40
-                        }"
-                        [showErrors]="showErrors"
-                        [parentFormGroup]="regFormGroup"
-                        [formControlErrorMessage]="formControlErrorMessage"
-                    >
-                    </app-input-field>
-
             </div>
             <div class="col-md-6">
                 <app-dob-date-picker
@@ -65,26 +84,6 @@
                     }">
 
                 </app-dob-date-picker>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                    <app-input-field [data]="{
-                        label: 'Cellphone number',
-                        placeholder : 'e.g.  0721433207',
-                        type: 'text',
-                        name: 'cellphonNumber',
-                        maxLength: 10
-                        }"
-                        [showErrors]="showErrors"
-                        [parentFormGroup]="regFormGroup"
-                        [formControlErrorMessage]="formControlErrorMessage"
-                    >
-                    </app-input-field>
-
-            </div>
-            <div class="col-md-6">
 
             </div>
         </div>

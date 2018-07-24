@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { HttpClient } from '../../../../../node_modules/@angular/common/http';
 import { UserService } from './user-service';
 import { Router } from '../../../../../node_modules/@angular/router';
@@ -22,7 +22,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   formErrors = {
     email: {
       required: 'Email is required field',
-      email: 'Please enter a valid email address'
+      pattern: 'Please enter a valid email address'
     },
     // username: {},
     password: {
@@ -34,14 +34,17 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       minlength: 'Confirm password must be a minimun of 7 characters long'
     },
     firstname: {
-      required: 'First name is required'
+      required: 'First name is required',
+      pattern: 'First name is invalid'
     },
     lastname: {
-      required: 'Last name is required'
+      required: 'Last name is required',
+      pattern: 'Last name is invalid'
     },
     cellphonNumber: {
       required: 'Cellphone number is required',
-      minlength: 'Cellphone number must be at least 10 digit long'
+      minlength: 'Cellphone number must be at least 10 digit long',
+      pattern: 'Cell number must be digits only'
 
     },
     securityQuestuion: {
@@ -79,13 +82,13 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.maxLength(50), Validators.email]],
+      email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       // username: ['', []],
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
+      firstname: ['', [Validators.required,Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
+      lastname: ['', [Validators.required,Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(7)]],
-      cellphonNumber: ['', [Validators.required, Validators.minLength(10)]],
+      cellphonNumber: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       securityQuestuion: ['', []],
@@ -145,5 +148,15 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   resetForm() {
     this.regFormGroup.reset();
     this.showErrors = false;
+  }
+}
+const NAME_REGEXP = /^(?![ ]+$)[a-zA-Z0-9 ]+$/;
+
+export class Validation {
+  static isValidName(control: AbstractControl) {
+    if ((!NAME_REGEXP.test(control.value))) {
+      return { 'invalidName': true };
+    }
+    return null;
   }
 }

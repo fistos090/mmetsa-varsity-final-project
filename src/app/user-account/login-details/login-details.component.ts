@@ -23,7 +23,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
   formErrors = {
     email: {
       required: 'Email is required field to login',
-      email: 'Please enter a valid email address'
+      pattern: 'Please enter a valid email address'
     },
     password: {
       required: 'Password is required field to login'
@@ -45,7 +45,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
 
 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       password: ['', [Validators.required]]
     });
 
