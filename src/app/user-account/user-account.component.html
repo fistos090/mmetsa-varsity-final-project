@@ -1,21 +1,15 @@
-<!-- <div class="top-area">
-    <h3>{{pageTitle}}</h3>
-</div> -->
+<div class="account-area">
+    <div class="form-area">
 
-<div class="form-area">
-    <app-tabs-menu (onTabChange)="onTabChange($event)" [tabs]="tabs" [activeTab]="selectedIndex">
-        <app-tab-panel [panelId]="0">
-            <app-user-details *ngIf="registerActiveId === 1" [title]="pageTitle" [data]="stepData"></app-user-details>
-            <app-user-confirm *ngIf="registerActiveId === 2" (childEvent)="processChildEvent($event)" [data]="stepData"></app-user-confirm>
-        </app-tab-panel>
-        <app-tab-panel [panelId]="1">
-            <app-login-details [data]="loginData" [title]="pageTitle"></app-login-details>
-        </app-tab-panel>
-    </app-tabs-menu>
+        <app-tabs-menu (onTabChange)="onTabChange($event)" [tabs]="tabs" [activeTab]="selectedIndex">
+            <app-tab-panel [panelId]="0">
+                <app-user-details *ngIf="registerActiveId === 1" [title]="pageTitle" [data]="stepData"></app-user-details>
+                <app-user-confirm *ngIf="registerActiveId === 2" (childEvent)="processChildEvent($event)" [data]="stepData"></app-user-confirm>
+            </app-tab-panel>
+            <app-tab-panel [panelId]="1">
+                <app-login-details [data]="loginData" [title]="pageTitle"></app-login-details>
+            </app-tab-panel>
+        </app-tabs-menu>
+
+    </div>
 </div>
-<!-- <div style="margin: 5% 5%;width: 20%;float: right;border: red 1px dotted">
-Ads area
-</div> -->
-{{
-    loginData | json
-}}

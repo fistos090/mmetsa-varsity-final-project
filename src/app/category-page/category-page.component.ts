@@ -13,7 +13,7 @@ export class CategoryPageComponent implements OnInit {
 
   categoryName: string;
   titleImage = '';
-  categoryClassName
+  categoryClassName: string;
 
   products: ProductWrapper[] = [];
   showContent = false;
@@ -28,16 +28,16 @@ export class CategoryPageComponent implements OnInit {
 
         this.showContent = false;
         this.spinner.showSpinner();
-        //Fire request to fetch category producs
-        this.httpClient.get<ProductWrapper[]>('/TAKEALOT/category/' + this.categoryName).subscribe(
+        // Fire request to fetch category producs
+        this.httpClient.get<ProductWrapper[]>('/BAKERY/category/' + this.categoryName).subscribe(
           (response) => {
-            
+
             this.products = response['products'];
             this.showContent = true;
             this.spinner.hideSpinner();
           },
           (error) => {
-            console.log('fetching products error ===>',error);
+            console.log('fetching products error ===>', error);
             this.showContent = true;
             this.spinner.hideSpinner();
           }

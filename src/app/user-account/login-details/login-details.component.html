@@ -1,17 +1,17 @@
-<h2>{{title}}</h2>
+<h3>{{title}}</h3>
 <div >
         
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h3>Fill login details</h3>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4>Fill login details</h4>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
     </div>
     <form [formGroup]="loginForm">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <app-input-field [data]="{
                     label: 'Email',
                     placeholder : 'e.g. user@mm2.co.za',
@@ -25,11 +25,11 @@
                 >
                 </app-input-field>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <app-input-field [data]="{
                     label: 'Password',
                     placeholder : 'e.g. User@1234 : This is just an example',
@@ -43,16 +43,16 @@
                 >
                 </app-input-field>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
               <button kendoButton style="width: 45%" (click)="onLoginClick()">Login</button>
               <button kendoButton style="width: 45%; float: right;" (click)="onResetClick()">Reset form</button>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
     </form>
     

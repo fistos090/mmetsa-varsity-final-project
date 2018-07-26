@@ -28,16 +28,16 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
     password: {
       required: 'Password is required field to login'
     }
-  }
+  };
 
   formControlErrorMessage = {
-    email:'',
+    email: '',
     password: '',
     showErrors: false
-  }
+  };
 
   constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, private router: Router,
-              private logonUserService: UserService, private spinner: SpinnerService) {
+    private logonUserService: UserService, private spinner: SpinnerService) {
 
   }
 
@@ -53,13 +53,13 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
       () => {
         this.onSubmit();
       }
-    )
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     if (this.data) {
-      this.loginForm.controls["email"].setValue(this.data['email']);
+      this.loginForm.controls['email'].setValue(this.data['email']);
     }
   }
 
@@ -67,14 +67,14 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
     const form = this.loginForm;
     const formControls = this.loginForm.controls;
 
-    for(const control in formControls){
-      if(form.controls[control].invalid){
-        for(const errorKey in form.controls[control].errors){
-          if(!this.formControlErrorMessage[control]){
+    for (const control in formControls) {
+      if (form.controls[control].invalid) {
+        for (const errorKey in form.controls[control].errors) {
+          if (!this.formControlErrorMessage[control]) {
             this.formControlErrorMessage[control] = this.formErrors[control][errorKey];
           }
         }
-        
+
       }
     }
 
@@ -85,18 +85,18 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
     this.showErrors = true;
     this.onSubmit();
 
-    if(this.loginForm.valid){
+    if (this.loginForm.valid) {
       this.spinner.showSpinner();
-      this.httpClient.post<LogonUser>('/TAKEALOT/customer/login',this.loginForm.value).subscribe(
+      this.httpClient.post<LogonUser>('/BAKERY/customer/login', this.loginForm.value).subscribe(
         (response) => {
           if (response) {
             alert(response['message']);
-            if (response['status'] === "FOUND") {
+            if (response['status'] === 'FOUND') {
               this.logonUserService.setLogonUser(response);
               // If no specific path privided
               this.router.navigate(['home']);
             }
-            
+
           }
           this.spinner.hideSpinner();
         },

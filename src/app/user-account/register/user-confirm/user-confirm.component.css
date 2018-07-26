@@ -13,7 +13,8 @@
 
 /* h3{
     border-bottom: solid 0.5px #888;
-} */
-h3, h4{
+} */ 
+
+h4{
     text-decoration: underline;
 }

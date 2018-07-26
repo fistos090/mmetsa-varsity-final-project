@@ -9,7 +9,7 @@ import { SpinnerService } from '../service-spinner/spinner-service';
 import { UserService } from '../user-account/register/user-details/user-service';
 
 // declare var jquery:any;
-//declare var $ :any;
+// declare var $ :any;
 
 @Component({
   selector: 'app-topnav-menu',
@@ -29,7 +29,7 @@ export class TopnavMenuComponent implements OnInit {
 
   constructor(private router: Router, public bascket: ShoppingBascketService, private spinner: SpinnerService,
     private logonUserService: UserService, private httpClient: HttpClient) {
-    //this.bascket.bascketProducts
+    // this.bascket.bascketProducts
 
     this.logonUserService.logonUserEventSource$.subscribe((user: LogonUser) => {
       if (user) {
@@ -37,7 +37,7 @@ export class TopnavMenuComponent implements OnInit {
         this.itemThreeTitle = user.userIn.firstname.substr(0, 1) + ' ' + user.userIn.lastname;
         this.user = user;
       }
-    })
+    });
   }
 
 
@@ -74,7 +74,7 @@ export class TopnavMenuComponent implements OnInit {
     } else {
       if (id === 3) {
         this.spinner.showSpinner();
-        this.httpClient.get('/TAKEALOT/customer/logout/' + this.user.sessionID + '/' + this.user.userIn.id).subscribe(
+        this.httpClient.get('/BAKERY/customer/logout/' + this.user.sessionID + '/' + this.user.userIn.id).subscribe(
           (response) => {
             if (response['status'] === 'OK') {
               this.isUserLogon = false;

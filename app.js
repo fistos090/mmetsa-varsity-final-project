@@ -7,10 +7,10 @@ const request = require('request');
 
 const app = express();
 
-app.use('/TAKEALOT',
+app.use('/BAKERY',
     function(req, res) {
 
-        const url = 'https://mmetsa-final-project.herokuapp.com/TAKEALOT'+req.url;
+        const url = 'https://mmetsa-final-project.herokuapp.com/BAKERY'+req.url;
         var apiResponse = null;
 
         if(req.method === 'POST') {

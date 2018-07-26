@@ -17,13 +17,13 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
 
 
   @Input() data: Customer;
-  @Output() childEvent = new EventEmitter<{tabId: number, email: string}>();
+  @Output() childEvent = new EventEmitter<{ tabId: number, email: string }>();
 
   dateDickerDate: any;
   disableButton = false;
 
   constructor(private httpClient: HttpClient, private logonUserService: UserService, public snackBar: MatSnackBar,
-              private router: Router, private stepper: RegisterStepperService, private spinner: SpinnerService) { }
+    private router: Router, private stepper: RegisterStepperService, private spinner: SpinnerService) { }
 
   ngOnInit() {
     this.dateDickerDate = this.data.dateOfBirth;
@@ -31,35 +31,36 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
-  register(){
+  register() {
     this.disableButton = true;
     this.spinner.showSpinner();
     this.httpClient.post('/TAKEALOT/customer/register', this.data).subscribe(
       (response) => {
         this.spinner.hideSpinner();
-      if (response) {
-        // alert(response['message']);
-        this.openPopup(response['message'],'OK')
-        if (response['status'] == 'CREATED') {
-    
-          this.logonUserService.setLogonUser(response["auto_logon"]);
+        if (response) {
+          // alert(response['message']);
+          const status = String(response['status']);
+          this.openPopup(response['message'], 'OK');
+          if (status === 'CREATED') {
 
-        } else if (response['status'] == 'CONFLICT') {
+            this.logonUserService.setLogonUser(response['auto_logon']);
 
-          this.childEvent.emit({'tabId': 1, 'email': this.data.email});
+          } else if (status === 'CONFLICT') {
+
+            this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
+          }
+
         }
 
-      }
+      },
+      (error) => {
+        console.log(error);
+        this.spinner.hideSpinner();
 
-    }, 
-    (error) => {
-      console.log(error);
-      this.spinner.hideSpinner();
-
-    });
+      });
   }
 
   openPopup(message: string, action: string) {
@@ -70,14 +71,14 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
     });
 
     snackBarRef.afterDismissed().subscribe(() => {
-      
+
     });
 
     //  { duration: 2000 }
   }
   back() {
     this.data.dateOfBirth = this.dateDickerDate;
-    this.stepper.stepperEvent.next({'stepNumber': 1, 'data': this.data});
+    this.stepper.stepperEvent.next({ 'stepNumber': 1, 'data': this.data });
   }
 
 }
