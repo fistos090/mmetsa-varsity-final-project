@@ -37,7 +37,7 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
   register() {
     this.disableButton = true;
     this.spinner.showSpinner();
-    this.httpClient.post('/TAKEALOT/customer/register', this.data).subscribe(
+    this.httpClient.post('/BAKERY/customer/register', this.data).subscribe(
       (response) => {
         this.spinner.hideSpinner();
         if (response) {
