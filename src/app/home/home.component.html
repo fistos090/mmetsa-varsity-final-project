@@ -1,16 +1,16 @@
 <div class="home-page-image">
-Fresh 'n Affordable bakery goods
+    Fresh 'n Affordable bakery goods
 </div>
 
 <br>
 <div class="products-area">
+    <!-- <app-product></app-product>
     <app-product></app-product>
     <app-product></app-product>
     <app-product></app-product>
     <app-product></app-product>
-    <app-product></app-product>
-    <app-product></app-product>
-</div>
-<button (click)="sp.showSpinner()">Open</button>
-<br><br>
+    <app-product></app-product> -->
 
+    <app-product [productWrapper]="pw" *ngFor="let pw of products;let i = index">{{i}}</app-product>
+
+</div>

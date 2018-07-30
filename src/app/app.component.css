@@ -58,3 +58,13 @@
 
     transition: height 1s;
 }
+
+.footer{
+    bottom: 0px;
+    width: 93%;
+    height: 110px;
+    background-color: #ddd;
+    margin: auto;
+    margin-bottom: 5px;
+    margin-top: 21px;
+}
