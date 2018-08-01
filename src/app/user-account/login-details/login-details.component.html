@@ -1,6 +1,14 @@
 <h3>{{title}}</h3>
 <div >
-        
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="login-fail" [hidden]="!(failureMessage !== '')">
+                {{failureMessage}}
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -50,10 +58,11 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
               <button kendoButton style="width: 45%" (click)="onLoginClick()">Login</button>
-              <button kendoButton style="width: 45%; float: right;" (click)="onResetClick()">Reset form</button>
+              <button kendoButton style="width: 45%; float: right;" (click)="onResetClick()">Reset</button>
             </div>
             <div class="col-md-2"></div>
         </div>
+
     </form>
     
 

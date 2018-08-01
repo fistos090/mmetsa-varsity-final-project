@@ -6,10 +6,11 @@
       <span id="product-title">{{product.productName}}</span>
       <span style="display: block;"><span id="label">CATEGORY :</span> {{product.category}}</span>
       <span style="display: block;"><span id="label">PRICE :</span> R {{product.price}}</span>
+
+      <a >View details</a>
     </div>
     <span class="buttons-section">
-      <button kendoButton style="width: 98%" (click)="addToCart()"><span class="fa fa-cart-plus"> </span> &nbsp; Add to cart</button>
-      <a href="">View details</a>
+      <button kendoButton (click)="addToCart()"><span class="fa fa-cart-plus"> </span> &nbsp; Add to cart</button>
     </span>
   </div>
 </div>

@@ -21,7 +21,7 @@
 }
 .loader-buttons ul li:hover{cursor: pointer;}
 .active-button{
-    background-color: #B0C4DE;
+    background-color: rgb(234, 168, 214);
 }
 
 .products-area{

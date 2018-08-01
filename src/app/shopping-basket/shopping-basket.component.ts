@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../data-models/product.model';
+import { ShoppingBascketService } from './shopping-basket-service';
+import { OrderProduct } from '../data-models/bascket-product.model';
 
 @Component({
   selector: 'app-shopping-basket',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingBusketComponent implements OnInit {
 
-  constructor() { }
+  basketProducts: OrderProduct[] = [];
+  constructor(public bascket: ShoppingBascketService) { }
 
   ngOnInit() {
+    this.basketProducts = this.bascket.getBascketProducts();
   }
 
 }

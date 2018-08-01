@@ -107,9 +107,27 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       }
     });
 
+    this.regFormGroup.controls['password'].valueChanges.subscribe((controlValue: string) => {
+
+      if (controlValue) {
+        // Check for upper case
+        controlValue
+        
+        // Check for number
+
+        // Check for special charecter
+      }
+
+    });
+
+    this.regFormGroup.controls['confirmPassword'].valueChanges.subscribe((controlValue) => {
+
+    });
+
     this.regFormGroup.valueChanges.subscribe(() => { this.onSubmit() });
 
   }
+
   ngAfterViewInit(): void {
     window.scroll(0,0);
   }

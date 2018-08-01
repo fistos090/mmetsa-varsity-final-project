@@ -19,6 +19,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
   loginForm: FormGroup;
   showErrors = false;
   placeholder = '';
+  failureMessage = '';
 
   formErrors = {
     email: {
@@ -51,6 +52,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
 
     this.loginForm.valueChanges.subscribe(
       () => {
+        this.failureMessage = '';
         this.onSubmit();
       }
     );
@@ -86,15 +88,19 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
     this.onSubmit();
 
     if (this.loginForm.valid) {
+      this.failureMessage = '';
       this.spinner.showSpinner();
       this.httpClient.post<LogonUser>('/BAKERY/customer/login', this.loginForm.value).subscribe(
         (response) => {
           if (response) {
-            alert(response['message']);
+            // alert(response['message']);
             if (response['status'] === 'FOUND') {
               this.logonUserService.setLogonUser(response);
               // If no specific path privided
               this.router.navigate(['home']);
+
+            } else if (response['status'] === 'NOT_FOUND') {
+              this.failureMessage = response['message'];
             }
 
           }

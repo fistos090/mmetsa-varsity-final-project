@@ -7,6 +7,7 @@ import { RegisterStepperService } from '../register-stepper.service';
 import * as moment from 'moment';
 import { SpinnerService } from '../../../service-spinner/spinner-service';
 import { MatSnackBar } from '../../../../../node_modules/@angular/material';
+import { Observable } from '../../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-user-confirm',
@@ -43,14 +44,20 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
         if (response) {
           // alert(response['message']);
           const status = String(response['status']);
-          this.openPopup(response['message'], 'OK');
+
           if (status === 'CREATED') {
 
             this.logonUserService.setLogonUser(response['auto_logon']);
+            this.openPopup(response['message'], 'OK').subscribe(() => {
+              this.router.navigate(['home']);
+            });
 
           } else if (status === 'CONFLICT') {
 
-            this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
+            this.openPopup(response['message']+' Continue to log in', 'Yes').subscribe(() => {
+              this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
+            });
+            
           }
 
         }
@@ -63,17 +70,17 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
       });
   }
 
-  openPopup(message: string, action: string) {
+  openPopup(message: string, action: string): Observable<any> {
     const snackBarRef = this.snackBar.open(message, action);
 
     snackBarRef.onAction().subscribe(() => {
-      this.router.navigate(['home']);
+      
     });
 
     snackBarRef.afterDismissed().subscribe(() => {
 
     });
-
+    return snackBarRef.onAction();
     //  { duration: 2000 }
   }
   back() {

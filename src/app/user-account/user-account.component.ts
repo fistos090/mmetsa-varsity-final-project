@@ -72,8 +72,9 @@ export class UserAccountComponent implements OnInit {
   }
 
   processChildEvent(data: any): void {
+    console.log('darara',data)
     if (data) {
-      this.selectedIndex = data["tabId"];
+      this.selectedIndex = Number(data["tabId"]);
       this.loginData = {'email': data['email']};
     }
   }

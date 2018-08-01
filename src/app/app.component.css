@@ -1,8 +1,6 @@
 
 .pages-area{
     margin: auto;
-    /* margin-top: 61px; */
-    /* width: 93%; */
 }
 
 .shop-area{
@@ -10,12 +8,9 @@
     width: 100%; 
     min-height: 400px;
     float: left;
-    /* bottom: 0px; */
-
 }
 
 .messaging-area{
-    /* width: 20%;  */
     height: 1000px;
     float: right;
     bottom: 0px;
@@ -26,13 +21,9 @@
 
 .messaging-area div{
     position: fixed;
-    /* width: 80px; */
-    /* height: 450px; */
     right: 2px;
     bottom: 15px;
     z-index: 1;
-    /* background-color: #FFF0F5; */
-
     transition: height 2s;
 }
 
@@ -40,8 +31,6 @@
     width: 20%; 
     height: 1000px;
     float: right;
-    
-
 }
 
 .whenChatOpen div{
@@ -51,7 +40,6 @@
     right: 0px;
     bottom: 10px;
     background-color: #FFF0F5;
-    /* border: solid 0.2 solid; */
     border: red 1px solid;
     z-index: 3px;
     position: absolute;
@@ -63,7 +51,7 @@
     bottom: 0px;
     width: 93%;
     height: 110px;
-    background-color: #ddd;
+    background-color: rgb(234, 168, 214);
     margin: auto;
     margin-bottom: 5px;
     margin-top: 21px;
