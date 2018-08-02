@@ -13,11 +13,7 @@
                     type: 'text',
                     name: 'firstname',
                     maxLength: 30
-                    }"
-                    [showErrors]="showErrors"
-                    [parentFormGroup]="regFormGroup"
-                    [formControlErrorMessage]="formControlErrorMessage"
-                >
+                    }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
                 </app-input-field>
             </div>
             <div class="col-md-6">
@@ -27,40 +23,29 @@
                     type: 'text',
                     name: 'lastname',
                     maxLength: 40
-                    }"
-                    [showErrors]="showErrors"
-                    [parentFormGroup]="regFormGroup"
-                    [formControlErrorMessage]="formControlErrorMessage"
-                >
+                    }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
                 </app-input-field>
             </div>
         </div>
         <div class="row">
-                <div class="col-md-6">
-                        <app-input-field [data]="{
+            <div class="col-md-6">
+                <app-input-field [data]="{
                             label: 'Cellphone number',
                             placeholder : 'e.g.  0721433207',
                             type: 'text',
                             name: 'cellphonNumber',
                             maxLength: 10
-                            }"
-                            [showErrors]="showErrors"
-                            [parentFormGroup]="regFormGroup"
-                            [formControlErrorMessage]="formControlErrorMessage"
-                        >
-                        </app-input-field>
-    
-                </div>
-                <div class="col-md-6">
-    
-                </div>
+                            }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                </app-input-field>
+
             </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
-                <app-radio-group 
-                    [parentFormGroup]="regFormGroup"
-                    [showErrors]="showErrors"
-                    [formControlErrorMessage]="formControlErrorMessage"
+                <app-radio-group [parentFormGroup]="regFormGroup" [showErrors]="showErrors" [formControlErrorMessage]="formControlErrorMessage"
                     [data]="{
                         name: 'gender',
                         label: 'Gender',
@@ -69,10 +54,7 @@
                 </app-radio-group>
             </div>
             <div class="col-md-6">
-                <app-dob-date-picker
-                    [parentFormGroup]="regFormGroup"
-                    [showErrors]="showErrors"
-                    [formControlErrorMessage]="formControlErrorMessage"
+                <app-dob-date-picker [parentFormGroup]="regFormGroup" [showErrors]="showErrors" [formControlErrorMessage]="formControlErrorMessage"
                     [data]="{
                         pickerInput: {
                             label: 'Date Of birth',
@@ -92,53 +74,48 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                    <app-input-field [data]="{
+                <app-input-field [data]="{
                         label: 'Email address',
                         placeholder : 'e.g. user@mm2.co.za',
                         type: 'email',
                         name: 'email',
                         maxLength: 40
-                        }"
-                        [showErrors]="showErrors"
-                        [parentFormGroup]="regFormGroup"
-                        [formControlErrorMessage]="formControlErrorMessage"
-                    >
-                    </app-input-field>
+                        }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                </app-input-field>
             </div>
             <div class="col-md-6">
 
             </div>
         </div>
         <div class="row">
-                <div class="col-md-6">
-                        <app-input-field [data]="{
+
+            <div class="col-md-6">
+                <app-input-field [data]="{
                             label: 'Password',
                             placeholder : 'e.g. User@123 : This is just an example',
                             type: 'password',
                             name: 'password',
                             maxLength: 50
-                            }"
-                            [showErrors]="showErrors"
-                            [parentFormGroup]="regFormGroup"
-                            [formControlErrorMessage]="formControlErrorMessage"
-                        >
-                        </app-input-field>
-                </div>
-                <div class="col-md-6">
-                        <app-input-field [data]="{
+                            }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                </app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field [data]="{
                             label: 'Confirm password',
                             placeholder : 'User@123 : This is just an example',
                             type: 'password',
                             name: 'confirmPassword',
                             maxLength: 50
-                            }"
-                            [showErrors]="showErrors"
-                            [parentFormGroup]="regFormGroup"
-                            [formControlErrorMessage]="formControlErrorMessage"
-                        >
-                        </app-input-field>
-                </div>
+                            }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                </app-input-field>
             </div>
+        </div>
+        <div class="row" *ngIf="passwordStatus">
+            <div class="col-md-11" 
+            [style.color]="passwordStatus === 'Weak' ? 'red' : passwordStatus === 'Medium' ? 'orange' : 'lightgreen'">
+                Password strongness: {{passwordStatus}}
+            </div>
+        </div>
         <hr>
         <h4>Password recovery details</h4>
         <br>
@@ -150,11 +127,7 @@
                     type: 'text',
                     name: 'securityQuestuion',
                     maxLength: 100
-                    }"
-                    [showErrors]="showErrors"
-                    [parentFormGroup]="regFormGroup"
-                    [formControlErrorMessage]="formControlErrorMessage"
-                >
+                    }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
                 </app-input-field>
             </div>
             <div class="col-md-6">
@@ -164,11 +137,7 @@
                     type: 'password',
                     name: 'answer',
                     maxLength: 100
-                    }"
-                    [showErrors]="showErrors"
-                    [parentFormGroup]="regFormGroup"
-                    [formControlErrorMessage]="formControlErrorMessage"
-                >
+                    }" [showErrors]="showErrors" [parentFormGroup]="regFormGroup" [formControlErrorMessage]="formControlErrorMessage">
                 </app-input-field>
             </div>
         </div>

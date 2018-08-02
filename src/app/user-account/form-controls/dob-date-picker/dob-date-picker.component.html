@@ -12,7 +12,8 @@
       [formControlName]="data.pickerInput.name"
       [matDatepicker]="myDatepicker"
       (focusout)="onFocusOut()"
-      (focus)="onFocus()" />
+      (focus)="onFocus()" 
+      [matDatepickerFilter]="datesFilter"/>
 
       <mat-datepicker-toggle color="accent" [for]="myDatepicker"></mat-datepicker-toggle>
       <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { HttpClient } from '../../../../../node_modules/@angular/common/http';
 import { UserService } from './user-service';
 import { Router } from '../../../../../node_modules/@angular/router';
@@ -31,7 +31,8 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     },
     confirmPassword: {
       required: 'Confirm password is required',
-      minlength: 'Confirm password must be a minimun of 7 characters long'
+      minlength: 'Confirm password must be a minimun of 7 characters long',
+      notMatching: 'Confirm password is not the same as password'
     },
     firstname: {
       required: 'First name is required',
@@ -48,10 +49,12 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
     },
     securityQuestuion: {
-
+      required: 'Provide question for the answer provided',
+      pattern: 'Question can be numbers or letters'
     },
     answer: {
-      required: 'Provide answer to your security question'
+      required: 'Provide answer to the security question provided',
+      pattern: 'Answer can be numbers or letters'
     },
     gender: {
       required: 'Gender is required field'
@@ -77,17 +80,27 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     showErrors: false
   }
 
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient, 
-              private logonUserService: UserService, private router: Router, private stepper: RegisterStepperService) { }
+  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient,
+    private logonUserService: UserService, private router: Router, private stepper: RegisterStepperService) { }
+
+  validatePassword() {
+    return (control: AbstractControl) => {
+      const confirmPassword = control.value;
+      const password = this.regFormGroup.controls['password'].value;
+
+      if (confirmPassword !== password) {
+        return { notMatching: false };
+      }
+
+    }
+  }
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
-      // username: ['', []],
-      firstname: ['', [Validators.required,Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
-      lastname: ['', [Validators.required,Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
+      firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
+      lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(7)]],
       cellphonNumber: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
@@ -95,41 +108,93 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       answer: ['', []]
     });
 
+    this.regFormGroup.addControl('confirmPassword', new FormControl('',{
+      validators: [Validators.required, Validators.maxLength(7), this.validatePassword()],
+      updateOn: 'change'
+    }));
+
     if (this.data) {
       this.regFormGroup.patchValue(this.data);
     }
 
     this.regFormGroup.controls['securityQuestuion'].valueChanges.subscribe((controlValue) => {
       if (controlValue && controlValue !== '') {
-        console.log('setting vali')
-        this.regFormGroup.controls['answer'].setValidators([Validators.required]);
-        this.regFormGroup.controls['answer'].updateValueAndValidity();
+        this.regFormGroup.controls['answer'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+      } else {
+        this.regFormGroup.controls['answer'].clearValidators();
       }
+
+        this.regFormGroup.controls['answer'].updateValueAndValidity();
+    });
+
+    this.regFormGroup.controls['answer'].valueChanges.subscribe((controlValue) => {
+      if (controlValue && controlValue !== '') {
+        this.regFormGroup.controls['securityQuestuion'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+      } else {
+        this.regFormGroup.controls['securityQuestuion'].clearValidators();
+      }
+      
+        this.regFormGroup.controls['securityQuestuion'].updateValueAndValidity();
     });
 
     this.regFormGroup.controls['password'].valueChanges.subscribe((controlValue: string) => {
-
-      if (controlValue) {
-        // Check for upper case
-        controlValue
-        
-        // Check for number
-
-        // Check for special charecter
+      const control = this.regFormGroup.controls['confirmPassword'];
+      
+      if (control.value) {
+        control.updateValueAndValidity();
       }
-
+      this.passwordStatus = this.testStrongness(controlValue);
     });
 
     this.regFormGroup.controls['confirmPassword'].valueChanges.subscribe((controlValue) => {
-
+      this.testStrongness(controlValue);
     });
 
     this.regFormGroup.valueChanges.subscribe(() => { this.onSubmit() });
 
   }
+passwordStatus: string
+  testStrongness(controlValue: string): string {
+    
+    const strongness = ['Weak','Medium','Strong']
+    let hasUpperCase = false;
+    let hasLowerCase = false;
+    let hasSpecialCase = false;
+
+    let testCounter = -1;
+
+    if (controlValue) {
+      // Check for upper case
+      for (let x = 0; x < controlValue.length; x++) {
+        const code = controlValue.charCodeAt(x);
+
+        if(!hasUpperCase && (code >= 65 && code <= 90)) {
+          hasUpperCase = true;
+          testCounter++;
+        }
+
+        if(!hasLowerCase && (code >= 97 && code <= 121)) {
+          hasLowerCase = true;
+          testCounter++;
+        }
+
+        if(!hasSpecialCase && !(code >= 97 && code <= 121) && !(code >= 65 && code <= 90)) {
+          hasSpecialCase = true;
+          testCounter++;
+        }
+
+        if( testCounter === 3){
+          break;
+        }
+      }
+
+    }
+
+    return strongness[testCounter];
+  }
 
   ngAfterViewInit(): void {
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   onSubmit(): void {
@@ -156,11 +221,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     this.onSubmit();
 
     if (this.regFormGroup.valid) {
-      this.stepper.stepperEvent.next({stepNumber: 2, data: this.regFormGroup.value});
+      this.stepper.stepperEvent.next({ stepNumber: 2, data: this.regFormGroup.value });
     } else {
-      window.scroll(0,0);
+      window.scroll(0, 0);
     }
-    
+
   }
 
   resetForm() {

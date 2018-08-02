@@ -17,13 +17,18 @@ export class DobDatePickerComponent implements OnInit {
   placeholder = '';
   isFocused = false;
   currentErrorMessage: string
-
+  disabled = true
   constructor() { }
 
   ngOnInit(): void {
     this.parentFormGroup.controls[this.data.pickerInput.name].valueChanges.subscribe((val) => {
       // this.showErrors = false;
     })
+  }
+
+  datesFilter(date: Date) {
+    const year = date.getFullYear();
+    return year < 2019;
   }
 
   ngOnChanges(): void {
