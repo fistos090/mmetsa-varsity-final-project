@@ -28,7 +28,8 @@ export class DobDatePickerComponent implements OnInit {
 
   datesFilter(date: Date) {
     const year = date.getFullYear();
-    return year < 2019;
+    const currentyear = new Date().getFullYear();
+    return year < currentyear + 1;
   }
 
   ngOnChanges(): void {

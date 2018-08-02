@@ -83,9 +83,30 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
     return snackBarRef.onAction();
     //  { duration: 2000 }
   }
+
   back() {
     this.data.dateOfBirth = this.dateDickerDate;
     this.stepper.stepperEvent.next({ 'stepNumber': 1, 'data': this.data });
+  }
+
+  maskData(value: string): string {
+    let temp = '';
+    let counter = 0;
+    
+    for (let x = 0; x < value.length; x++) {
+      
+      if (counter === 0) {
+        temp += value.substr(x,1);
+      } else {
+        temp += '*';
+        
+      }
+      
+      
+      if (counter === 2) counter = 0; else counter++;
+    }
+
+    return temp;
   }
 
 }

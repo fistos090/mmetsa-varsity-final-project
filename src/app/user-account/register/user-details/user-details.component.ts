@@ -104,12 +104,12 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       cellphonNumber: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      securityQuestuion: ['', []],
-      answer: ['', []]
+      securityQuestuion: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
+      answer: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]]
     });
 
     this.regFormGroup.addControl('confirmPassword', new FormControl('',{
-      validators: [Validators.required, Validators.maxLength(7), this.validatePassword()],
+      validators: [Validators.required, this.validatePassword()],
       updateOn: 'change'
     }));
 
@@ -118,23 +118,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     }
 
     this.regFormGroup.controls['securityQuestuion'].valueChanges.subscribe((controlValue) => {
-      if (controlValue && controlValue !== '') {
-        this.regFormGroup.controls['answer'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
-      } else {
-        this.regFormGroup.controls['answer'].clearValidators();
-      }
-
-        this.regFormGroup.controls['answer'].updateValueAndValidity();
+      
     });
 
     this.regFormGroup.controls['answer'].valueChanges.subscribe((controlValue) => {
-      if (controlValue && controlValue !== '') {
-        this.regFormGroup.controls['securityQuestuion'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
-      } else {
-        this.regFormGroup.controls['securityQuestuion'].clearValidators();
-      }
-      
-        this.regFormGroup.controls['securityQuestuion'].updateValueAndValidity();
+
     });
 
     this.regFormGroup.controls['password'].valueChanges.subscribe((controlValue: string) => {
@@ -232,6 +220,7 @@ passwordStatus: string
     this.regFormGroup.reset();
     this.showErrors = false;
   }
+
 }
 const NAME_REGEXP = /^(?![ ]+$)[a-zA-Z0-9 ]+$/;
 
