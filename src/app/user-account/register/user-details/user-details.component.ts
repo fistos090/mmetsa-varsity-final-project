@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { HttpClient } from '../../../../../node_modules/@angular/common/http';
@@ -22,7 +23,8 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   formErrors = {
     email: {
       required: 'Email is required field',
-      pattern: 'Please enter a valid email address'
+      pattern: 'Please enter a valid email address',
+      invalidEmailSurfix: 'Unkown email surfix'
     },
     // username: {},
     password: {
@@ -45,8 +47,8 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     cellphonNumber: {
       required: 'Cellphone number is required',
       minlength: 'Cellphone number must be at least 10 digit long',
-      pattern: 'Cell number must be digits only'
-
+      pattern: 'Cell number must be digits only',
+      isValidCellCode: 'Unkown South African cell code'
     },
     securityQuestuion: {
       required: 'Provide question for the answer provided',
@@ -97,11 +99,12 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
+      // Validation.isValidEmailSurfix, 
       email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
-      cellphonNumber: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
+      cellphonNumber: ['', [Validation.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       securityQuestuion: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
@@ -223,6 +226,8 @@ passwordStatus: string
 
 }
 const NAME_REGEXP = /^(?![ ]+$)[a-zA-Z0-9 ]+$/;
+const CELL_CODES = ['071','072','073','074','076','078','079','081','082','083','084','060','064','065'];
+const EMAIL_SURFIXS = ['gmail.com','yahoo.com'];
 
 export class Validation {
   static isValidName(control: AbstractControl) {
@@ -230,5 +235,30 @@ export class Validation {
       return { 'invalidName': true };
     }
     return null;
+  }
+
+  static isValidCellCode(control: AbstractControl) {
+      if (control) {
+        if (control.value) {
+          const code = control.value.substr(0,3);
+          if ( CELL_CODES.find( cellCode => cellCode === code)  ) {
+            return null;
+          }
+        }
+      }
+
+    return { 'isValidCellCode': true };
+  }
+
+  static isValidEmailSurfix(control: AbstractControl) {
+    if (control) {
+      if (control.value) {
+        const surfix = control.value.substr(control.value.lastIndexOf('@')+1);
+        if ( EMAIL_SURFIXS.find( emailSurfix => emailSurfix === surfix) ) {
+          return null;
+        }
+      }
+    }
+    return { 'invalidEmailSurfix': true };
   }
 }
