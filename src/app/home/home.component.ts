@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SpinnerService } from '../service-spinner/spinner-service';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ProductWrapper } from '../data-models/product-wrapper-model';
 
 @Component({

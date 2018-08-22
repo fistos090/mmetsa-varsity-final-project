@@ -26,6 +26,7 @@ export class TopnavMenuComponent implements OnInit {
   user: LogonUser;
   isUserLogon = false;
   itemThreeTitle = 'Register / Login';
+  pointerEvents: string;
 
   constructor(private router: Router, public bascket: ShoppingBascketService, private spinner: SpinnerService,
     private logonUserService: UserService, private httpClient: HttpClient) {
@@ -38,6 +39,10 @@ export class TopnavMenuComponent implements OnInit {
         this.user = user;
       }
     });
+
+    this.spinner.$spinnerAlertSourceEvent.subscribe( (status: string) => {
+      this.pointerEvents = status;
+    })
   }
 
 

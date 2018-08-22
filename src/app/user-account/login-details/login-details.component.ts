@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LogonUser } from '../../data-models/logon-user.model';
 import { SpinnerService } from '../../service-spinner/spinner-service';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../register/user-details/user-service';
 
 @Component({
@@ -97,7 +97,7 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
             if (response['status'] === 'FOUND') {
               this.logonUserService.setLogonUser(response);
               // If no specific path privided
-              this.router.navigate(['home']);
+              this.router.navigate(['manage-profile']);
 
             } else if (response['status'] === 'NOT_FOUND') {
               this.failureMessage = response['message'];

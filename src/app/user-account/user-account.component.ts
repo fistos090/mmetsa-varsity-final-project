@@ -1,4 +1,4 @@
-import { Customer } from './../data-models/customer.model';
+import { Customer } from '../data-models/customer.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Tab } from '../tabs-menu/tabs-menu.model';

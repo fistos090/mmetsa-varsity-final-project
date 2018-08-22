@@ -12,13 +12,17 @@
       [formControlName]="data.pickerInput.name"
       [matDatepicker]="myDatepicker"
       (focusout)="onFocusOut()"
-      (focus)="onFocus()" 
+      (focus)="onFocus()"
+      [max]="maxDate"
+      [min]="minDate"
       [matDatepickerFilter]="datesFilter"/>
 
       <mat-datepicker-toggle color="accent" [for]="myDatepicker"></mat-datepicker-toggle>
       <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
     </div>
-
+  <div style="color: darkkhaki" *ngIf=" showWarning ">
+      Warning:&nbsp; Date of birth doesn't look valid, You can continue if is okay.
+  </div>
   <div *ngIf=" showErrors && parentFormGroup.controls[data.pickerInput.name].invalid ">
     {{formControlErrorMessage[data.pickerInput.name]}}
   </div>

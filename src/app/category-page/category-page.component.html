@@ -10,8 +10,7 @@
   <div class="products-area" *ngIf="products.length > 0">
     <app-products-loader [products]="products"></app-products-loader>
   </div>
-  <div *ngIf="products.length <= 0" style="text-align: center;width: 100%;">
-    <br><br>
+  <div class="empty-list" *ngIf="products.length <= 0">
       There are no products under this category
-    </div>
+  </div>
 </div>

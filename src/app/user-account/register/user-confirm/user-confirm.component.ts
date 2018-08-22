@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { Customer } from '../../../data-models/customer.model';
-import { HttpClient } from '../../../../../node_modules/@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UserService } from '../user-details/user-service';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { RegisterStepperService } from '../register-stepper.service';
 import * as moment from 'moment';
 import { SpinnerService } from '../../../service-spinner/spinner-service';
-import { MatSnackBar } from '../../../../../node_modules/@angular/material';
-import { Observable } from '../../../../../node_modules/rxjs';
+import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-confirm',

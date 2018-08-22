@@ -1,12 +1,15 @@
-import { Injectable } from "../../../node_modules/@angular/core";
+import { Injectable } from "@angular/core";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ServiceSpinnerComponent } from "./service-spinner.component";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class SpinnerService{
 
     spinnerData: any;
     dialogRef: any;
+    spinnerAlertSource = new Subject<string>();
+    $spinnerAlertSourceEvent = this.spinnerAlertSource.asObservable();
 
     constructor(public dialog: MatDialog){
          
@@ -17,6 +20,7 @@ export class SpinnerService{
     }
 
     showSpinner(): void {
+        this.spinnerAlertSource.next('none');
         this.dialogRef = this.dialog.open(ServiceSpinnerComponent, {
             // width: '150px',
             panelClass: 'custom-dialog-container',
@@ -30,6 +34,7 @@ export class SpinnerService{
     }
 
     hideSpinner(){
+        this.spinnerAlertSource.next('');
         this.dialogRef.close('');
     }
 }

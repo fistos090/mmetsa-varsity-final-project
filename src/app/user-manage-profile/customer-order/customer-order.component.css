@@ -1,0 +1,31 @@
+.user-manage-main{
+    width: 93%;
+    border: solid 1px yellow;
+    margin: auto;
+}
+.order{
+    height: 50px;
+    width: 79%;
+    border: solid 1px gray;
+}
+.products-panel{
+    width: 79%;
+    height: 150px;
+    padding: 30px 20px;
+    border: solid 1px red;
+}
+
+.details{
+    height: inherit;
+    width: 75%;
+    border: solid 1px brown;
+    float: left;
+}
+
+.actions{
+    height: inherit;
+    width: 25%;
+    border: solid 1px blue;
+    float: right;
+    bottom: 0px
+}

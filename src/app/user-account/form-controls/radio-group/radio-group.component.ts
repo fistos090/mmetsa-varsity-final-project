@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '../../../../../node_modules/@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-radio-group',

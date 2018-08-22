@@ -1,5 +1,5 @@
-import { Injectable } from "../../../../node_modules/@angular/core";
-import { Subject } from "../../../../node_modules/rxjs";
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Customer } from "../../data-models/customer.model";
 
 @Injectable()

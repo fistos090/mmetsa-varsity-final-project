@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '../../../../../node_modules/@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { InputField } from '../input-field/input-field.model';
 
 @Component({
@@ -18,25 +18,44 @@ export class DobDatePickerComponent implements OnInit {
   isFocused = false;
   currentErrorMessage: string
   disabled = true
-  constructor() { }
+  showWarning = false;
+  minDate;
+  maxDate;
+  constructor() {
+    const date = new Date();
+    this.minDate = date.getFullYear() - 100 +'-01-01';
+
+    let month = date.getMonth().toString();
+        month = month.length < 2 ? month = '0'+ month : month;
+
+    this.maxDate = date.getFullYear() +'-'+ month +'-'+ date.getDate();
+  }
 
   ngOnInit(): void {
-    this.parentFormGroup.controls[this.data.pickerInput.name].valueChanges.subscribe((val) => {
-      // this.showErrors = false;
+    this.parentFormGroup.controls[this.data.pickerInput.name].valueChanges.subscribe((date) => {
+      this.showWarning = new Date().getFullYear() - new Date(date).getFullYear() < 16;
     })
   }
 
   datesFilter(date: Date) {
     const year = date.getFullYear();
     const currentyear = new Date().getFullYear();
-    return year < currentyear + 1;
+
+    let isValidDate = true;
+
+    if (year > currentyear + 1) {
+      isValidDate = false;
+    }
+
+
+    return isValidDate;
   }
 
   ngOnChanges(): void {
-    
+
   }
 
-  onFocus(){
+  onFocus() {
     this.isFocused = true;
   }
 
@@ -49,7 +68,7 @@ export class DobDatePickerComponent implements OnInit {
 
 }
 
-export interface DOBPickerModel{
+export interface DOBPickerModel {
   pickerInput: InputField;
 
 }

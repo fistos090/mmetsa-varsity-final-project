@@ -28,3 +28,15 @@
     width: 80%;
     display: inline-block;
 }
+
+.empty-list{
+    text-align: center;
+    width: 100%;
+    border: dotted 1px gray;
+    padding: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(163, 34, 124);
+}

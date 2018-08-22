@@ -1,9 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { HttpClient } from '../../../../../node_modules/@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UserService } from './user-service';
-import { Router } from '../../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { RegisterStepperService } from '../register-stepper.service';
 import { Customer } from '../../../data-models/customer.model';
 
@@ -24,7 +24,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     email: {
       required: 'Email is required field',
       pattern: 'Please enter a valid email address',
-      invalidEmailSurfix: 'Unkown email surfix'
+      invalidEmailDomain: 'Unkown email domain'
     },
     // username: {},
     password: {
@@ -100,7 +100,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
       // Validation.isValidEmailSurfix, 
-      email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
+      email: ['', [Validation.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
@@ -227,7 +227,7 @@ passwordStatus: string
 }
 const NAME_REGEXP = /^(?![ ]+$)[a-zA-Z0-9 ]+$/;
 const CELL_CODES = ['071','072','073','074','076','078','079','081','082','083','084','060','064','065'];
-const EMAIL_SURFIXS = ['gmail.com','yahoo.com'];
+const EMAIL_SURFIXS = ['gmail','yahoo','outlook'];
 
 export class Validation {
   static isValidName(control: AbstractControl) {
@@ -250,15 +250,25 @@ export class Validation {
     return { 'isValidCellCode': true };
   }
 
-  static isValidEmailSurfix(control: AbstractControl) {
+  static isValidEmailDomain(control: AbstractControl) {
+    let occurences = 0;
     if (control) {
       if (control.value) {
-        const surfix = control.value.substr(control.value.lastIndexOf('@')+1);
-        if ( EMAIL_SURFIXS.find( emailSurfix => emailSurfix === surfix) ) {
-          return null;
+        const domain = control.value.substr(control.value.lastIndexOf('@')+1);
+        if (domain) {
+          EMAIL_SURFIXS.forEach( (sur: string) => {
+            if (domain.indexOf(sur) > -1) {
+              occurences++;
+            }
+          });
         }
       }
     }
-    return { 'invalidEmailSurfix': true };
+
+    if (occurences < 2) {
+      return null;
+    }
+
+    return { 'invalidEmailDomain': true };
   }
 }

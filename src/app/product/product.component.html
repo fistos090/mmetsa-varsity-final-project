@@ -5,7 +5,7 @@
     <div class="info-section">
       <span id="product-title">{{product.productName}}</span>
       <span style="display: block;"><span id="label">CATEGORY :</span> {{product.category}}</span>
-      <span style="display: block;"><span id="label">PRICE :</span> R {{product.price}}</span>
+      <span style="display: block;"><span id="label">PRICE :</span> R {{product.price | number :'1.2-2'}}</span>
 
       <a >View details</a>
     </div>

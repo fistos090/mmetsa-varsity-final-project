@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { SpecialsPageComponent } from './specials-page/specials-page.component';
+import { UserManageProfileComponent } from './user-manage-profile/user-manage-profile';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'shopping-bascket',
     component: ShoppingBusketComponent
+  },
+  {
+    path: 'manage-profile',
+    component: UserManageProfileComponent
   }
 ];
 

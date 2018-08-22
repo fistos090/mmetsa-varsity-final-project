@@ -1,6 +1,6 @@
-import { Injectable } from "../../../../../node_modules/@angular/core";
+import { Injectable } from "@angular/core";
 import { LogonUser } from "../../../data-models/logon-user.model";
-import { BehaviorSubject } from "../../../../../node_modules/rxjs";
+import { BehaviorSubject } from "rxjs";
 
 
 @Injectable()

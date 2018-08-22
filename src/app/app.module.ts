@@ -32,6 +32,8 @@ import { InputFieldComponent } from './user-account/form-controls/input-field/in
 import { DropdownListComponent } from './user-account/form-controls/dropdown-list/dropdown-list.component';
 import { DobDatePickerComponent } from './user-account/form-controls/dob-date-picker/dob-date-picker.component';
 import { RadioGroupComponent } from './user-account/form-controls/radio-group/radio-group.component';
+import { UserManageProfileComponent } from './user-manage-profile/user-manage-profile';
+import { CustomerOrderComponent } from './user-manage-profile/customer-order/customer-order.component';
 
 
 
@@ -59,7 +61,9 @@ import { RadioGroupComponent } from './user-account/form-controls/radio-group/ra
     RadioGroupComponent,
     UserConfirmComponent,
     DropdownListComponent,
-    DobDatePickerComponent
+    DobDatePickerComponent,
+    UserManageProfileComponent,
+    CustomerOrderComponent
   ],
   imports: [
     BrowserModule,
