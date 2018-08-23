@@ -13,3 +13,4 @@ export const environment = {
  * because it will have performance impact when throw error
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// git config --global http.proxy http[s]://absmbnw:Mmetsa%40071@proxy-array.absa.co.za:80

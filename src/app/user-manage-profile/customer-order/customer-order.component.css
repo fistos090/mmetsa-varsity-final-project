@@ -1,31 +1,67 @@
 .user-manage-main{
     width: 93%;
-    border: solid 1px yellow;
+    /* border: solid 1px #888888; */
     margin: auto;
 }
 .order{
     height: 50px;
     width: 79%;
     border: solid 1px gray;
+    background-color: white;
+    box-shadow: 1px 1px 3px #888888;
 }
 .products-panel{
     width: 79%;
     height: 150px;
     padding: 30px 20px;
-    border: solid 1px red;
 }
 
 .details{
     height: inherit;
     width: 75%;
-    border: solid 1px brown;
     float: left;
+}
+
+.details ul{
+    width: 100%;
+    list-style-type: none;
+    height: inherit ;
+    padding: 0px;
+}
+
+.details ul li{
+    float: left;
+    width: 25%;
+    padding-left: 3%;
+    margin: 11px 0px;
+    
+    height: 25px;
+}
+.details ul li:first-child{
+    width: 10%;
+}
+.details ul li:nth-child(2){
+    width: 60%;
+}
+.details ul li:last-child{
+    margin: 0px;
+    border-right: solid #555 0.5px;
+    height: inherit;
+    padding: 11px 3%;
+}
+
+.details ul li:not(:last-child){
+    border-right: solid #555 0.5px;
 }
 
 .actions{
     height: inherit;
     width: 25%;
-    border: solid 1px blue;
+    padding-left: 1%;
     float: right;
-    bottom: 0px
+    bottom: 0px;
+    text-transform: uppercase;
+    color: rgb(179, 172, 172);
+    font-size: 12px;
+    text-decoration: underline
 }

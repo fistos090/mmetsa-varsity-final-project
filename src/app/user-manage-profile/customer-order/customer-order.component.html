@@ -1,12 +1,19 @@
 <div class="user-manage-main">
     <div class="order">
         <div class="details">
-            <span>{{cusOrder.id}}</span>
-            <span>{{cusOrder.custOrderDate}}</span>
-            <span>{{cusOrder.shippingCost}}</span>
+            <!-- <span></span>
             <span></span>
+            <span></span>
+            <span>hhh</span> -->
+            <ul>
+                <li>{{cusOrder.id}}</li>
+                <li>{{cusOrder.custOrderDate}}</li>
+                <li>R {{cusOrder.shippingCost | number :'1.2-2'}}</li>
+            </ul>
         </div>
-        <span class="actions"></span>
+        <span class="actions">
+            <span>Actions</span>
+        </span>
     </div>
     <!-- <div class="products-panel">
 
