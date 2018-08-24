@@ -1,11 +1,11 @@
 .user-manage-main{
-    width: 93%;
+    width: 96%;
     /* border: solid 1px #888888; */
     margin: auto;
 }
 .order{
     height: 50px;
-    width: 79%;
+    width: 100%;
     border: solid 1px gray;
     background-color: white;
     box-shadow: 1px 1px 3px #888888;

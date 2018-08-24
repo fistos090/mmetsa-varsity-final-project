@@ -34,6 +34,7 @@ import { DobDatePickerComponent } from './user-account/form-controls/dob-date-pi
 import { RadioGroupComponent } from './user-account/form-controls/radio-group/radio-group.component';
 import { UserManageProfileComponent } from './user-manage-profile/user-manage-profile';
 import { CustomerOrderComponent } from './user-manage-profile/customer-order/customer-order.component';
+import { CustomerProfileDetailsComponent } from './user-manage-profile/customer-profile-details/customer-profile-details-component';
 
 
 
@@ -63,7 +64,8 @@ import { CustomerOrderComponent } from './user-manage-profile/customer-order/cus
     DropdownListComponent,
     DobDatePickerComponent,
     UserManageProfileComponent,
-    CustomerOrderComponent
+    CustomerOrderComponent,
+    CustomerProfileDetailsComponent
   ],
   imports: [
     BrowserModule,

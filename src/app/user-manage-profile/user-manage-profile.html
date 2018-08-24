@@ -1,13 +1,39 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<div>
-    <h4>Current open: My shopping orders</h4>
-    <co-component></co-component>
-</div>
-<div>
-    <h4>History: Previous orders</h4>
-    <co-component></co-component>
+<br><br><br><br>
+<div class="wrapper">
+    <div class="side-bar-closed">
+        <span (click)="changeView(1)" [ngClass]="{'active': activeId === 1}">Orders</span>
+        <span (click)="changeView(2)" [ngClass]="{'active': activeId === 2}">Profile</span>
+        <span (click)="changeView(3)" [ngClass]="{'active': activeId === 3}">dfdsf</span>
+    </div>
+    <div *ngIf="activeId === 1" class="user-content">
+        <div>
+            <h4>Open orders :</h4>
+            <co-component></co-component>
+        </div>
+        <div>
+            <h4>Closed orders :</h4>
+            <co-component></co-component>
+        </div>
+    </div>
+
+    <div *ngIf="activeId === 2" class="user-content">
+        <cp-details-component 
+            [data]="{
+                label: 'Personal details'
+            }">
+        </cp-details-component>
+
+        <cp-details-component 
+            [data]="{
+                label: 'Account details'
+            }">
+        </cp-details-component>
+        <cp-details-component 
+            [data]="{
+                label: 'Passwor recovery details'
+            }">
+        </cp-details-component>
+
+    </div>
+
 </div>

@@ -1,0 +1,21 @@
+.spec-details{
+    height: 60px;
+    border: #888888 0.5px solid;
+    padding: 20px 15px;
+    
+}
+
+.spec-details label{
+    text-transform: uppercase;
+    color: #555555;
+}
+
+.spec-details #view-details-btn{
+    float: right;
+}
+
+.view-details{
+    min-height: 150px;
+    border: #888888 0.5px solid;
+    
+}

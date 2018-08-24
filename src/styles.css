@@ -5,8 +5,8 @@
 .logo{
     background-image: url(assets/sys_images/bakery-logo.JPG);
     background-repeat: no-repeat;
-    background-size: 160px 61px;
-    padding: 43px 80px;
+    background-size: 143px 62px;
+    padding: 42px 134px 3px 10px;
 }
 .logo:hover{cursor: pointer;}
 
