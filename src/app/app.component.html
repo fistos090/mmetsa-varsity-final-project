@@ -3,7 +3,7 @@
 <app-topnav-menu></app-topnav-menu>
 <!-- <div class="shop-area"> -->
     <!-- <app-user-account></app-user-account> -->
-    <div class="pages-area">
+    <div class="pages-area" [style.min-height]="appMinHeight">
         <router-outlet></router-outlet>
     </div>
     <div class="footer" [style.display]="status"></div>
@@ -13,3 +13,4 @@
             <app-instant-messaging (chatOpenEvent)="onChatOpen($event)">loading...</app-instant-messaging>
         </div>
     </div> -->
+{{appMinHeight}}

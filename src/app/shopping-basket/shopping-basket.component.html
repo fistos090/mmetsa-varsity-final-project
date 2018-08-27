@@ -1,7 +1,61 @@
-
-<br><br><br><br><br> 
+<!-- <br><br> 
 <p>
   shopping busket still under construction
 </p>
 <br><br>
-{{basketProducts | json}}
+{{basketProducts | json}} -->
+<br><br><br>
+<div class="shoping-cart">
+  <h3>My shopping basket</h3>
+  <div  *ngIf="basketProducts.length > 0">
+    <table border="1">
+      <thead>
+        <tr>
+          <td>Product info.</td>
+          <td>Quantity</td>
+          <td>Sub total (Rands)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let busketProduct of basketProducts">
+          <td>
+              <img height="40" src="../../assets/sys_images/cake-product.jpg" alt="">
+              <div style="display: inline-block;margin-left: 5px; height: 130px;">
+                <label for="" style="text-decoration: underline">Product description</label><br>
+                <span class="sub-title">Product name</span>: Banana<br>
+                <span class="sub-title">Product category</span>: Fruits<br>
+                <span class="sub-title">Product price</span>: R 12.54 per each
+              </div>
+
+          </td>
+          <td>{{busketProduct.quantity}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2">Order total</td>
+          <td>R 809.67</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="btn-section">
+        <button kendoButton (click)="checkout()">
+            <i class="fa fa-chevron-circle-right"> </i>
+            &nbsp; Checkout / Place order
+        </button> &nbsp;
+        <button kendoButton (click)="shopping()">
+            <i class="fa fa-cart-plus"> </i>
+            &nbsp; Continue with shopping
+        </button>
+    </div>
+  </div>
+  <div class="empty-list" *ngIf="basketProducts.length <= 0">
+    <div>
+      Your shopping basket is empty. Add product to your shopping busket.
+    </div>
+    <br>
+    <button kendoButton (click)="shopping()">
+      <i class="fa fa-cart-plus"> </i>
+      &nbsp; GO Shopping
+    </button>
+  </div>
+</div>

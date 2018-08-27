@@ -1,5 +1,7 @@
+import { ProductWrapper } from './../../data-models/product-wrapper-model';
 import { Component, Input } from "@angular/core";
 import { CustomerOrder } from "../../data-models/customer-order.model";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'co-component',
@@ -8,20 +10,54 @@ import { CustomerOrder } from "../../data-models/customer-order.model";
 })
 export class CustomerOrderComponent {
 
-    @Input() cusOrder: CustomerOrder = {
-        "custID": 1,
-        "custOrderDate": new Date(),
-        "custOrderTime": new Date().getTime(),
-        "shippingCost": 55.54,
-        "id": 1
-    };
+    @Input() cusOrder: CustomerOrder;
 
-    constructor(){
-        this.cusOrder.custID = 1
-        this.cusOrder.custOrderDate = new Date();
-        this.cusOrder.custOrderTime = new Date().getTime();
-        this.cusOrder.shippingCost = 55.54;
-        this.cusOrder.id = 1;
+    viewId = -1;
+    spinnerIsShowing = false;
+    orderProducts: ProductWrapper[];
+    results;
+
+    ps = [1,2,3]
+
+    constructor(private httpClient: HttpClient) {
+        // this.cusOrder.custID = 1
+        // this.cusOrder.custOrderDate = new Date();
+        // this.cusOrder.custOrderTime = new Date().getTime();
+        // this.cusOrder.shippingCost = 55.54;
+        // this.cusOrder.id = 1;
+    }
+
+    viewOrderDetails(orderId: number) {
+        this.viewId = this.viewId === 1 ? -1 : 1;
+        let subscription;
+
+        if (this.viewId === 1) {
+            this.spinnerIsShowing = true;
+            subscription = this.httpClient.get<ProductWrapper[]>('/BAKERY/getCustomerOrderProducts/' + orderId).subscribe(
+                (response) => {
+                    this.spinnerIsShowing = false;
+                    if (response) {
+                        this.orderProducts = response['orderProducts'];
+                        this.results = response;
+                    }
+                    if (subscription) {
+                        subscription.unsubscribe();
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                    if (subscription) {
+                        subscription.unsubscribe();
+                    }
+                }
+            );
+        } else {
+            this.orderProducts = undefined;
+            if (subscription) {
+                subscription.unsubscribe();
+            }
+        }
+
     }
 
 }

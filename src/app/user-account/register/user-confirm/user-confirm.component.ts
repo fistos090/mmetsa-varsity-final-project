@@ -18,6 +18,7 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
 
 
   @Input() data: Customer;
+  @Input() title: string;
   @Output() childEvent = new EventEmitter<{ tabId: number, email: string }>();
 
   dateDickerDate: any;
@@ -54,10 +55,10 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
 
           } else if (status === 'CONFLICT') {
 
-            this.openPopup(response['message']+' Continue to log in', 'Yes').subscribe(() => {
+            this.openPopup(response['message'] + ' Continue to log in', 'Yes').subscribe(() => {
               this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
             });
-            
+
           }
 
         }
@@ -74,7 +75,7 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
     const snackBarRef = this.snackBar.open(message, action);
 
     snackBarRef.onAction().subscribe(() => {
-      
+
     });
 
     snackBarRef.afterDismissed().subscribe(() => {
@@ -92,18 +93,29 @@ export class UserConfirmComponent implements OnInit, AfterViewInit {
   maskData(value: string): string {
     let temp = '';
     let counter = 0;
-    
-    for (let x = 0; x < value.length; x++) {
-      
-      if (counter === 0) {
-        temp += value.substr(x,1);
-      } else {
-        temp += '*';
-        
+
+    if (value.length > 0 && value.length < 3) {
+      switch (value.length) {
+        case 1:
+          temp = '*';
+          break;
+        case 2:
+          temp = '**';
+          break;
       }
-      
-      
-      if (counter === 2) counter = 0; else counter++;
+    } else {
+      for (let x = 0; x < value.length; x++) {
+
+        if (counter === 0) {
+          temp += value.substr(x, 1);
+        } else {
+          temp += '*';
+
+        }
+
+
+        if (counter === 2) counter = 0; else counter++;
+      }
     }
 
     return temp;

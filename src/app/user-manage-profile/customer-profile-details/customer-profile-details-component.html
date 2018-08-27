@@ -1,6 +1,22 @@
 <div class="spec-details">
-    <label for="">{{data.label}}</label> <span id="view-details-btn" (click)="viewDetails()">Button</span>
+    <label for="">{{data.label}}</label>
+    <span id="view-details-btn" (click)="viewDetails()">
+        <i *ngIf="!isDetailsOpen" class="fa fa-caret-down"></i>
+        <i *ngIf="isDetailsOpen" class="fa fa-caret-up"></i>
+        {{ !isDetailsOpen ? 'Show details' : 'Hide details'}}
+    </span>
 </div>
 <div class="view-details" *ngIf="isDetailsOpen">
-    gfgfgfgfg
+    <div class="user-details">
+        <div *ngFor="let detailsValue of viewDetailsValues">
+            <label for="">{{detailsValue.label}}</label>
+            <div>{{detailsValue.value}}</div>
+        </div>
+    </div>
+    <span class="btn">
+        <button kendoButton (click)="edit()">
+            <i class="fa fa-edit"> </i>
+            &nbsp; Edit details
+        </button>
+    </span>
 </div>

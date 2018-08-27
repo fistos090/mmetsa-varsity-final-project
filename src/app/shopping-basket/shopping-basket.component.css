@@ -1,0 +1,67 @@
+.shoping-cart{
+    width: 80%;
+    padding: 10px;
+}
+
+.empty-list button{
+    width: 263px;
+    height: 40px;
+}
+table{
+    width: 100%;
+    margin: auto;
+}
+ 
+table td{
+    padding: 5px;
+}
+
+thead td{
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+tbody tr{
+    height: 50px;
+}
+tbody td{
+    width: 25%;
+}
+tbody td:first-child{
+    width: 50%;
+}
+
+tbody td img{
+    height: 134px;
+    width: 100%;
+    width: 156px;
+    border: #888888 solid 0.5px;
+    padding: 5px;
+    float: left;
+}
+
+.sub-title{
+    width: 110px;
+    height: 10px;
+    font-size: 10px;
+    color: #888888;
+    text-transform: uppercase;
+    display: inline-block;
+
+}
+
+.btn-section{
+    padding: 10px 0px;
+}
+
+.btn-section button{
+    float: right;
+    width: 207px;
+    height: 36px;
+    
+}
+
+.btn-section button:last-child{
+    margin-right: 10px
+}

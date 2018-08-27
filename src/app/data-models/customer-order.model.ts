@@ -6,5 +6,5 @@ export class CustomerOrder{
     shippingCost: number;
     custOrderDate: Date;
     custOrderTime: number;
-    
+    orderStatus: string;
 }

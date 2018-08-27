@@ -1,21 +1,44 @@
+.user-details{
+    display: inline-block;
+    width: 60%;
+    padding-left: 10px;
+}
+
+.user-details label{
+    height: 10px;
+}
 .spec-details{
     height: 60px;
     border: #888888 0.5px solid;
-    padding: 20px 15px;
+    padding: 0px 15px;
     
 }
 
 .spec-details label{
     text-transform: uppercase;
     color: #555555;
+    text-decoration: underline;
+    margin: 20px 0px;
 }
 
 .spec-details #view-details-btn{
     float: right;
+    height: inherit;
+    border-left:#888888 0.5px dotted;
+    padding: 20px 5px;
+    width: 110px;
+}
+.spec-details #view-details-btn:hover{
+    cursor: pointer;
 }
 
 .view-details{
     min-height: 150px;
     border: #888888 0.5px solid;
+    padding: 5px;
     
+}
+
+.view-details .btn{
+    float: right;
 }

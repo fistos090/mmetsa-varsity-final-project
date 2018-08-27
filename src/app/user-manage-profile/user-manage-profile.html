@@ -1,39 +1,61 @@
 <br><br><br><br>
 <div class="wrapper">
     <div class="side-bar-closed">
-        <span (click)="changeView(1)" [ngClass]="{'active': activeId === 1}">Orders</span>
-        <span (click)="changeView(2)" [ngClass]="{'active': activeId === 2}">Profile</span>
-        <span (click)="changeView(3)" [ngClass]="{'active': activeId === 3}">dfdsf</span>
+        <span (click)="changeView(1)" [ngClass]="{'active': activeId === 1}">
+            <i class="fa fa-shopping-bag"> </i>
+            &nbsp; Orders
+        </span>
+        <span (click)="changeView(2)" [ngClass]="{'active': activeId === 2}">
+            <i class="fa fa-user"> </i>
+            &nbsp;View Profile
+        </span>
+        <span (click)="changeView(3)" [ngClass]="{'active': activeId === 3}">
+                <i class="fa fa-edit"> </i>
+                &nbsp;Edit Profile
+            </span>
     </div>
     <div *ngIf="activeId === 1" class="user-content">
         <div>
             <h4>Open orders :</h4>
-            <co-component></co-component>
+            <co-component *ngFor="let order of openOrders" [cusOrder]="order"></co-component>
         </div>
         <div>
             <h4>Closed orders :</h4>
-            <co-component></co-component>
+            <co-component *ngFor="let order of closedOrders" [cusOrder]="order"></co-component>
         </div>
     </div>
 
     <div *ngIf="activeId === 2" class="user-content">
         <cp-details-component 
-            [data]="{
-                label: 'Personal details'
-            }">
+            [data]="{label: 'Personal details'}"
+            [details]="{
+                detailsType: 'PD',
+                customer: customer
+            }"
+            >
         </cp-details-component>
 
         <cp-details-component 
-            [data]="{
-                label: 'Account details'
+            [data]="{label: 'Account Credentials'}"
+            [details]="{
+                detailsType: 'AC',
+                customer: customer
             }">
         </cp-details-component>
         <cp-details-component 
-            [data]="{
-                label: 'Passwor recovery details'
+            [data]="{label: 'Passwor recovery details'}"
+            [details]="{
+                detailsType: 'PRP',
+                customer: customer
             }">
         </cp-details-component>
 
+    </div>
+
+    <div *ngIf="activeId === 3" class="user-content" style="width: 60%;border: solid 0.5px #888888; padding: 5px;">
+        
+        <app-user-details *ngIf="registerActiveId === 1" [title]="'Update my profile details'" [data]="customer"></app-user-details>
+        <app-user-confirm *ngIf="registerActiveId === 2" [title]="'Update my profile: Confirm details'" [data]="stepData"></app-user-confirm>
     </div>
 
 </div>

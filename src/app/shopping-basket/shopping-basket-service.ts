@@ -22,7 +22,7 @@ export class ShoppingBascketService {
         }else{
             if(prod){
                 this.orderProducts.push(new OrderProduct({'productId': prod.id,'quantity': 1}));
-                // this.bascketProducts.push(prod);
+                this.bascketProducts.push(prod);
             }
         }
         

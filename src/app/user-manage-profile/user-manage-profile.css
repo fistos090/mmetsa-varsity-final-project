@@ -6,7 +6,7 @@
 .user-content{
     /* float: left; */
     display: inline-block;
-    width: 91%;
+    width: 85%;
     padding-bottom: 5px;
 
 }
@@ -17,38 +17,46 @@
     width: 160px;
     border: solid 1px #888888;
     min-height: 250px;
+    position: -webkit-sticky;
     position: sticky;
+    top: 70px;
     margin-right: 25px;
 }
 
 .side-bar-closed{
     float: left;
-    width: 7%;
+    width: 11%;
     border: solid 1px #888888;
     min-height: 250px;
     position: -webkit-sticky;
     position: sticky;
+    top: 70px;
     margin-right: 2%;
 }
 
 .side-bar-closed span{
-    height: 89px;
-    padding-top: 41px;
+    height: 42px;
+    padding-left: 12px;
+    line-height: 3;
     display: block;
-    margin: 0px 5px;
+    margin: 2px;
+    border: 0.5px solid #888888;
+    /* margin: 0px 5px; */
     
 }
 
 .side-bar-closed span:hover{
     cursor: pointer;
+    color: black;
     background-color: rgb(234, 168, 214);
 }
 
 .side-bar-closed span:not(:last-child){
-    border-bottom: 0.5px solid #888888;
+    
 }
 .active{
-    background-color: rgb(234, 168, 214);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 h4{
