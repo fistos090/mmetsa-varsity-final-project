@@ -5,13 +5,17 @@ import { OrderProduct } from '../data-models/bascket-product.model';
 
 @Injectable()
 export class ShoppingBascketService {
-    bascketProducts: Product[] = [];
+    actualProducts: Product[] = [];
     orderProducts: OrderProduct[] = [];
     // bascketProductsEventSource: BehaviorSubject<LineProduct> = new BehaviorSubject<LineProduct>([]);
     // bascketProductsEvent$ = this.bascketProductsEventSource.asObservable();
 
     getBascketProducts(): OrderProduct[] {
         return this.orderProducts;
+    }
+
+    getActualProducts(): Product[] {
+        return this.actualProducts;
     }
 
     addProduct(prod: Product): void {
@@ -22,7 +26,7 @@ export class ShoppingBascketService {
         }else{
             if(prod){
                 this.orderProducts.push(new OrderProduct({'productId': prod.id,'quantity': 1}));
-                this.bascketProducts.push(prod);
+                this.actualProducts.push(prod);
             }
         }
         

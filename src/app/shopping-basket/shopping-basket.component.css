@@ -1,6 +1,7 @@
 .shoping-cart{
     width: 80%;
     padding: 10px;
+    /* margin: auto; */
 }
 
 .empty-list button{
@@ -64,4 +65,41 @@ tbody td img{
 
 .btn-section button:last-child{
     margin-right: 10px
+}
+
+.quantity{
+    border-top: 0.5px solid;
+    border-bottom: 0.5px solid;
+    height: 32px;
+    text-align: center;
+    line-height: 2;
+}
+
+.quantity button{
+    width: 38px;
+}
+
+.quantity span{
+    margin: auto;
+    border: red solid 1px;
+}
+
+.quantity button:first-child{
+    float: left;
+}
+.quantity button:last-child{
+    float: right;
+}
+
+.hide-prod-btn{
+    float: right;
+    position: relative;
+    border-bottom: solid;
+    border-left: solid;
+    border-top: solid;
+    padding: 8px;
+}
+
+.hide-prod-btn:hover{
+    cursor: pointer;
 }
