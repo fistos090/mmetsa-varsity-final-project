@@ -35,6 +35,7 @@ import { RadioGroupComponent } from './user-account/form-controls/radio-group/ra
 import { UserManageProfileComponent } from './user-manage-profile/user-manage-profile';
 import { CustomerOrderComponent } from './user-manage-profile/customer-order/customer-order.component';
 import { CustomerProfileDetailsComponent } from './user-manage-profile/customer-profile-details/customer-profile-details-component';
+import { UtilService } from './services/utility-service';
 
 
 
@@ -80,7 +81,7 @@ import { CustomerProfileDetailsComponent } from './user-manage-profile/customer-
   entryComponents: [
     ServiceSpinnerComponent
   ],
-  providers: [HttpClient, ShoppingBascketService, SpinnerService, UserService],
+  providers: [HttpClient, ShoppingBascketService, SpinnerService, UserService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

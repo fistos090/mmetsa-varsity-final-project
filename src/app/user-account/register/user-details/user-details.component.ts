@@ -6,6 +6,8 @@ import { UserService } from './user-service';
 import { Router } from '@angular/router';
 import { RegisterStepperService } from '../register-stepper.service';
 import { Customer } from '../../../data-models/customer.model';
+import { UtilService } from '../../../services/utility-service';
+import { CustomValidations } from '../../../services/custom-validations';
 
 @Component({
   selector: 'app-user-details',
@@ -20,70 +22,20 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
   showErrors = false;
   regFormGroup: FormGroup;
-  formErrors = {
-    email: {
-      required: 'Email is required field',
-      pattern: 'Please enter a valid email address',
-      invalidEmailDomain: 'Unkown email domain'
-    },
-    // username: {},
-    password: {
-      required: 'Password is required field',
-      minlength: 'Password must be a minimun of 7 characters long'
-    },
-    confirmPassword: {
-      required: 'Confirm password is required',
-      minlength: 'Confirm password must be a minimun of 7 characters long',
-      notMatching: 'Confirm password is not the same as password'
-    },
-    firstname: {
-      required: 'First name is required',
-      pattern: 'First name is invalid'
-    },
-    lastname: {
-      required: 'Last name is required',
-      pattern: 'Last name is invalid'
-    },
-    cellphonNumber: {
-      required: 'Cellphone number is required',
-      minlength: 'Cellphone number must be at least 10 digit long',
-      pattern: 'Cell number must be digits only',
-      isValidCellCode: 'Unkown South African cell code'
-    },
-    securityQuestuion: {
-      required: 'Provide question for the answer provided',
-      pattern: 'Question can be numbers or letters'
-    },
-    answer: {
-      required: 'Provide answer to the security question provided',
-      pattern: 'Answer can be numbers or letters'
-    },
-    gender: {
-      required: 'Gender is required field'
-    },
-    dateOfBirth: {
-      required: 'Date of birth is required'
+  formErrors: any;
+  formControlErrorMessage: any;
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private httpClient: HttpClient, 
+    public util: UtilService,
+    private logonUserService: UserService, 
+    private router: Router, 
+    private stepper: RegisterStepperService) {
+
+      this.formErrors = this.util.getCustomerFormErrorMessage();
+      this.formControlErrorMessage = util.getFormControlsProperties();
     }
-  }
-
-  formControlErrorMessage = {
-    email: '',
-    // username: '',
-    firstname: '',
-    lastname: '',
-    password: '',
-    confirmPassword: '',
-    cellphonNumber: '',
-    securityQuestuion: '',
-    answer: '',
-    gender: '',
-    dateOfBirth: '',
-
-    showErrors: false
-  }
-
-  constructor(private formBuilder: FormBuilder, private httpClient: HttpClient,
-    private logonUserService: UserService, private router: Router, private stepper: RegisterStepperService) { }
 
   validatePassword() {
     return (control: AbstractControl) => {
@@ -100,11 +52,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
       // Validation.isValidEmailSurfix, 
-      email: ['', [Validation.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
+      email: ['', [CustomValidations.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
-      cellphonNumber: ['', [Validation.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
+      cellphonNumber: ['', [CustomValidations.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       securityQuestuion: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
@@ -225,50 +177,4 @@ passwordStatus: string
   }
 
 }
-const NAME_REGEXP = /^(?![ ]+$)[a-zA-Z0-9 ]+$/;
-const CELL_CODES = ['071','072','073','074','076','078','079','081','082','083','084','060','064','065'];
-const EMAIL_SURFIXS = ['gmail','yahoo','outlook'];
 
-export class Validation {
-  static isValidName(control: AbstractControl) {
-    if ((!NAME_REGEXP.test(control.value))) {
-      return { 'invalidName': true };
-    }
-    return null;
-  }
-
-  static isValidCellCode(control: AbstractControl) {
-      if (control) {
-        if (control.value) {
-          const code = control.value.substr(0,3);
-          if ( CELL_CODES.find( cellCode => cellCode === code)  ) {
-            return null;
-          }
-        }
-      }
-
-    return { 'isValidCellCode': true };
-  }
-
-  static isValidEmailDomain(control: AbstractControl) {
-    let occurences = 0;
-    if (control) {
-      if (control.value) {
-        const domain = control.value.substr(control.value.lastIndexOf('@')+1);
-        if (domain) {
-          EMAIL_SURFIXS.forEach( (sur: string) => {
-            if (domain.indexOf(sur) > -1) {
-              occurences++;
-            }
-          });
-        }
-      }
-    }
-
-    if (occurences < 2) {
-      return null;
-    }
-
-    return { 'invalidEmailDomain': true };
-  }
-}

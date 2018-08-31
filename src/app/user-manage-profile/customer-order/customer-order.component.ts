@@ -2,6 +2,7 @@ import { ProductWrapper } from './../../data-models/product-wrapper-model';
 import { Component, Input } from "@angular/core";
 import { CustomerOrder } from "../../data-models/customer-order.model";
 import { HttpClient } from "@angular/common/http";
+import { UtilService } from '../../services/utility-service';
 
 @Component({
     selector: 'co-component',
@@ -19,12 +20,13 @@ export class CustomerOrderComponent {
 
     ps = [1,2,3]
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, public util: UtilService) {
         // this.cusOrder.custID = 1
         // this.cusOrder.custOrderDate = new Date();
         // this.cusOrder.custOrderTime = new Date().getTime();
         // this.cusOrder.shippingCost = 55.54;
         // this.cusOrder.id = 1;
+        // this.util.formatDateAndTime2();
     }
 
     viewOrderDetails(orderId: number) {

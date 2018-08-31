@@ -25,7 +25,7 @@ export class DobDatePickerComponent implements OnInit {
     const date = new Date();
     this.minDate = date.getFullYear() - 100 +'-01-01';
 
-    let month = date.getMonth().toString();
+    let month = (date.getMonth() + 1).toString();
         month = month.length < 2 ? month = '0'+ month : month;
 
     this.maxDate = date.getFullYear() +'-'+ month +'-'+ date.getDate();

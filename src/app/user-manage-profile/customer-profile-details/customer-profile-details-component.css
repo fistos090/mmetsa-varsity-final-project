@@ -39,6 +39,25 @@
     
 }
 
-.view-details .btn{
+.edit-details{
+    min-height: 150px;
+    border: #888888 0.5px solid;
+    padding: 5px;
+}
+
+.edit-details-form-area{
+    border: solid 0.5px #888888;
+    padding: 10px;
+    margin-left: 10px;
+    width: 40%;
+    display: inline-block;
+}
+
+.btn{
     float: right;
+}
+
+h6{
+    margin-left: 24px;
+    text-transform: initial;
 }

@@ -6,7 +6,8 @@
         {{ !isDetailsOpen ? 'Show details' : 'Hide details'}}
     </span>
 </div>
-<div class="view-details" *ngIf="isDetailsOpen">
+
+<div id="one" class="view-details" *ngIf="isDetailsOpen && !editDetails">
     <div class="user-details">
         <div *ngFor="let detailsValue of viewDetailsValues">
             <label for="">{{detailsValue.label}}</label>
@@ -17,6 +18,172 @@
         <button kendoButton (click)="edit()">
             <i class="fa fa-edit"> </i>
             &nbsp; Edit details
+        </button>
+    </span>
+</div>
+
+<div id="two" class="edit-details" *ngIf="editDetails">
+    <div class="edit-details-form-area">
+        <h4><span class="fa {{details.detailsType === 'PD' ? 'fa-user-circle-o' : 'fa fa-lock'}}"></span> {{title}}</h4>
+        <h6>Update user account {{title}}</h6>
+        <hr>
+        <form [formGroup]="updateFormGroup">
+
+
+            <div *ngIf="details.detailsType === 'PD'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                        label: 'First name',
+                        placeholder : 'e.g. Mmetsa Julliet',
+                        type: 'text',
+                        name: 'firstname',
+                        maxLength: 30
+                        }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Last name',
+                                placeholder : 'e.g. Moloto',
+                                type: 'text',
+                                name: 'lastname',
+                                maxLength: 40
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Cellphone number',
+                                placeholder : 'e.g.  0721433207',
+                                type: 'text',
+                                name: 'cellphonNumber',
+                                maxLength: 10
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-radio-group [parentFormGroup]="updateFormGroup" [showErrors]="showErrors" [formControlErrorMessage]="formControlErrorMessage"
+                            [data]="{
+                                name: 'gender',
+                                label: 'Gender',
+                                options: [{name: 'female', label: 'Female'},{name: 'male', label: 'Male'}]
+                            }">
+                        </app-radio-group>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-dob-date-picker [parentFormGroup]="updateFormGroup" [showErrors]="showErrors" [formControlErrorMessage]="formControlErrorMessage"
+                            [data]="{
+                                pickerInput: {
+                                    label: 'Date Of birth',
+                                    placeholder : 'e.g.  07/13/1993',
+                                    type: 'text',
+                                    name: 'dateOfBirth',
+                                    maxLength: 10
+                                }
+                            }">
+
+                        </app-dob-date-picker>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div *ngIf="details.detailsType == 'AC'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Email address',
+                                placeholder : 'e.g. user@mm2.co.za',
+                                type: 'email',
+                                name: 'email',
+                                maxLength: 40
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Password',
+                                placeholder : 'e.g. User@123 : This is just an example',
+                                type: 'password',
+                                name: 'password',
+                                maxLength: 50
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                    label: 'Confirm password',
+                                    placeholder : 'User@123 : This is just an example',
+                                    type: 'password',
+                                    name: 'confirmPassword',
+                                    maxLength: 50
+                                    }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div *ngIf="details.detailsType == 'PRP'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Security question (optional)',
+                                placeholder : 'e.g. What is my first pet name',
+                                type: 'text',
+                                name: 'securityQuestuion',
+                                maxLength: 100
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <app-input-field [data]="{
+                                label: 'Security answer',
+                                placeholder : 'e.g. Zola',
+                                type: 'password',
+                                name: 'answer',
+                                maxLength: 100
+                                }" [showErrors]="showErrors" [parentFormGroup]="updateFormGroup" [formControlErrorMessage]="formControlErrorMessage">
+                        </app-input-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- <div class="col-md-6"></div>-->
+                <div class="col-md-12">
+                    <button kendoButton style="width: 100%;margin-top: 5px;" (click)="update()"> <span class="fa fa-"></span>
+                        Update details</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <span class="btn">
+        <button kendoButton (click)="viewDetails(true)">
+            <i class="fa fa-arrow-circle-o-left"> </i>
+            &nbsp; Back to details
         </button>
     </span>
 </div>
