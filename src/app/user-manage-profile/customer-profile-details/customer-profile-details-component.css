@@ -48,8 +48,8 @@
 .edit-details-form-area{
     border: solid 0.5px #888888;
     padding: 10px;
-    margin-left: 10px;
-    width: 40%;
+    width: 96%;
+    margin: 2%;
     display: inline-block;
 }
 

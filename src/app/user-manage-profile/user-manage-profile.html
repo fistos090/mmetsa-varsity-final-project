@@ -30,7 +30,7 @@
             [data]="{label: 'Personal details'}"
             [details]="{
                 detailsType: 'PD',
-                customer: customer
+                'userLogon': logonUser
             }"
             >
         </cp-details-component>
@@ -39,14 +39,14 @@
             [data]="{label: 'Account Credentials'}"
             [details]="{
                 detailsType: 'AC',
-                customer: customer
+                'userLogon': logonUser
             }">
         </cp-details-component>
         <cp-details-component 
             [data]="{label: 'Passwor recovery details'}"
             [details]="{
                 detailsType: 'PRP',
-                customer: customer
+                'userLogon': logonUser
             }">
         </cp-details-component>
 
