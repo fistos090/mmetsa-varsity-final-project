@@ -188,7 +188,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="">Password</label><br>
-                        <span>{{details.userLogon.userIn['password']}}</span>
+                        <span>{{maskData(details.userLogon.userIn['password'])}}</span>
                     </div>
                 </div>
 
@@ -233,7 +233,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">answer</label><br>
-                            <span>{{details.userLogon.userIn['answer']}}</span>
+                            <span>maskData({{details.userLogon.userIn['answer']}})</span>
                         </div>
                     </div>
     
