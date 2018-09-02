@@ -78,6 +78,10 @@ export class UtilService {
         return moment(date).format('DD MMMM YYYY');
     }
 
+    formatDate1(date: string) {
+        return moment(date).format('DD/MMMM/YYYY');
+    }
+
     getCustomerFormErrorMessage(): any {
         return this.formErrors;
     }

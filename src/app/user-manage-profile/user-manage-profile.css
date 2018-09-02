@@ -51,9 +51,6 @@
     background-color: rgb(234, 168, 214);
 }
 
-.side-bar-closed span:not(:last-child){
-    
-}
 .active{
     color: white;
     background-color: rgba(0, 0, 0, 0.7);

@@ -7,6 +7,7 @@ import { CustomValidations } from "../../services/custom-validations";
 import { SpinnerService } from "../../service-spinner/spinner-service";
 import { HttpClient } from "@angular/common/http";
 import { LogonUser } from "../../data-models/logon-user.model";
+import { UserService } from "../../user-account/register/user-details/user-service";
 
 @Component({
     selector: 'cp-details-component',
@@ -28,43 +29,36 @@ export class CustomerProfileDetailsComponent implements OnInit {
     formControlErrorMessage: any;
     title: string;
     showErrors = false;
+    message = '';
 
-    constructor(public util: UtilService, private formBuilder: FormBuilder, private spinner: SpinnerService, private httpClient: HttpClient) {
+    requestStatusNumber = 0;
+
+    constructor(public util: UtilService, private formBuilder: FormBuilder, private spinner: SpinnerService, private httpClient: HttpClient,
+                private logonUserService: UserService) {
         this.formErrors = this.util.getCustomerFormErrorMessage();
         this.formControlErrorMessage = util.getFormControlsProperties();
 
         this.updateFormGroup = this.formBuilder.group({
-            id:[],
-            firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
-            lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
-            gender: ['', [Validators.required]],
-            dateOfBirth: ['', [Validators.required]],
-            cellphonNumber: ['', [CustomValidations.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
+            id: [],
+            firstname: [''],
+            lastname: [''],
+            gender: [''],
+            dateOfBirth: [''],
+            cellphonNumber: [''],
 
-            email: ['', [CustomValidations.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
-            password: ['', [Validators.required, Validators.minLength(7)]],
+            email: [''],
+            password: [''],
 
-            securityQuestuion: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
-            answer: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]]
+            securityQuestuion: [''],
+            answer: ['']
         });
 
-        this.updateFormGroup.addControl('confirmPassword', new FormControl('', {
-            validators: [Validators.required, this.validatePassword()],
-            updateOn: 'change'
-        }));
+
 
         this.updateFormGroup.valueChanges.subscribe(() => {
             this.onSubmit();
         });
 
-        this.updateFormGroup.controls['password'].valueChanges.subscribe((controlValue: string) => {
-            const control = this.updateFormGroup.controls['confirmPassword'];
-
-            if (control.value) {
-                control.updateValueAndValidity();
-            }
-            //this.passwordStatus = this.testStrongness(controlValue);
-        });
     }
 
     ngOnInit(): void {
@@ -72,6 +66,24 @@ export class CustomerProfileDetailsComponent implements OnInit {
         if (this.details) {
             switch (this.details.detailsType) {
                 case 'PD':
+
+                    this.updateFormGroup.controls['firstname'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+                    this.updateFormGroup.controls['firstname'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['lastname'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+                    this.updateFormGroup.controls['lastname'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['gender'].setValidators([Validators.required]);
+                    this.updateFormGroup.controls['gender'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['dateOfBirth'].setValidators([Validators.required]);
+                    this.updateFormGroup.controls['dateOfBirth'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['cellphonNumber'].setValidators([CustomValidations.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]);
+                    this.updateFormGroup.controls['cellphonNumber'].updateValueAndValidity();
+
+
+
                     this.title = 'Personal details';
                     if (this.details.userLogon.userIn) {
                         this.viewDetailsValues = [
@@ -106,6 +118,27 @@ export class CustomerProfileDetailsComponent implements OnInit {
                     }
                     break;
                 case 'AC':
+
+                    this.updateFormGroup.controls['email'].setValidators([CustomValidations.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]);
+                    this.updateFormGroup.controls['email'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['password'].setValidators([Validators.required, Validators.minLength(7)]);
+                    this.updateFormGroup.controls['password'].updateValueAndValidity();
+
+                    this.updateFormGroup.addControl('confirmPassword', new FormControl('', {
+                        validators: [Validators.required, this.validatePassword()],
+                        updateOn: 'change'
+                    }));
+
+                    this.updateFormGroup.controls['password'].valueChanges.subscribe((controlValue: string) => {
+                        const control = this.updateFormGroup.controls['confirmPassword'];
+
+                        if (control.value) {
+                            control.updateValueAndValidity();
+                        }
+                        //this.passwordStatus = this.testStrongness(controlValue);
+                    });
+
                     this.title = 'Credentials details';
                     if (this.details.userLogon.userIn) {
                         this.viewDetailsValues = [
@@ -126,6 +159,13 @@ export class CustomerProfileDetailsComponent implements OnInit {
 
                     break;
                 case 'PRP':
+
+                    this.updateFormGroup.controls['securityQuestuion'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+                    this.updateFormGroup.controls['securityQuestuion'].updateValueAndValidity();
+
+                    this.updateFormGroup.controls['answer'].setValidators([Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]);
+                    this.updateFormGroup.controls['answer'].updateValueAndValidity();
+
                     this.title = 'Recovery details';
                     if (this.details.userLogon.userIn) {
                         this.viewDetailsValues = [
@@ -184,10 +224,10 @@ export class CustomerProfileDetailsComponent implements OnInit {
         this.showErrors = true;
         this.onSubmit();
 
-        
+
         if (this.updateFormGroup.valid) {
 
-            const customer = { 
+            const customer = {
                 id: this.updateFormGroup.get('id').value || this.details.userLogon.userIn.id,
                 firstname: this.updateFormGroup.get('firstname').value || this.details.userLogon.userIn.firstname,
                 lastname: this.updateFormGroup.get('lastname').value || this.details.userLogon.userIn.lastname,
@@ -195,17 +235,16 @@ export class CustomerProfileDetailsComponent implements OnInit {
                 password: this.updateFormGroup.get('password').value || this.details.userLogon.userIn.password,
                 cellphonNumber: this.updateFormGroup.get('cellphonNumber').value || this.details.userLogon.userIn.cellphonNumber,
                 gender: this.updateFormGroup.get('gender').value || this.details.userLogon.userIn.gender,
-                dateOfBirth: this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth,
+                dateOfBirth: this.util.formatDateAndTime(this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth),
                 securityQuestuion: this.updateFormGroup.get('securityQuestuion').value || this.details.userLogon.userIn.securityQuestuion,
                 answer: this.updateFormGroup.get('answer').value || this.details.userLogon.userIn.answer
-             }
+            }
 
             this.spinner.showSpinner();
             this.httpClient.post('/BAKERY/customer/updateProfile/' + this.details.userLogon.sessionID, customer).subscribe(
                 (response) => {
                     this.spinner.hideSpinner();
                     if (response) {
-                        alert(response['message']);
                         const status = String(response['status']);
 
                         if (status === 'FOUND') {
@@ -213,13 +252,20 @@ export class CustomerProfileDetailsComponent implements OnInit {
                             // this.logonUserService.setLogonUser(response['auto_logon']);
                             // this.openPopup(response['message'], 'OK').subscribe(() => {
                             //   this.router.navigate(['home']);
+                            //this.util.formatDateAndTime(this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth)
                             // });
+                            this.requestStatusNumber = 1;
+                            this.message = response['message'];
+                            this.details.userLogon.userIn = response['userIn'];
+                            this.logonUserService.setLogonUser(response['userIn']);
 
                         } else if (status === 'NOT_FOUND') {
 
                             // this.openPopup(response['message'] + ' Continue to log in', 'Yes').subscribe(() => {
                             //   this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
                             // });
+                            this.requestStatusNumber = 2;
+                            this.message = response['message'];
 
                         }
 
@@ -227,6 +273,7 @@ export class CustomerProfileDetailsComponent implements OnInit {
 
                 },
                 (error) => {
+                    this.requestStatusNumber = 2;
                     console.log(error);
                     this.spinner.hideSpinner();
 
@@ -275,7 +322,7 @@ export class CustomerProfileDetailsComponent implements OnInit {
     }
 
     edit(): void {
-
+        this.requestStatusNumber = 0;
         $("#one" + this.details.detailsType).fadeOut(700, () => {
             this.editDetails = true;
         });

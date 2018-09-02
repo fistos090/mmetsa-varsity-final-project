@@ -37,19 +37,19 @@ export class DobDatePickerComponent implements OnInit {
     })
   }
 
-  datesFilter(date: Date) {
-    const year = date.getFullYear();
-    const currentyear = new Date().getFullYear();
+  // datesFilter(date: Date) {
+  //   const year = date.getFullYear();
+  //   const currentyear = new Date().getFullYear();
 
-    let isValidDate = true;
+  //   let isValidDate = true;
 
-    if (year > currentyear + 1) {
-      isValidDate = false;
-    }
+  //   if (year > currentyear + 1) {
+  //     isValidDate = false;
+  //   }
 
 
-    return isValidDate;
-  }
+  //   return isValidDate;
+  // }
 
   ngOnChanges(): void {
 

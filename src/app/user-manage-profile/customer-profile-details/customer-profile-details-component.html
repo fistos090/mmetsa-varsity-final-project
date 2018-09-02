@@ -36,7 +36,7 @@
         <form [formGroup]="updateFormGroup">
 
 
-            <div *ngIf="details.detailsType === 'PD'">
+            <div *ngIf="details.detailsType === 'PD' && requestStatusNumber === 0">
                 <div class="row">
                     <div class="col-md-6">
                         <app-input-field [data]="{
@@ -101,8 +101,43 @@
                 </div>
             </div>
 
+            <div *ngIf="details.detailsType === 'PD' && requestStatusNumber === 1">
+
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+                <h4>New details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">First name</label><br>
+                        <span>{{details.userLogon.userIn['firstname']}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Last name</label><br>
+                        <span>{{details.userLogon.userIn['lastname']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Cellphone number</label><br>
+                        <span>{{details.userLogon.userIn['cellphonNumber']}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Gender</label><br>
+                        <span>{{details.userLogon.userIn['gender']}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Date of birth</label><br>
+                        <span>{{details.userLogon.userIn['dateOfBirth']}}</span>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+
             <!-- 2 -->
-            <div *ngIf="details.detailsType == 'AC'">
+            <div *ngIf="details.detailsType == 'AC' && requestStatusNumber === 0">
                 <div class="row">
                     <div class="col-md-12">
                         <app-input-field [data]="{
@@ -140,8 +175,27 @@
                 </div>
             </div>
 
+            <div *ngIf="details.detailsType === 'AC' && requestStatusNumber === 1">
+
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+                <h4>New details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Email</label><br>
+                        <span>{{details.userLogon.userIn['email']}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Password</label><br>
+                        <span>{{details.userLogon.userIn['password']}}</span>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- 3 -->
-            <div *ngIf="details.detailsType == 'PRP'">
+            <div *ngIf="details.detailsType == 'PRP' && requestStatusNumber === 0">
                 <div class="row">
                     <div class="col-md-6">
                         <app-input-field [data]="{
@@ -166,9 +220,28 @@
                 </div>
             </div>
 
+            <div *ngIf="details.detailsType === 'PRP' && requestStatusNumber === 1">
+
+                    <div class="alert alert-success">
+                        {{message}}
+                    </div>
+                    <h4>New details</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Security question</label><br>
+                            <span>{{details.userLogon.userIn['securityQuestuion']}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">answer</label><br>
+                            <span>{{details.userLogon.userIn['answer']}}</span>
+                        </div>
+                    </div>
+    
+                </div>
+
             <div class="row">
                 <div class="col-md-6"></div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="requestStatusNumber === 0"> 
                     <button kendoButton style="width: 100%;margin-top: 10px;" (click)="update()">
                         <span class="fa fa-"></span> Update details
                     </button>
