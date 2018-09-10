@@ -52,7 +52,7 @@ import { UtilService } from './services/utility-service';
     TabsMenuComponent,
     TabPanelComponent,
     LoginDetailsComponent,
-    InputFieldComponent,
+    
     BakeryLogoComponent,
     ProductComponent,
     CategoryPageComponent,
@@ -62,8 +62,11 @@ import { UtilService } from './services/utility-service';
     ServiceSpinnerComponent,
     RadioGroupComponent,
     UserConfirmComponent,
+
     DropdownListComponent,
     DobDatePickerComponent,
+    InputFieldComponent,
+    
     UserManageProfileComponent,
     CustomerOrderComponent,
     CustomerProfileDetailsComponent
@@ -75,7 +78,9 @@ import { UtilService } from './services/utility-service';
     AppAngularMaterialModule,
     HttpClientModule,
     FormsModule, 
-    ReactiveFormsModule, InputsModule, ButtonsModule
+    ReactiveFormsModule, 
+    InputsModule,
+    ButtonsModule
 
   ],
   entryComponents: [

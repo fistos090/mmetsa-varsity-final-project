@@ -24,6 +24,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   regFormGroup: FormGroup;
   formErrors: any;
   formControlErrorMessage: any;
+  passwordStatus: string
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -37,24 +38,13 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
       this.formControlErrorMessage = util.getFormControlsProperties();
     }
 
-  validatePassword() {
-    return (control: AbstractControl) => {
-      const confirmPassword = control.value;
-      const password = this.regFormGroup.controls['password'].value;
-
-      if (confirmPassword !== password) {
-        return { notMatching: false };
-      }
-
-    }
-  }
 
   ngOnInit() {
     this.regFormGroup = this.formBuilder.group({
       // Validation.isValidEmailSurfix, 
       email: ['', [CustomValidations.isValidEmailDomain, Validators.required, Validators.maxLength(50), Validators.pattern(/^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
-      firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
-      lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z0-9 ]+$/)]],
+      firstname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z ]+$/)]],
+      lastname: ['', [Validators.required, Validators.pattern(/^(?![ ]+$)[a-zA-Z ]+$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
       cellphonNumber: ['', [CustomValidations.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]],
       gender: ['', [Validators.required]],
@@ -96,7 +86,19 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     this.regFormGroup.valueChanges.subscribe(() => { this.onSubmit() });
 
   }
-passwordStatus: string
+
+  validatePassword() {
+    return (control: AbstractControl) => {
+      const confirmPassword = control.value;
+      const password = this.regFormGroup.controls['password'].value;
+
+      if (confirmPassword !== password) {
+        return { notMatching: false };
+      }
+
+    }
+  }
+
   testStrongness(controlValue: string): string {
     
     const strongness = ['Weak','Medium','Strong']
