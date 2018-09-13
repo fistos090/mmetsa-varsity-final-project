@@ -17,9 +17,10 @@ export class ProductComponent implements OnInit {
   constructor(public bascket: ShoppingBascketService) { }
 
   ngOnInit() {
+    this.productImage = '../../assets/sys_images/cake-product.jpg';
     if(this.productWrapper){
       this.product = this.productWrapper.product;
-      this.productImage = this.productWrapper.productImage;
+      this.productImage = this.productWrapper.productImage != 'imageAdditonalInfo,ZWdkZmc=' ? this.productWrapper.productImage : '../../assets/sys_images/cake-product.jpg';
     }
 
     if (!this.product) {
