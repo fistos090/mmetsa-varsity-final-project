@@ -39,7 +39,7 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(){
-    this.bascket.addProduct(this.product);
+    this.bascket.addProduct(this.productWrapper);
   }
 
 }

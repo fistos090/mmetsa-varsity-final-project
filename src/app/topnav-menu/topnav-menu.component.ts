@@ -7,6 +7,7 @@ import { ShoppingBascketService } from '../shopping-basket/shopping-basket-servi
 import { LogonUser } from '../data-models/logon-user.model';
 import { SpinnerService } from '../service-spinner/spinner-service';
 import { UserService } from '../user-account/register/user-details/user-service';
+import { MatDialog } from '@angular/material';
 
 // declare var jquery:any;
 // declare var $ :any;
@@ -25,11 +26,11 @@ export class TopnavMenuComponent implements OnInit {
   activeItem: number;
   user: LogonUser;
   isUserLogon = false;
-  itemThreeTitle = 'Register / Login';
+  itemThreeTitle = '';
   pointerEvents: string;
 
   constructor(private router: Router, public bascket: ShoppingBascketService, private spinner: SpinnerService,
-    private logonUserService: UserService, private httpClient: HttpClient) {
+    private logonUserService: UserService, private httpClient: HttpClient, public dialog: MatDialog) {
     // this.bascket.bascketProducts
 
     this.logonUserService.logonUserEventSource$.subscribe((user: LogonUser) => {
@@ -58,12 +59,17 @@ export class TopnavMenuComponent implements OnInit {
         this.router.navigate(['specials']);
         break;
       case 3:
-        if (!this.isUserLogon) {
-          this.router.navigate(['user-account']);
-        }
+        // if (!this.isUserLogon) {
+        //   // this.router.navigate(['user-account']);
+        // }
         break;
       case 4:
-        this.router.navigate(['shopping-bascket']);
+        if (this.isUserLogon) {
+          this.router.navigate(['shopping-bascket']);
+        } else {
+          this.router.navigate(['user-account/1']);
+          this.logonUserService.setRedirectData({toUrl: 'shopping-bascket', fromUrl: this.router.url});
+        }
         break;
       case 7:
         this.router.navigate(['home']);

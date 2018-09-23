@@ -1,3 +1,20 @@
-<p>
-  dropdown-list works!
-</p>
+<div [formGroup]="parentFormGroup" [ngClass]="{
+  'invalid': showErrors && parentFormGroup.controls[data.name].invalid,
+  'control-dirty': parentFormGroup.controls[data.name].valid && !isFocused && parentFormGroup.controls[this.data.name].dirty
+}">
+  <!-- <kendo-textbox-container floatingLabel="{{data.label}}"> -->
+  <label [for]="data.name">{{data.label}}</label>
+  <select 
+  name="" id="" 
+  [formControlName]="data.name"
+  (focusout)="onFocusOut()" (focus)="onFocus()">
+    <option value="" selected="true">{{data.placeholder}}</option>
+    <option *ngFor="let option of data.options" [value]="option.value">{{option.label}}</option>
+  </select>
+  <!-- <input autocomplete="off" [type]="data.type" [maxlength]="data.maxLength" [placeholder]="data.placeholder"
+    [formControlName]="data.name"  /> -->
+  <!-- </kendo-textbox-container> -->
+  <div *ngIf=" showErrors && parentFormGroup.controls[data.name].invalid ">
+    {{formControlErrorMessage[data.name]}}
+  </div>
+</div>

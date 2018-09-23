@@ -4,10 +4,26 @@
 </p>
 <br><br>
 {{basketProducts | json}} -->
-<br><br><br>
-<div class="shoping-cart">
+<!-- <br><br><br> -->
+<div class="container-fluid navigator">
+  <ul>
+    <li [style.background-color]="activeNavID === 0 ? 'rgb(201, 194, 199)' : ''">
+      <span class="fa fa-check-circle" *ngIf="activeNavID > 0"></span> Shopping basket
+    </li>
+    <li [style.background-color]="activeNavID === 1 ? 'rgb(201, 194, 199)' : ''">
+      <span class="fa fa-check-circle" *ngIf="activeNavID > 1"></span> Delivery address
+    </li>
+    <li [style.background-color]="activeNavID === 2 ? 'rgb(201, 194, 199)' : ''">
+      <span class="fa fa-check-circle" *ngIf="activeNavID > 2"></span> Payment method
+    </li>
+    <li [style.background-color]="activeNavID === 3 ? 'rgb(201, 194, 199)' : ''">
+      <span class="fa fa-check-circle" *ngIf="activeNavID > 3"></span> Finalize Order
+    </li>
+  </ul>
+</div>
+<div *ngIf="activeNavID === 0" class="shoping-cart container">
   <h3>My shopping basket</h3>
-  <div  *ngIf="basketProducts.length > 0">
+  <div *ngIf="basketProducts.length > 0">
     <table border="1">
       <thead>
         <tr>
@@ -19,16 +35,18 @@
       <tbody>
         <tr *ngFor="let busketProduct of basketProducts; let i = index">
           <td>
-              <img height="40" src="../../assets/sys_images/cake-product.jpg" alt="">
-              <div style="display: inline-block;margin-left: 5px; height: 130px;">
-                <label for="" style="text-decoration: underline">Product description</label><br>
-                <span class="sub-title">Product name</span>: {{actualProducts[i].productName}}<br>
-                <span class="sub-title">Product category</span>: {{actualProducts[i].category}}<br>
-                <span class="sub-title">Product price</span>: R {{actualProducts[i].price | number :'1.2-2'}} per each
-                <!-- <span class="sub-title">Product name</span>: Banana<br>
+            <!-- <img height="40" src="" alt=""> -->
+            <img height="40" [src]="actualProducts[i].productImage || '../../assets/sys_images/cake-product.jpg'" alt="">
+            <div style="display: inline-block;margin-left: 5px; height: 130px;">
+              <label for="" style="text-decoration: underline">Product description</label><br>
+              <span class="sub-title">Product name</span>: {{actualProducts[i].product.productName}}<br>
+              <span class="sub-title">Product category</span>: {{actualProducts[i].product.category}}<br>
+              <span class="sub-title">Product price</span>: R {{actualProducts[i].product.price | number :'1.2-2'}}
+              each
+              <!-- <span class="sub-title">Product name</span>: Banana<br>
                 <span class="sub-title">Product category</span>: Fruits<br>
                 <span class="sub-title">Product price</span>: R 12.54 per each -->
-              </div>
+            </div>
 
           </td>
           <td>
@@ -38,8 +56,8 @@
             </div>
           </td>
           <td>
-            R {{actualProducts[i].price * busketProduct.quantity | number :'1.2-2'}}
-              <span class="fa fa-close hide-prod-btn" title="Remove from basket" (click)="remove(actualProducts[i].id)"></span>
+            R {{actualProducts[i].product.price * busketProduct.quantity | number :'1.2-2'}}
+            <span class="fa fa-close hide-prod-btn" title="Remove from basket" (click)="remove(actualProducts[i].product.id)"></span>
           </td>
         </tr>
         <tr>
@@ -49,24 +67,231 @@
       </tbody>
     </table>
     <div class="btn-section">
-        <button kendoButton (click)="checkout()">
-            <i class="fa fa-chevron-circle-right"> </i>
-            &nbsp; Checkout / Place order
-        </button> &nbsp;
-        <button kendoButton (click)="shopping()">
-            <i class="fa fa-cart-plus"> </i>
-            &nbsp; Continue with shopping
-        </button>
+      <button kendoButton (click)="checkout()">
+        <i class="fa fa-chevron-circle-right"> </i>
+        &nbsp; Checkout
+      </button> &nbsp;
+      <button kendoButton (click)="shopping()">
+        <i class="fa fa-cart-plus"> </i>
+        &nbsp; Continue with shopping
+      </button>
     </div>
   </div>
   <div class="empty-list" *ngIf="basketProducts.length <= 0">
     <div>
-      Your shopping basket is empty. Add product to your shopping busket.
+      Your shopping basket is empty. Add products to your shopping busket.
     </div>
     <br>
     <button kendoButton (click)="shopping()">
       <i class="fa fa-cart-plus"> </i>
       &nbsp; GO Shopping
+    </button>
+  </div>
+</div>
+<div *ngIf="activeNavID === 1" id="address-area" class="shoping-cart container">
+  <h3>My order delivery address</h3>
+  <hr>
+  <div style="border: solid 0.5px #8888; margin: 0px 5px">
+    <h4>Order summary</h4>
+    <hr style="margin: 0px">
+    <div class="order-summary">
+      <ul>
+        <li>
+          <label for="">Number of products</label>
+          {{totalNumOfProducts}}
+        </li>
+        <li>
+          <label for="">Total cost</label>
+          R {{totalCost | number :'1.2-2'}}
+        </li>
+        <li>
+          <label for="">Order owner</label>
+          {{userNames}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <div style="border: solid 0.5px #8888; margin: 0px 5px">
+    <h4>Address</h4>
+    <hr style="margin: 0px">
+    <div class="address-form-area">
+      <form [formGroup]="addressForm">
+        <div class="row">
+          <div class="col-md-6">
+            <app-input-field [data]="{
+                      label: 'Unit number / House number',
+                      placeholder : 'e.g. Block C / House Number 3456',
+                      type: 'text',
+                      name: 'houseNumber',
+                      maxLength: 30
+                      }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-input-field>
+          </div>
+          <div class="col-md-6">
+            <app-input-field [data]="{
+                label: 'Street name',
+                placeholder : 'e.g. Mandela str',
+                type: 'text',
+                name: 'streetName',
+                maxLength: 30
+                }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-input-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <app-input-field [data]="{
+                        label: 'Surburb',
+                        placeholder : 'e.g. Msholozi',
+                        type: 'text',
+                        name: 'surburb',
+                        maxLength: 30
+                        }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-input-field>
+          </div>
+          <div class="col-md-6">
+            <app-input-field [data]="{
+                        label: 'City',
+                        placeholder : 'e.g. KwaMhlanga',
+                        type: 'text',
+                        name: 'city',
+                        maxLength: 30
+                        }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-input-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <app-input-field [data]="{
+                          label: 'Postal code',
+                          placeholder : 'e.g. 1022',
+                          type: 'text',
+                          name: 'postalCode',
+                          maxLength: 30
+                          }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-input-field>
+          </div>
+          <div class="col-md-6">
+            <app-dropdown-list [data]="{
+                        placeholder: 'Select province',
+                        label: 'Province',
+                        name: 'province',
+                        options: [
+                            {label: 'Gauteng', value: 'Gauteng'},
+                            {label: 'Mpumalanga', value: 'Mpumalanga'},
+                            {label: 'Free State', value: 'Free State'},
+                            {label: 'KwaZulu Natal', value: 'KwaZulu Natal'},
+                            {label: 'Nort West', value: 'Nort West'},
+                            {label: 'Limpopo', value: 'Limpopo'},
+                            {label: 'Eastern Cape', value: 'Eastern Cape'},
+                            {label: 'Western Cape', value: 'West Cape'},
+                            {label: 'Northern Cape', value: 'Northern Cape'}
+                        ]
+                    }"
+              [showErrors]="showErrors" [parentFormGroup]="addressForm" [formControlErrorMessage]="formControlErrorMessage">
+            </app-dropdown-list>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="btn-section">
+    <button kendoButton (click)="loadPayment()">
+      <i class="fa fa-chevron-circle-right"> </i>
+      &nbsp; Proceed to payment
+    </button> &nbsp;
+    <button kendoButton (click)="navigate(0)">
+      <i class="fa fa-arrow-left"> </i>
+      &nbsp; Back to basket
+    </button>
+  </div>
+</div>
+
+
+<div *ngIf="activeNavID === 2" id="address-area" class="shoping-cart container">
+  <h3>Process payment</h3>
+  <hr>
+  <div style="border: solid 0.5px #8888; margin: 0px 5px">
+    <h4>Order summary</h4>
+    <hr style="margin: 0px">
+    <div class="order-summary">
+      <ul>
+        <li>
+          <label for="">Number of products</label>
+          {{totalNumOfProducts}}
+        </li>
+        <li>
+          <label for="">Total cost</label>
+          R {{totalCost | number :'1.2-2'}}
+        </li>
+        <li>
+          <label for="">Order owner</label>
+          {{userNames}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+
+  <div style="border: solid 0.5px #8888; margin: 0px 5px">
+    <h4>Address details summary</h4>
+    <hr style="margin: 0px">
+    <div class="order-summary">
+      <ul>
+        <li>
+          <label for="">Unit / House number</label>
+          {{addressData['houseNumber']}}
+        </li>
+        <li>
+          <label for="">Street name</label>
+          {{addressData['streetName']}}
+        </li>
+        <li>
+            <label for="">Surburb name</label>
+            {{addressData['surburb']}}
+        </li>
+      </ul>
+      <ul>
+          <li>
+            <label for="">City name</label>
+            {{addressData['city']}}
+          </li>
+          <li>
+            <label for="">Postal Code</label>
+            {{addressData['postalCode']}}
+          </li>
+          <li>
+              <label for="">Province</label>
+              {{addressData['province']}}
+          </li>
+        </ul>
+    </div>
+  </div>
+  <br>
+  
+  <div style="border: solid 0.5px #8888; margin: 0px 5px">
+    <h4>Payment method</h4>
+    <hr style="margin: 0px">
+    <div>
+kjkjk
+    </div>
+  </div>
+  <div class="btn-section">
+    <button kendoButton (click)="processPayment()">
+      <i class="fa fa-chevron-circle-right"> </i>
+      &nbsp; Process payment
+    </button> &nbsp;
+    <button kendoButton (click)="navigate(1)">
+      <i class="fa fa-arrow-left"> </i>
+      &nbsp; Back to delivery address
     </button>
   </div>
 </div>

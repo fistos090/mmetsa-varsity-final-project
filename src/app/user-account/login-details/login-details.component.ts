@@ -79,7 +79,6 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
 
       }
     }
-
   }
 
   onLoginClick(): void {
@@ -96,8 +95,15 @@ export class LoginDetailsComponent implements OnInit, OnChanges {
             // alert(response['message']);
             if (response['status'] === 'FOUND') {
               this.logonUserService.setLogonUser(response);
-              // If no specific path privided
-              this.router.navigate(['manage-profile']);
+
+              let redirectData = this.logonUserService.getRedirectData();
+              if (redirectData) {
+                this.router.navigate([redirectData.toUrl]);
+              } else {
+                // If no specific path privided
+                this.router.navigate(['manage-profile']);
+              }
+
 
             } else if (response['status'] === 'NOT_FOUND') {
               this.failureMessage = response['message'];

@@ -34,7 +34,7 @@ export class CustomerProfileDetailsComponent implements OnInit {
     requestStatusNumber = 0;
 
     constructor(public util: UtilService, private formBuilder: FormBuilder, private spinner: SpinnerService, private httpClient: HttpClient,
-                private logonUserService: UserService) {
+        private logonUserService: UserService) {
         this.formErrors = this.util.getCustomerFormErrorMessage();
         this.formControlErrorMessage = util.getFormControlsProperties();
 
@@ -63,6 +63,98 @@ export class CustomerProfileDetailsComponent implements OnInit {
 
     ngOnInit(): void {
 
+        this.prepareViewData();
+    }
+
+
+    validatePassword() {
+        return (control: AbstractControl) => {
+            const confirmPassword = control.value;
+            const password = this.updateFormGroup.controls['password'].value;
+
+            if (confirmPassword !== password) {
+                return { notMatching: false };
+            }
+
+        }
+    }
+
+    onSubmit(): void {
+        const form = this.updateFormGroup;
+        const formControls = this.updateFormGroup.controls;
+
+        for (const control in formControls) {
+            if (form.controls[control].invalid) {
+                for (const errorKey in form.controls[control].errors) {
+                    if (!this.formControlErrorMessage[control] ||
+                        this.formControlErrorMessage[control] !== this.formErrors[control][errorKey]) {
+                        console.log(errorKey + ' ' + this.formErrors[control][errorKey])
+                        this.formControlErrorMessage[control] = this.formErrors[control][errorKey];
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    update() {
+        this.showErrors = true;
+        this.onSubmit();
+
+
+        if (this.updateFormGroup.valid) {
+
+            const customer = {
+                id: this.updateFormGroup.get('id').value || this.details.userLogon.userIn.id,
+                firstname: this.updateFormGroup.get('firstname').value || this.details.userLogon.userIn.firstname,
+                lastname: this.updateFormGroup.get('lastname').value || this.details.userLogon.userIn.lastname,
+                email: this.updateFormGroup.get('email').value || this.details.userLogon.userIn.email,
+                password: this.updateFormGroup.get('password').value || this.details.userLogon.userIn.password,
+                cellphonNumber: this.updateFormGroup.get('cellphonNumber').value || this.details.userLogon.userIn.cellphonNumber,
+                gender: this.updateFormGroup.get('gender').value || this.details.userLogon.userIn.gender,
+                dateOfBirth: this.util.formatDateAndTime(this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth),
+                securityQuestuion: this.updateFormGroup.get('securityQuestuion').value || this.details.userLogon.userIn.securityQuestuion,
+                answer: this.updateFormGroup.get('answer').value || this.details.userLogon.userIn.answer
+            }
+
+            this.spinner.showSpinner();
+            this.httpClient.post('/BAKERY/customer/updateProfile/' + this.details.userLogon.sessionID, customer).subscribe(
+                (response) => {
+                    this.spinner.hideSpinner();
+                    if (response) {
+                        const status = String(response['status']);
+
+                        if (status === 'FOUND') {
+
+                            this.requestStatusNumber = 1;
+                            this.message = response['message'];
+                            this.details.userLogon.userIn = response['userIn'];
+                            alert(JSON.stringify(response['userIn']))
+                            this.logonUserService.getLogonUser().userIn = response['userIn'];
+                            this.prepareViewData();
+
+                        } else if (status === 'NOT_FOUND') {
+
+                            this.requestStatusNumber = 2;
+                            this.message = response['message'];
+
+                        }
+
+                    }
+
+                },
+                (error) => {
+                    this.requestStatusNumber = 2;
+                    console.log(error);
+                    this.spinner.hideSpinner();
+
+                });
+        }
+
+    }
+
+    prepareViewData() {
         if (this.details) {
             switch (this.details.detailsType) {
                 case 'PD':
@@ -81,8 +173,6 @@ export class CustomerProfileDetailsComponent implements OnInit {
 
                     this.updateFormGroup.controls['cellphonNumber'].setValidators([CustomValidations.isValidCellCode, Validators.required, Validators.minLength(10), Validators.pattern(/^[0-9]+$/)]);
                     this.updateFormGroup.controls['cellphonNumber'].updateValueAndValidity();
-
-
 
                     this.title = 'Personal details';
                     if (this.details.userLogon.userIn) {
@@ -188,99 +278,6 @@ export class CustomerProfileDetailsComponent implements OnInit {
         }
     }
 
-
-    validatePassword() {
-        return (control: AbstractControl) => {
-            const confirmPassword = control.value;
-            const password = this.updateFormGroup.controls['password'].value;
-
-            if (confirmPassword !== password) {
-                return { notMatching: false };
-            }
-
-        }
-    }
-
-    onSubmit(): void {
-        const form = this.updateFormGroup;
-        const formControls = this.updateFormGroup.controls;
-
-        for (const control in formControls) {
-            if (form.controls[control].invalid) {
-                for (const errorKey in form.controls[control].errors) {
-                    if (!this.formControlErrorMessage[control] ||
-                        this.formControlErrorMessage[control] !== this.formErrors[control][errorKey]) {
-                        console.log(errorKey + ' ' + this.formErrors[control][errorKey])
-                        this.formControlErrorMessage[control] = this.formErrors[control][errorKey];
-                    }
-                }
-
-            }
-        }
-
-    }
-
-    update() {
-        this.showErrors = true;
-        this.onSubmit();
-
-
-        if (this.updateFormGroup.valid) {
-
-            const customer = {
-                id: this.updateFormGroup.get('id').value || this.details.userLogon.userIn.id,
-                firstname: this.updateFormGroup.get('firstname').value || this.details.userLogon.userIn.firstname,
-                lastname: this.updateFormGroup.get('lastname').value || this.details.userLogon.userIn.lastname,
-                email: this.updateFormGroup.get('email').value || this.details.userLogon.userIn.email,
-                password: this.updateFormGroup.get('password').value || this.details.userLogon.userIn.password,
-                cellphonNumber: this.updateFormGroup.get('cellphonNumber').value || this.details.userLogon.userIn.cellphonNumber,
-                gender: this.updateFormGroup.get('gender').value || this.details.userLogon.userIn.gender,
-                dateOfBirth: this.util.formatDateAndTime(this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth),
-                securityQuestuion: this.updateFormGroup.get('securityQuestuion').value || this.details.userLogon.userIn.securityQuestuion,
-                answer: this.updateFormGroup.get('answer').value || this.details.userLogon.userIn.answer
-            }
-
-            this.spinner.showSpinner();
-            this.httpClient.post('/BAKERY/customer/updateProfile/' + this.details.userLogon.sessionID, customer).subscribe(
-                (response) => {
-                    this.spinner.hideSpinner();
-                    if (response) {
-                        const status = String(response['status']);
-
-                        if (status === 'FOUND') {
-
-                            // this.logonUserService.setLogonUser(response['auto_logon']);
-                            // this.openPopup(response['message'], 'OK').subscribe(() => {
-                            //   this.router.navigate(['home']);
-                            //this.util.formatDateAndTime(this.updateFormGroup.get('dateOfBirth').value || this.details.userLogon.userIn.dateOfBirth)
-                            // });
-                            this.requestStatusNumber = 1;
-                            this.message = response['message'];
-                            this.details.userLogon.userIn = response['userIn'];
-                            this.logonUserService.setLogonUser(response['userIn']);
-
-                        } else if (status === 'NOT_FOUND') {
-
-                            // this.openPopup(response['message'] + ' Continue to log in', 'Yes').subscribe(() => {
-                            //   this.childEvent.emit({ 'tabId': 1, 'email': this.data.email });
-                            // });
-                            this.requestStatusNumber = 2;
-                            this.message = response['message'];
-
-                        }
-
-                    }
-
-                },
-                (error) => {
-                    this.requestStatusNumber = 2;
-                    console.log(error);
-                    this.spinner.hideSpinner();
-
-                });
-        }
-
-    }
 
     maskData(value: string): any {
         let temp = '';

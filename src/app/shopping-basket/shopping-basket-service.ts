@@ -1,3 +1,4 @@
+import { ProductWrapper } from './../data-models/product-wrapper-model';
 import { Product } from '../data-models/product.model';
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
@@ -5,7 +6,7 @@ import { OrderProduct } from '../data-models/bascket-product.model';
 
 @Injectable()
 export class ShoppingBascketService {
-    actualProducts: Product[] = [];
+    actualProducts: ProductWrapper[] = [];
     orderProducts: OrderProduct[] = [];
     // bascketProductsEventSource: BehaviorSubject<LineProduct> = new BehaviorSubject<LineProduct>([]);
     // bascketProductsEvent$ = this.bascketProductsEventSource.asObservable();
@@ -14,19 +15,19 @@ export class ShoppingBascketService {
         return this.orderProducts;
     }
 
-    getActualProducts(): Product[] {
+    getActualProducts(): ProductWrapper[] {
         return this.actualProducts;
     }
 
-    addProduct(prod: Product): void {
-        const productPosition = this.getProductPosition(prod.id);
+    addProduct(prodWrapper: ProductWrapper): void {
+        const productPosition = this.getProductPosition(prodWrapper.product.id);
         
         if(productPosition !== -1){
            this.orderProducts[productPosition].quantity += 1;
         }else{
-            if(prod){
-                this.orderProducts.push(new OrderProduct({'productId': prod.id,'quantity': 1}));
-                this.actualProducts.push(prod);
+            if(prodWrapper){
+                this.orderProducts.push(new OrderProduct({'productId': prodWrapper.product.id,'quantity': 1}));
+                this.actualProducts.push(prodWrapper);
             }
         }
         
