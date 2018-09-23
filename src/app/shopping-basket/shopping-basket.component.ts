@@ -16,7 +16,7 @@ import { OrderAddress } from 'src/app/data-models/order-address.model';
   styleUrls: ['./shopping-basket.component.css']
 })
 export class ShoppingBusketComponent implements OnInit, AfterViewInit {
- 
+
   ngAfterViewInit(): void {
     window.scroll(0,0);
   }
@@ -28,6 +28,7 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit {
   totalNumOfProducts
   activeNavID = 0;
   showErrors = false;
+  placeOrderStatus = false;
   isPaymentSuccessful = false;
   addressForm: FormGroup;
   addressData: OrderAddress;
@@ -194,7 +195,8 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit {
         this.httpClient.post('/BAKERY/checkout', requestPayload).subscribe(
           response => {
             this.spinner.hideSpinner();
-
+            alert(response['message']);
+            this.placeOrderStatus = response['status'] == 'CREATED';
           },
           error => {
             this.spinner.hideSpinner();
