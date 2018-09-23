@@ -130,7 +130,6 @@ export class CustomerProfileDetailsComponent implements OnInit {
                             this.requestStatusNumber = 1;
                             this.message = response['message'];
                             this.details.userLogon.userIn = response['userIn'];
-                            alert(JSON.stringify(response['userIn']))
                             this.logonUserService.getLogonUser().userIn = response['userIn'];
                             this.prepareViewData();
 
