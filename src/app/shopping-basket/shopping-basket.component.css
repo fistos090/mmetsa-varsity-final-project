@@ -177,3 +177,11 @@ ul{
 .address-form-area{
     margin: 10px;
 }
+
+#payment-status{
+    color: rgb(55, 194, 55);
+}
+
+#place-order-status{
+    color: rgb(55, 194, 55);
+}

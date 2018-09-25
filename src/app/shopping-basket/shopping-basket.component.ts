@@ -47,8 +47,6 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
       return actions.payment.execute().then(function () {
         // Show a confirmation message to the buyer
         window.alert('Thank you for your purchase!');
-       
-        console.log('attribute ++++>',  document.querySelector('#place-order-btn').getAttribute('hidden'));
 
         const btnRef = document.querySelector('#place-order-btn');
         btnRef.setAttribute('hidden','false');
@@ -56,8 +54,9 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
 
         document.querySelector('#paypal-button').setAttribute('hidden','true')
 
-        console.log('attribute ++++>',  document.querySelector('#place-order-btn').getAttribute('hidden'));
-        console.log('payment data 2 ++++>', data);
+        const paymentStatusRef = document.querySelector('#payment-status');
+        paymentStatusRef.innerHTML = 'Payment has been successfully processed.';
+
       },
       error => {
         console.log('payment error ++++>', error);
@@ -285,8 +284,8 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
       this.httpClient.post('/BAKERY/checkout', requestPayload).subscribe(
         response => {
           this.spinner.hideSpinner();
-          alert(response['message']);
-
+          // alert();
+          this.paymentMessage = response['message'];
           this.bascket.actualProducts = [];
           this.bascket.orderProducts = [];
 
