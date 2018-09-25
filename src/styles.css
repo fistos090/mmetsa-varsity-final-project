@@ -12,22 +12,27 @@
 
 .bread-pastries{
     background-image: url(assets/sys_images/bread-pastries.jpg);
+    background-size: 100% 150%;
 }
 
 .biscuits{
     background-image: url(assets/sys_images/biscuits.jpg);
+    background-size: 100% 150%;
 }
 
 .cakes{
     background-image: url(assets/sys_images/cakes.jpg);
+    background-size: 100% 150%;
 }
 
 .pizzas{
     background-image: url(assets/sys_images/pizzas.jpg);
+    background-size: 100% 150%;
 }
 
 .muffins{
     background-image: url(assets/sys_images/muffins.jpg);
+    background-size: 100% 150%;
 }
 
 .custom-dialog-container .mat-dialog-container {

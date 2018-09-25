@@ -1,5 +1,5 @@
 import { ProductWrapper } from './../../data-models/product-wrapper-model';
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { CustomerOrder } from "../../data-models/customer-order.model";
 import { HttpClient } from "@angular/common/http";
 import { UtilService } from '../../services/utility-service';
@@ -9,7 +9,10 @@ import { UtilService } from '../../services/utility-service';
     templateUrl: './customer-order.component.html',
     styleUrls: ['./customer-order.component.css']
 })
-export class CustomerOrderComponent {
+export class CustomerOrderComponent implements OnInit {
+    ngOnInit(): void {
+       
+    }
 
     @Input() cusOrder: CustomerOrder;
 
@@ -18,7 +21,7 @@ export class CustomerOrderComponent {
     orderProducts: ProductWrapper[];
     results;
 
-    ps = [1,2,3]
+    //ps = [1,2,3]
 
     constructor(private httpClient: HttpClient, public util: UtilService) {
         // this.cusOrder.custID = 1

@@ -21,21 +21,22 @@ export class UserManageProfileComponent implements OnInit {
     customer: Customer;
     stepData: Customer;
 
-    openOrders: CustomerOrder[] = [{
-        "custID": 1,
-        "custOrderDate": new Date(),
-        "custOrderTime": new Date().getTime(),
-        "shippingCost": 55.54,
-        "id": 1,
-        'orderStatus': 'OPEN'
-    }, {
-        "custID": 1,
-        "custOrderDate": new Date(),
-        "custOrderTime": new Date().getTime(),
-        "shippingCost": 55.54,
-        "id": 1,
-        'orderStatus': 'OPEN'
-    }];
+    openOrders: CustomerOrder[];
+    // = [{
+    //     "custID": 1,
+    //     "custOrderDate": new Date(),
+    //     "custOrderTime": new Date().getTime(),
+    //     "shippingCost": 55.54,
+    //     "id": 1,
+    //     'orderStatus': 'OPEN'
+    // }, {
+    //     "custID": 1,
+    //     "custOrderDate": new Date(),
+    //     "custOrderTime": new Date().getTime(),
+    //     "shippingCost": 55.54,
+    //     "id": 1,
+    //     'orderStatus': 'OPEN'
+    // }];
 
     closedOrders: CustomerOrder[] = [{
         "custID": 1,
@@ -72,7 +73,7 @@ export class UserManageProfileComponent implements OnInit {
                     if (response) {
                         response['customerOrders'];
                         console.log('response[\'customerOrders\']', response['customerOrders']);
-                        alert(response['message']);
+                        // alert(response['message']);
 
                         let orders = response['customerOrders'];
 

@@ -8,19 +8,20 @@
             <ul>
                 <li>{{cusOrder.id}}</li>
                 <li>{{util.formatDateAndTime(cusOrder.custOrderDate)}}</li>
-                <li>R {{cusOrder.shippingCost | number :'1.2-2'}}</li>
+                <!-- <li>R {{orderTotalCost | number :'1.2-2'}}</li> -->
+                <li>{{cusOrder.orderStatus}}</li>
             </ul>
         </div>
         <span class="actions">
             <label>Actions</label>
             <span class="actions-icons">
-                <span class="fa fa-remove" title="Cancel this order"></span>
+                <span *ngIf="cusOrder.orderStatus === 'OPEN'" class="fa fa-remove" title="Cancel this order"></span>
                 <span class="fa {{ viewId !== 1 ? 'fa-eye' : 'fa-eye-slash'}}" 
                       title="{{ viewId !== 1 ? 'View order products' : 'Hide order products'}}" 
                       (click)="viewOrderDetails(cusOrder.id)">
 
                 </span>
-                <span class="fa fa-edit" title="Edit this order"></span>
+                <span *ngIf="cusOrder.orderStatus === 'OPEN'" class="fa fa-edit" title="Edit this order"></span>
             </span>
         </span>
     </div>
@@ -28,20 +29,14 @@
         <h4>Order products</h4>
             <div class="loader" *ngIf="spinnerIsShowing"></div>
             <div *ngIf="!spinnerIsShowing">
-                <div class="order-prod" *ngFor="let p of ps">
-                <!-- <div class="order-prod" *ngFor="let pw of orderProducts; let product = pw.product"> -->
-                    <img height="40" src="../../assets/sys_images/cake-product.jpg" alt="">
-                    <!-- <img [src]="pw.productImage" alt=""> -->
+                <div class="order-prod" *ngFor="let pw of orderProducts">
+                    <img [src]="pw.productImage" alt="">
                     <span>
-                        <span class="sub-title">P.. name</span>: Banana<br>
-                        <span class="sub-title">P.. price</span>: R 10.50<br>
-                        <span class="sub-title">P.. quantity</span>: 5 units.<br>
-                        <span class="sub-title">Sub total</span>: R 600.50<br>
 
-                        <!-- <span class="sub-title">P.. name</span>: {{product.productName}}<br>
-                        <span class="sub-title">P.. price</span>: R {{product.price | number :'1.2-2'}}<br>
-                        <span class="sub-title">P.. quantity</span>: {{product.quantity}} units.<br>
-                        <span class="sub-title">Sub total</span>: R {{product.price * product.quantity| number :'1.2-2'}}<br> -->
+                        <span class="sub-title">P.. name</span>: {{pw.product.productName}}<br>
+                        <span class="sub-title">P.. price</span>: R {{pw.product.price | number :'1.2-2'}}<br>
+                        <span class="sub-title">P.. quantity</span>: {{pw.product.quantity}} units.<br>
+                        <span class="sub-title">Sub total</span>: R {{pw.product.price * pw.product.quantity| number :'1.2-2'}}<br>
                         
                     </span>
                 </div>

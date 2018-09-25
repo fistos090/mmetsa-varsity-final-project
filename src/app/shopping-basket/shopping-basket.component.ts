@@ -24,7 +24,7 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
 
   paypalClientID = 'AWzftjxjsAjvjxj9ea9k87-DUDkFSab6EA_2j6eaj0Ulip9DI1Nbe0QTZjyiJG0XSIMFAzgeC-_HCblH';
 
-  addPayPalScript = false;
+  addPayPalBtn = false;
   paypalConfig = {
     env: 'sandbox',
     client: {
@@ -222,6 +222,20 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
         this.totalNumOfProducts += orderProd.quantity;
       })
     }
+
+    // Two decimal place
+    this.toTwoDecimalPlace(this.totalCost);
+  }
+
+  toTwoDecimalPlace(value: number): void {
+
+    let tokens = value.toString().split('.');
+
+    if (tokens.length > 1) {
+      tokens[1] = tokens[1].substr(0,3);
+      this.totalCost = Number(tokens[0]+'.'+tokens[1]);
+    }
+
   }
 
   checkout(): void {
@@ -236,8 +250,10 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
       this.addressData = this.addressForm.value;
 
       if (!this.logonUserService.isPaypalScriptLoad ) {
+        this.addPayPalBtn = true;
         this.loadPayPalScript();
-      } else {
+      } else if (!this.addPayPalBtn) {
+        this.addPayPalBtn = true;
         paypal.Button.render(this.paypalConfig, '#paypal-button');
       }
 

@@ -9,6 +9,9 @@
 
         <ul>
 
+            <li  [ngClass]="{'active': activeItem === 2}">
+                <!-- <span class="fa fa-shopping-basket"></span> Special (click)="markActiveItem(2)"-->
+            </li>
             <!-- <li (click)="markActiveItem(0)" [ngClass]="{'active': activeItem === 0}">
                 <span class="fa fa-home"></span> Home</li> -->
             <li (click)="markActiveItem(1)" [ngClass]="{'category': true,'active': activeItem === 1}">
@@ -28,9 +31,6 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li (click)="markActiveItem(2)" [ngClass]="{'active': activeItem === 2}">
-                <span class="fa fa-shopping-basket"></span> Special
             </li>
             <!-- [routerLink]="'/user-account'"  -->
             <li (click)="markActiveItem(3)" [ngClass]="{'login': true,'active': activeItem === 3}">

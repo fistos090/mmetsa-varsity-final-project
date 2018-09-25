@@ -13,14 +13,14 @@ export class ProductsLoaderComponent implements OnInit {
 
   activeButtonIndex = 1
   startIndex = 0;
-  lastIndex = 12;
+  lastIndex = 15;
   constructor() { }
 
   ngOnInit() {
 
-    if(this.products.length > 12){
-      let length = this.products.length / 12;
-      const remainder = this.products.length % 12;
+    if(this.products.length > 15){
+      let length = this.products.length / 15;
+      const remainder = this.products.length % 15;
       if(remainder > 0){
         length += 1;
       }
@@ -41,8 +41,8 @@ export class ProductsLoaderComponent implements OnInit {
     this.activeButtonIndex = index;
     index -= 1;
 
-    this.startIndex = 12 * index;
-    this.lastIndex =  this.startIndex + 12;
+    this.startIndex = 15 * index;
+    this.lastIndex =  this.startIndex + 15;
     this.loadProducts();
   }
 
