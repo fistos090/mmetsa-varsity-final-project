@@ -26,7 +26,7 @@ export class TopnavMenuComponent implements OnInit {
   activeItem: number;
   user: LogonUser;
   isUserLogon = false;
-  itemThreeTitle = '';
+  // itemThreeTitle = '';
   pointerEvents: string;
 
   constructor(private router: Router, public bascket: ShoppingBascketService, private spinner: SpinnerService,
@@ -36,7 +36,7 @@ export class TopnavMenuComponent implements OnInit {
     this.logonUserService.logonUserEventSource$.subscribe((user: LogonUser) => {
       if (user) {
         this.isUserLogon = true;
-        this.itemThreeTitle = user.userIn.firstname.substr(0, 1) + ' ' + user.userIn.lastname;
+        // this.itemThreeTitle = user.userIn.firstname.substr(0, 1) + ' ' + user.userIn.lastname;
         this.user = user;
       }
     });
@@ -87,15 +87,15 @@ export class TopnavMenuComponent implements OnInit {
         this.spinner.showSpinner();
         this.httpClient.get('/BAKERY/customer/logout/' + this.user.sessionID + '/' + this.user.userIn.id).subscribe(
           (response) => {
+            this.spinner.hideSpinner();
             if (response['status'] === 'OK') {
               this.isUserLogon = false;
-              this.itemThreeTitle = 'Register / Login';
-
+              this.user = null;
               this.router.navigate(['home']);
             } else {
               alert(response['status']);
             }
-            this.spinner.hideSpinner();
+            
           },
           (error) => {
             console.log('error occurred =>', error);

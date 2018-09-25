@@ -109,7 +109,7 @@ tbody td img{
 }
 
 .navigator{
-    /* border: solid #e77b7b 0.4px; */
+
     text-transform: uppercase;
     margin-top: 70px;
     height: 32px;
@@ -130,7 +130,7 @@ ul{
 
 .navigator ul li{
     float: left;
-    width: 25%;
+    width: 33%;
     height: inherit;
     text-align: center;
     background-color: #ededed;
