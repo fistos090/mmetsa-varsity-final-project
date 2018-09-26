@@ -150,9 +150,9 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
   }
 
   ngAfterViewChecked(): void {
-
-
-
+    if (!this.logonUserService.isPaypalScriptLoad ) {
+      this.loadPayPalScript();
+    }
   }
 
   loadPayPalScript(): void {
@@ -167,10 +167,11 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
 
         document.body.appendChild(scriptRef);
       }
-    }).then(() => {
-      paypal.Button.render(this.paypalConfig, '#paypal-button');
-    })
+    });
 
+    // .then(() => {
+    //   paypal.Button.render(this.paypalConfig, '#paypal-button');
+    // })
   }
 
   shopping(): void {
@@ -248,10 +249,7 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
       this.activeNavID = 2;
       this.addressData = this.addressForm.value;
 
-      if (!this.logonUserService.isPaypalScriptLoad ) {
-        this.addPayPalBtn = true;
-        this.loadPayPalScript();
-      } else if (!this.addPayPalBtn) {
+      if (!this.addPayPalBtn) {
         this.addPayPalBtn = true;
         paypal.Button.render(this.paypalConfig, '#paypal-button');
       }
