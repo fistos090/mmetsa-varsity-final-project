@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoryPageComponent } from './category-page/category-page.component';
 import { SpecialsPageComponent } from './specials-page/specials-page.component';
 import { UserManageProfileComponent } from './user-manage-profile/user-manage-profile';
+import { AuthGuard } from 'src/app/auth.guard';
 
 const routes: Routes = [
   {
@@ -35,10 +36,12 @@ const routes: Routes = [
   },
   {
     path: 'shopping-bascket',
+    canActivate:[AuthGuard],
     component: ShoppingBusketComponent
   },
   {
     path: 'manage-profile',
+    canActivate:[AuthGuard],
     component: UserManageProfileComponent
   }
 ];

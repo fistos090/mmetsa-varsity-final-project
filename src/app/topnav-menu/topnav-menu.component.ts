@@ -90,7 +90,7 @@ export class TopnavMenuComponent implements OnInit {
             this.spinner.hideSpinner();
             if (response['status'] === 'OK') {
               this.isUserLogon = false;
-              this.user = null;
+              this.user = undefined;
               this.router.navigate(['home']);
             } else {
               alert(response['status']);

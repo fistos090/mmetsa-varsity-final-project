@@ -22,21 +22,6 @@ export class UserManageProfileComponent implements OnInit {
     stepData: Customer;
 
     openOrders: CustomerOrder[];
-    // = [{
-    //     "custID": 1,
-    //     "custOrderDate": new Date(),
-    //     "custOrderTime": new Date().getTime(),
-    //     "shippingCost": 55.54,
-    //     "id": 1,
-    //     'orderStatus': 'OPEN'
-    // }, {
-    //     "custID": 1,
-    //     "custOrderDate": new Date(),
-    //     "custOrderTime": new Date().getTime(),
-    //     "shippingCost": 55.54,
-    //     "id": 1,
-    //     'orderStatus': 'OPEN'
-    // }];
 
     closedOrders: CustomerOrder[] = [{
         "custID": 1,
@@ -79,7 +64,7 @@ export class UserManageProfileComponent implements OnInit {
 
                         if (orders) {
                             orders.forEach((order: CustomerOrder) => {
-                                if (order.orderStatus = 'OPEN') {
+                                if (order.orderStatus == 'OPEN') {
 
                                     if(!this.openOrders){
                                         this.openOrders = [order];

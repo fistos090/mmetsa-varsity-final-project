@@ -21,16 +21,7 @@ export class CustomerOrderComponent implements OnInit {
     orderProducts: ProductWrapper[];
     results;
 
-    //ps = [1,2,3]
-
-    constructor(private httpClient: HttpClient, public util: UtilService) {
-        // this.cusOrder.custID = 1
-        // this.cusOrder.custOrderDate = new Date();
-        // this.cusOrder.custOrderTime = new Date().getTime();
-        // this.cusOrder.shippingCost = 55.54;
-        // this.cusOrder.id = 1;
-        // this.util.formatDateAndTime2();
-    }
+    constructor(private httpClient: HttpClient, public util: UtilService) {}
 
     viewOrderDetails(orderId: number) {
         this.viewId = this.viewId === 1 ? -1 : 1;
