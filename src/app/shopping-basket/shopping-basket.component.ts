@@ -235,6 +235,8 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
     if (tokens.length > 1) {
       tokens[1] = tokens[1].substr(0,2);
       this.totalCost = tokens[0]+'.'+tokens[1];
+    } else {
+      this.totalCost = this.totalCost+'.00'
     }
 
   }
