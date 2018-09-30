@@ -15,13 +15,19 @@
             </span> -->
     </div>
     <div *ngIf="activeId === 1" class="user-content">
-        <div>
+        <div  *ngIf="orderRequestIsReady">
             <h4>Open orders :</h4>
             <co-component *ngFor="let order of openOrders" [cusOrder]="order"></co-component>
+            <div class="empty-list" *ngIf="openOrders.length <= 0 && orderRequestIsReady">
+                You have no open / unproccessed orders
+            </div>
         </div>
-        <div>
+        <div  *ngIf="orderRequestIsReady">
             <h4>Closed orders :</h4>
             <co-component *ngFor="let order of closedOrders" [cusOrder]="order"></co-component>
+            <div class="empty-list" *ngIf="closedOrders.length <= 0 && orderRequestIsReady">
+                You have no closed / proccessed orders
+            </div>
         </div>
     </div>
 

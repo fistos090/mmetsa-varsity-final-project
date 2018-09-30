@@ -20,17 +20,10 @@ export class UserManageProfileComponent implements OnInit {
     logonUser: LogonUser;
     customer: Customer;
     stepData: Customer;
+    orderRequestIsReady = false;
 
-    openOrders: CustomerOrder[];
-
-    closedOrders: CustomerOrder[] = [{
-        "custID": 1,
-        "custOrderDate": new Date(),
-        "custOrderTime": new Date().getTime(),
-        "shippingCost": 55.54,
-        "id": 1,
-        'orderStatus': 'CLOSED'
-    }];;
+    openOrders: CustomerOrder[] = [];;
+    closedOrders: CustomerOrder[] = [];
 
     constructor(private logonUserService: UserService, private stepper: RegisterStepperService,
         private httpClient: HttpClient, private spinner: SpinnerService) {
@@ -51,10 +44,10 @@ export class UserManageProfileComponent implements OnInit {
             this.customer = this.logonUser.userIn;
             this.customer.dateOfBirth = new Date(this.customer.dateOfBirth).toString();
             this.spinner.showSpinner();
-
+            this.orderRequestIsReady = false;
             let subscription = this.httpClient.post<CustomerOrder[]>('/BAKERY/getCustomerOrders/' + this.logonUser.sessionID, this.customer).subscribe(
                 (response) => {
-
+                    this.orderRequestIsReady = true;
                     if (response) {
                         response['customerOrders'];
                         console.log('response[\'customerOrders\']', response['customerOrders']);
@@ -90,6 +83,7 @@ export class UserManageProfileComponent implements OnInit {
                     
                 },
                 (error) => {
+                    this.orderRequestIsReady = true;
                     console.log(error);
                     this.spinner.hideSpinner();
                     if (subscription) {

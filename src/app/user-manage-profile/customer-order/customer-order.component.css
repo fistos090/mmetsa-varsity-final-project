@@ -96,7 +96,7 @@
     border-left: solid;
     border-top: solid;
     padding: 8px;
-    bottom: -212px;
+    bottom: 0px;
 }
 
 .hide-prod-btn:hover{

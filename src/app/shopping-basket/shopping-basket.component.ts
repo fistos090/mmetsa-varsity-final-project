@@ -69,7 +69,7 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
   basketProducts: OrderProduct[] = [];
   actualProducts: ProductWrapper[] = [];
 
-  totalCost = 0;
+  totalCost = '';
   totalNumOfProducts
   activeNavID = 0;
   showErrors = false;
@@ -214,17 +214,18 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
   }
 
   calculateTotalCost(): void {
-    this.totalCost = 0;
+    let tempTotal = 0;
+    this.totalCost = '';
     this.totalNumOfProducts = 0;
     if (this.basketProducts) {
       this.basketProducts.forEach((orderProd: OrderProduct, index) => {
-        this.totalCost += (orderProd.quantity * this.actualProducts[index].product.price);
+        tempTotal += (orderProd.quantity * this.actualProducts[index].product.price);
         this.totalNumOfProducts += orderProd.quantity;
       })
     }
 
     // Two decimal place
-    this.toTwoDecimalPlace(this.totalCost);
+    this.toTwoDecimalPlace(tempTotal);
   }
 
   toTwoDecimalPlace(value: number): void {
@@ -232,8 +233,8 @@ export class ShoppingBusketComponent implements OnInit, AfterViewInit, AfterView
     let tokens = value.toString().split('.');
 
     if (tokens.length > 1) {
-      tokens[1] = tokens[1].substr(0,3);
-      this.totalCost = Number(tokens[0]+'.'+tokens[1]);
+      tokens[1] = tokens[1].substr(0,2);
+      this.totalCost = tokens[0]+'.'+tokens[1];
     }
 
   }
